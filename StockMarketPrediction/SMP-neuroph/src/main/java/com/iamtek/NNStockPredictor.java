@@ -24,7 +24,7 @@ public class NNStockPredictor{
 
     public static void main(String[] args) throws IOException {
 
-        NNStockPredictor predictor = new NNStockPredictor(5, "C:\\Users\\Administrator\\Desktop\\CODE\\GIT\\AI\\StockMarketPrediction\\SMP-neuroph\\src\\main\\resources\\rawTrainingData-kospi.csv");
+        NNStockPredictor predictor = new NNStockPredictor(5, "D:\\CODE\\GIT\\AI\\StockMarketPrediction\\SMP-neuroph\\src\\main\\resources\\rawTrainingData-kospi.csv");
         
         predictor.prepareData();
         System.out.println("Training starting");
@@ -101,8 +101,8 @@ public class NNStockPredictor{
         NeuralNetwork<BackPropagation> neuralNetwork = new MultiLayerPerceptron(
                 slidingWindowSize, 2 * slidingWindowSize + 1, 1);
 
-        int maxIterations = 1020;
-        double learningRate = 0.5;
+        int maxIterations = 5000;
+        double learningRate = 0.1;
         double maxError = 0.00001;
         SupervisedLearning learningRule = neuralNetwork.getLearningRule();
         learningRule.setMaxError(maxError);
@@ -114,7 +114,7 @@ public class NNStockPredictor{
                         .getSource();
                 System.out.println("Network error for interation "
                         + rule.getCurrentIteration() + ": "
-                        + rule.getTotalNetworkError());
+                        + rule.getTotalNetworkError()*100);
             }
         });
 
