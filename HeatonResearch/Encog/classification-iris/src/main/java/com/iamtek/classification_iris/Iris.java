@@ -1,12 +1,9 @@
 package com.iamtek.classification_iris;
 
 import java.io.File;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Arrays;
 
-import org.apache.maven.model.Resource;
 import org.encog.ConsoleStatusReportable;
 import org.encog.Encog;
 import org.encog.ml.MLRegression;
@@ -37,7 +34,7 @@ public class Iris {
 		VersatileDataSource source = new CSVDataSource(file, false, CSVFormat.DECIMAL_POINT);
 		VersatileMLDataSet data = new VersatileMLDataSet(source);
 		data.defineSourceColumn("sepal-length", 0, ColumnType.continuous);
-		data.defineSourceColumn("sepal-widt	h", 1, ColumnType.continuous);
+		data.defineSourceColumn("sepal-width", 1, ColumnType.continuous);
 		data.defineSourceColumn("petal-length", 2, ColumnType.continuous);
 		data.defineSourceColumn("petal-width", 3, ColumnType.continuous);
 		ColumnDefinition outputColumn = data.defineSourceColumn("species", 4, ColumnType.nominal);
