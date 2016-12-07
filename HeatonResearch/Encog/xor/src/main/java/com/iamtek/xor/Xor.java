@@ -39,11 +39,11 @@ public class Xor {
 		//Train
 		MLDataSet data = new BasicMLDataSet(XOR_INPUT, XOR_IDEAL);
 		ResilientPropagation train = new ResilientPropagation(network, data);
-		int iteration = 0;
+		int epoch = 1;
 		while (true) {
 			train.iteration();
-			iteration++;
-			System.out.println("#" + iteration + ", Error: " + train.getError());
+			System.out.println("Epoch #" + epoch + ", Error:" + train.getError());
+			epoch++;
 			if (train.getError() < 0.01) break;
 		}
 		train.finishTraining();
@@ -53,7 +53,7 @@ public class Xor {
 		for (MLDataPair pair : data) {
 			MLData output = network.compute(pair.getInput());
 			System.out.println(
-					pair.getInput().getData(0) + ", " + pair.getInput().getData(1) + ", Actual=" + output.getData(0) + ", Ideal=" + pair.getIdeal().getData(0)
+					pair.getInput().getData(0) + ", " + pair.getInput().getData(1) + ",\tActual=" + output.getData(0) + ",\tIdeal=" + pair.getIdeal().getData(0)
 			);
 		}
 		
