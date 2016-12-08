@@ -35,7 +35,7 @@ public class Xor {
 		network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
 		network.getStructure().finalizeStructure();
 		network.reset();
-		
+
 		//Train
 		MLDataSet data = new BasicMLDataSet(XOR_INPUT, XOR_IDEAL);
 		ResilientPropagation train = new ResilientPropagation(network, data);

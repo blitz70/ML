@@ -24,7 +24,10 @@ public class Iris {
 
 	public static void main(String[] args) {
 
-		//input
+		//String URL = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+		long startTime = System.currentTimeMillis();
+
+		//input data
 		File file = null;
 		try {
 			file = new File(Iris.class.getResource("/iris.data").toURI());
@@ -40,7 +43,7 @@ public class Iris {
 		ColumnDefinition outputColumn = data.defineSourceColumn("species", 4, ColumnType.nominal);
 		data.analyze();
 		
-		//decide model, normalize data, prepare to validate
+		//neural network
 		data.defineSingleOutputOthersInput(outputColumn);
 		EncogModel model = new EncogModel(data);
 		model.selectMethod(data, MLMethodFactory.TYPE_FEEDFORWARD);
@@ -48,16 +51,19 @@ public class Iris {
 		data.normalize();
 		model.holdBackValidation(0.3, true, 1001);
 		model.selectTrainingType(data);
-		MLRegression bestMethod = (MLRegression) model.crossvalidate(5, true);
 		
-		//display
-		System.out.println("Training error: " + EncogUtility.calculateRegressionError(bestMethod, model.getTrainingDataset()));
-		System.out.println("Validate error: " + EncogUtility.calculateRegressionError(bestMethod, model.getValidationDataset()));
+		//train
+		MLRegression bestMethod = (MLRegression) model.crossvalidate(5, true);
+		System.out.println(
+				"Training error:" + EncogUtility.calculateRegressionError(bestMethod, model.getTrainingDataset()) +
+				",\tValidation error:" + EncogUtility.calculateRegressionError(bestMethod, model.getValidationDataset())
+		);
+		System.out.println();
 		NormalizationHelper helper = data.getNormHelper();
 		System.out.println(helper.toString());
 		System.out.println("Final model: " + bestMethod);
 		
-		//save
+		//apply, using test data in place of new ones
 		ReadCSV csv = new ReadCSV(file, false, CSVFormat.DECIMAL_POINT);
 		String [] line = new String[4];
 		MLData input = helper.allocateInputVector();
@@ -72,13 +78,15 @@ public class Iris {
 			MLData output = bestMethod.compute(input);
 			String irisChosen = helper.denormalizeOutputVectorToString(output)[0];
 			result.append(Arrays.toString(line));
-			result.append(" -> predicted: ");
+			result.append(" -> predicted:");
 			result.append(irisChosen);
-			result.append("(correct: ");
+			result.append(" (correct:");
 			result.append(correct);
 			result.append(")");
 			System.out.println(result.toString());
 		}
+		System.out.println(System.currentTimeMillis()-startTime);
+		
 		Encog.getInstance().shutdown();
 		
 	}
