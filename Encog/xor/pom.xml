@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.iamtek</groupId>
-	<artifactId>classification-iris</artifactId>
+	<artifactId>xor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>classification-iris</name>
+	<name>xor</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -22,15 +22,24 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.6.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.encog</groupId>
 			<artifactId>encog-core</artifactId>
 			<version>3.3.0</version>
 		</dependency>
-
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>
