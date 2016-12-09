@@ -58,7 +58,6 @@ public class Iris {
 				"Training error:" + EncogUtility.calculateRegressionError(bestMethod, model.getTrainingDataset()) +
 				",\tValidation error:" + EncogUtility.calculateRegressionError(bestMethod, model.getValidationDataset())
 		);
-		System.out.println();
 		NormalizationHelper helper = data.getNormHelper();
 		System.out.println(helper.toString());
 		System.out.println("Final model: " + bestMethod);

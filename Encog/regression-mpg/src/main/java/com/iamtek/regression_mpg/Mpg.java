@@ -5,9 +5,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import org.encog.ConsoleStatusReportable;
-import org.encog.ensemble.training.BackpropagationFactory;
 import org.encog.ml.MLRegression;
-import org.encog.ml.TrainingImplementationType;
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.versatile.NormalizationHelper;
 import org.encog.ml.data.versatile.VersatileMLDataSet;
@@ -16,9 +14,7 @@ import org.encog.ml.data.versatile.columns.ColumnType;
 import org.encog.ml.data.versatile.sources.CSVDataSource;
 import org.encog.ml.data.versatile.sources.VersatileDataSource;
 import org.encog.ml.factory.MLMethodFactory;
-import org.encog.ml.factory.MLTrainFactory;
 import org.encog.ml.model.EncogModel;
-import org.encog.neural.networks.training.propagation.back.Backpropagation;
 import org.encog.util.csv.CSVFormat;
 import org.encog.util.csv.ReadCSV;
 
@@ -112,7 +108,7 @@ public class Mpg {
 			String predictedMpg = helper.denormalizeOutputVectorToString(output)[0];
 			StringBuilder result = new StringBuilder();
 			result.append(Arrays.toString(line));
-			result.append("\t-> predicted:");
+			result.append(" -> predicted:");
 			result.append(predictedMpg);
 			result.append(" (correct:");
 			result.append(correct);
@@ -122,8 +118,8 @@ public class Mpg {
 			correctSum += Double.parseDouble(correct);
 			count ++;
 		}
-		System.out.println(correctSum + ", " + predictedSum + ", " + count);
-		System.out.println((correctSum-predictedSum)/count*100+"%");
+		System.out.println("Error:" + (correctSum-predictedSum)/count);
+		System.out.println(System.currentTimeMillis()-startTime);
 
 	}
 
