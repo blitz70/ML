@@ -26,6 +26,12 @@ Artificial Intelligence
 * Gradient Calculation [12](https://www.youtube.com/watch?v=p1-FiWjThs8&index=12&list=PLiPvV5TNogxJoK7Y3z6kjc_jgtM3Se-u2)
 * Backpropagation [13](https://www.youtube.com/watch?v=IruMm7mPDdM&list=PLiPvV5TNogxJoK7Y3z6kjc_jgtM3Se-u2&index=13)
 
+* Encog [(Quickstart)](http://goo.gl/cReTqE)
+
+>* XOR
+* Classification Iris
+* Regression MPG
+
 ##2. Neural Networks for Machine Learning [(Geoffrey Hinton)](https://www.youtube.com/playlist?list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0), English
 
 * L1 : Introduction 
