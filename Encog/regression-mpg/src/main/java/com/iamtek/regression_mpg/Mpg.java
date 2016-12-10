@@ -91,8 +91,7 @@ public class Mpg {
 		ReadCSV csv = new ReadCSV(dataFile, false, csvFormat);
 		MLData input = helper.allocateInputVector();
 		String[] line = new String[7];
-		double predictedSum = 0;
-		double correctSum = 0;
+		double errorSum = 0;
 		double count = 0;
 		while(csv.next()){
 			String correct = csv.get(0);
@@ -114,11 +113,11 @@ public class Mpg {
 			result.append(correct);
 			result.append(")");
 			System.out.println(result.toString());
-			predictedSum += Double.parseDouble(predictedMpg);
-			correctSum += Double.parseDouble(correct);
+			Double error = (Double.parseDouble(correct) - Double.parseDouble(predictedMpg))/Double.parseDouble(correct);
+			errorSum += Math.abs(error);
 			count ++;
 		}
-		System.out.println("Error:" + (correctSum-predictedSum)/count);
+		System.out.println("Count:" + count + ", ErrorSum:" + errorSum*100 + "%, ErrorAve:" + errorSum/count*100 +"%"); //8-10%
 		System.out.println(System.currentTimeMillis()-startTime);
 
 	}
