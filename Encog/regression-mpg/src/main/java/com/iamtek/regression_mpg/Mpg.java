@@ -104,18 +104,19 @@ public class Mpg {
 			line[6] = csv.get(7);
 			helper.normalizeInputVector(line, input.getData(), false);
 			MLData output = bestMethod.compute(input);
-			String predictedMpg = helper.denormalizeOutputVectorToString(output)[0];
+			String predicted = helper.denormalizeOutputVectorToString(output)[0];
 			StringBuilder result = new StringBuilder();
 			result.append(Arrays.toString(line));
 			result.append(" -> predicted:");
-			result.append(predictedMpg);
+			result.append(predicted);
 			result.append(" (correct:");
 			result.append(correct);
 			result.append(")");
-			System.out.println(result.toString());
-			Double error = (Double.parseDouble(correct) - Double.parseDouble(predictedMpg))/Double.parseDouble(correct);
+			Double error = (Double.parseDouble(correct) - Double.parseDouble(predicted))/Double.parseDouble(correct);
+			result.append(" error:" + error);
 			errorSum += Math.abs(error);
 			count ++;
+			System.out.println(result.toString());
 		}
 		System.out.println("Count:" + count + ", ErrorSum:" + errorSum*100 + "%, ErrorAve:" + errorSum/count*100 +"%"); //8-10%
 		System.out.println(System.currentTimeMillis()-startTime);
