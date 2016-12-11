@@ -22,8 +22,8 @@ import org.encog.util.csv.ReadCSV;
 
 public class Sunspot {
 
-	static final int WINDOW_LEAD = 1;
-	static final int WINDOW_LAG = 3;
+	static final int WINDOW_LEAD = 1;	//future1
+	static final int WINDOW_LAG = 3;	//past3 + today1
 	
 	public static void main(String[] args) {
 
@@ -84,8 +84,9 @@ public class Sunspot {
 			while(csv.next()){
 				line[0] = csv.get(2);	//SSN
 				line[1] = csv.get(3);	//DEV
-				helper.normalizeInputVector(line, slice, false);
+				helper.normalizeInputVector(line, slice, false); //add record to slice
 				if (window.isReady()) {
+					//input <- window(accumulated past records), input does'nt have current record info
 					window.copyWindow(input.getData(), 0);
 					String correct = csv.get(2);
 					MLData output = bestMethod.compute(input);
@@ -97,21 +98,23 @@ public class Sunspot {
 					result.append(" (correct:");
 					result.append(correct);
 					result.append(")");
-					/*if(correct.equals("0.0")){
+					/*Double error;
+					if (correct.equals("0.0")){
+						error = 1.0;
 					} else {
-						double error = (Double.parseDouble(correct) - Double.parseDouble(predicted))/Double.parseDouble(correct);
-						result.append(" error:" + error);
-						errorSum += Math.abs(error);
-						count++;
+						error = (Double.parseDouble(correct) - Double.parseDouble(predicted))/(Double.parseDouble(correct));
+					}
+					if (Math.abs(error) >= 1.0){
+						error = 1.0;
 					}*/
-					Double error = (Double.parseDouble(correct) - Double.parseDouble(predicted))/Double.parseDouble(predicted);
+					Double error = (Double.parseDouble(correct) - Double.parseDouble(predicted))/(Double.parseDouble(predicted));
 					result.append(" error:" + error);
 					errorSum += Math.abs(error);
 					count++;
 					System.out.println(result.toString());
 				}
-				window.add(slice);
-				if (count >= 1000) break;
+				window.add(slice);	//add slice to window
+				if (count >= 100) break;
 			}
 			System.out.println("Count:" + count + ", ErrorSum:" + errorSum*100 + "%, ErrorAve:" + errorSum/count*100 +"%"); //45%
 			System.out.println(System.currentTimeMillis()-startTime);
