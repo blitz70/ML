@@ -6,6 +6,7 @@ import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataPair;
 import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLDataSet;
+import org.encog.ml.train.MLTrain;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.resilient.ResilientPropagation;
@@ -35,25 +36,26 @@ public class Xor {
 		network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
 		network.getStructure().finalizeStructure();
 		network.reset();
-
+		
 		//Train
-		MLDataSet data = new BasicMLDataSet(XOR_INPUT, XOR_IDEAL);
-		ResilientPropagation train = new ResilientPropagation(network, data);
+		MLDataSet trainingSet = new BasicMLDataSet(XOR_INPUT, XOR_IDEAL);
+		MLTrain train = new ResilientPropagation(network, trainingSet);
+		
 		int epoch = 1;
 		while (true) {
 			train.iteration();
 			System.out.println("Epoch #" + epoch + ", Error:" + train.getError());
 			epoch++;
-			if (train.getError() < 0.01) break;
+			if (train.getError() < 0.001) break;
 		}
 		train.finishTraining();
 		
 		//Test
-		System.out.println("Results:");
-		for (MLDataPair pair : data) {
+		System.out.println("Neural Network Results:");
+		for (MLDataPair pair : trainingSet) {
 			MLData output = network.compute(pair.getInput());
 			System.out.println(
-					pair.getInput().getData(0) + ", " + pair.getInput().getData(1) + ",\tActual=" + output.getData(0) + ",\tIdeal=" + pair.getIdeal().getData(0)
+					pair.getInput().getData(0) + ", " + pair.getInput().getData(1) + ", Actual=" + output.getData(0) + ",\tIdeal=" + pair.getIdeal().getData(0)
 			);
 		}
 		

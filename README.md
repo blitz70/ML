@@ -83,7 +83,13 @@ Artificial Intelligence
 * [Why it is difficult to train an RNN](https://www.youtube.com/watch?v=KJK2muqrlpQ&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=39)
 * [Long term short term memory](https://www.youtube.com/watch?v=uVzrIjkE-Mo&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=40)
 
-* L8 : More recurrent neural networks
+* [L8 : More recurrent neural networks](https://www.youtube.com/watch?v=_gZ1NcYoVv4&index=46&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+
+>* [A brief overview of "Hessian-Free" optimization](https://www.youtube.com/watch?v=Gqn_8GIG-iY&index=42&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [Modeling character strings with multiplicative connections](https://www.youtube.com/watch?v=5zCdUg1w6oQ&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=43)
+* [Learning to predict the next character using HF](https://www.youtube.com/watch?v=tC6Yf9_Wry8&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=44)
+* [Echo state networks](https://www.youtube.com/watch?v=T12mA9h1VRs&index=45&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+
 * L9 : Ways to make neural networks generalize better
 * L10 : Combining multiple neural networks to improve generalization
 * L11 : Hopfield nets and Boltzmann machines
