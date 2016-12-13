@@ -1,0 +1,88 @@
+[2016-11-30] Encog
+
+Maven
+	<dependencies>
+		<dependency>
+			<groupId>org.encog</groupId>
+			<artifactId>encog-core</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+Neural Network structure
+	input layer - hidden layer - output layer
+	
+Activation function
+	Sigmoid : values 0 ~ +1
+		f(x) = (1+e.pow(-x)).pow(-1)
+		
+	Hyperbolic : values -1 ~ +1
+		f(x) = (e.pow(2x)-1)/(e.pow(2x)+1)
+		
+Neural network
+	Create
+		BasicNetwork network = new BasicNetwork();
+		network.addLayer(new BasicLayer(null, true, 2));
+		...
+		network.getStructure().finalizeStructure();
+		network.reset();
+	Train
+		double XOR_INPUT[][] = {{0, 0}, {1, 0}, {0, 1}, {1, 1}};
+		double XOR_IDEAL[][] = {{0}	, {1}	, {1}	, {0}};
+		MLDataSet trainingSet = new BasicMLDataSet(XOR_INPUT, XOR_IDEAL);
+		MLTrain train = new ResilientPropagation(network, trainingSet);
+		while (true) {
+			train.iteration();
+			if (train.getError() < 0.001) break;
+		}
+		train.finishTraining();
+	Use
+		for (MLDataPair pair : trainingSet) {
+			MLData output = network.compute(pair.getInput());
+			...
+		}
+
+ML Database
+	http://kdd.ics.uci.edu/
+
+Normalization
+	Number
+		NormalizedField fuelStats = new NormalizedField(NormalizationAction.Normalize, "fuel", 200, 0, 0.9, -0.9);
+		double num = 100;
+		double n = fuelStats.normalize(num);
+		double d = fuelStats.deNormalize(n);
+		System.out.println(num + " "+ n + " "+ d);
+	Array
+		NormalizeArray norm = new NormalizeArray();
+		norm.setNormalizedHigh(1);
+		norm.setNormalizedLow(-1);
+		double[] rawDataArray = {32, 22};
+		double[] normalizedSunspots = norm.process(rawDataArray);
+		System.out.println(Arrays.toString(rawDataArray) + " " + Arrays.toString(normalizedSunspots));
+	File
+		File sourceFile = new File("src/main/resources/source.data");
+		File targetFile = new File("src/main/resources/target.data");
+		EncogAnalyst analyst = new EncogAnalyst();
+		AnalystWizard wizard = new AnalystWizard(analyst);
+		wizard.wizard(sourceFile, true, AnalystFileFormat.DECPNT_COMMA);
+		AnalystNormalizeCSV norm = new AnalystNormalizeCSV();
+		norm.analyze(sourceFile, true, CSVFormat.ENGLISH, analyst);
+		norm.setProduceOutputHeaders(true);
+		norm.normalize(targetFile);
+		analyst.save(new File("src/main/resources/stats.ega"));
+		analyst.load(new File("src/main/resources/stats.ega"));
+		
+		
