@@ -14,3 +14,4 @@ Machine Learning framework for Java by Jeff Heaton
 * [Guide](https://s3.amazonaws.com/heatonresearch-books/free/Encog3Java-User.pdf)
 
 >* Data & Normalization
+* WorkBench
