@@ -85,4 +85,14 @@ Normalization
 		analyst.save(new File("src/main/resources/stats.ega"));
 		analyst.load(new File("src/main/resources/stats.ega"));
 		
-		
+Persistence
+	Encog
+		EncogDirectoryPersistence.saveObject(new File(), network);
+		EncogDirectoryPersistence.loadObject(new File());
+	JavaSerialization (internally)
+		SerializeObject.save(new File(), network);
+		SerializeObject.load(new File());
+	
+Training
+	MLTrain train = new ResilientPropagation(network, trainingSet);
+	RPROP, LMA are best
