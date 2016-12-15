@@ -15,3 +15,4 @@ Machine Learning framework for Java by Jeff Heaton
 
 >* Data & Normalization
 * WorkBench
+* Persistence
