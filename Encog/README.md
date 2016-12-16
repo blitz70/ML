@@ -17,3 +17,4 @@ Machine Learning framework for Java by Jeff Heaton
 * WorkBench
 * Persistence
 * Propagation
+* Lunar Lander, Genetic Algorithm
