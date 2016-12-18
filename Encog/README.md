@@ -22,3 +22,5 @@ Machine Learning framework for Java by Jeff Heaton
 * Score based
 
 >* Other Neural networks
+
+>>* Elman & Jordan, Simple Recurrent Neural(SRN) network

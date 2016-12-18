@@ -140,9 +140,36 @@ Creating neural network
 		network.reset();
 	Pattern
 		FeedForwardPattern pattern = new FeedForwardPattern();
-		pattern.setInputNeurons(3);
-		pattern.setOutputNeurons(1);
-		pattern.addHiddenLayer(50);
 		pattern.setActivationFunction(new ActivationTANH());
+		pattern.setInputNeurons(3);
+		pattern.addHiddenLayer(50);
+		pattern.setOutputNeurons(1);
 		BasicNetwork network = (BasicNetwork) pattern.generate();
 		network.reset();
+
+Recurrent neural network
+	Detail
+		Have context neurons allowing feedback
+		Results in network with memory
+		Training set's order is very important, temporal
+	Type
+		Elman(SRN)
+			Context & hidden connected bi-directionally
+			context(current)->hidden(current) connection with weight
+			hidden(previous)->context(current) without weight
+			1 context neuron - 1 hidden neuron?
+		Jordan(SRN)
+			Context & output connected bi-directionally
+			context(current)->output(current) connection with weight
+			output(previous)->context(current) without weight
+			1 context neuron per 1 output neuron
+			Works better for many outputs
+	Code
+		ElmanPattern pattern = new ElmanPattern();
+		JordanPattern pattern = new JordanPattern();
+		
+
+Training strategy
+	Hybrid
+	Greedy
+	Stop
