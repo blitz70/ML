@@ -92,28 +92,35 @@ Persistence
 		SerializeObject.load(new File());
 	
 Supervised training - Propagation
-	Details
-		Training set based
-		RPROP, LMA are best
+	Detail
+		Feedforward neural network
+		Supervised training based on training sets, weights updated based on error(expected-actual)
+		Activation functions with derivatives
+	Types
+		Backpropagation : learning rate, momentum
+		Manhattan Update Rule : fixed weight update
+		Quick propagation(QPROP) : learning rate
+		Resilient propagation(RPROP) : dynamic learning rate, recommended
+		Scaled Conjugate Gradient(SCG)
+		Levenberg Marquardt(LMA) : hybrid
 	Code
 		BasicNetwork network;
 		MLDataSet trainingSet;
 		MLTrain train = new ResilientPropagation(network, trainingSet);
 
 Supervised training - Score based
-	Details
+	Detail
+		Feedforward neural network
 		Supervised training based on scoring system
 		Can be used on training set, but on the fly method is recommended
+	Types
+		Genetic Algorithm : natural selection with mutations
+		Simulated Annealing : temperature cooling, can solve local minimum problem in backpropagation
 	Scoring
 		On the fly
 			MyScore score = new MyScore();	//MyScore implements CalculateScore
 		Training set
 			CalculateScore score = new TrainingSetScore(trainingSet);
-	Genetic Algorithm
-	 	Natural selection with mutations
-	Simulated Annealing
-		Temperature cooling
-		Can be used at local minimum problem in back propagation
 	Code
 		BasicNetwork network;
 		MLTrain train = new MLMethodGeneticAlgorithm(new MethodFactory() {

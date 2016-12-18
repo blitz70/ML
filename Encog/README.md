@@ -16,5 +16,9 @@ Machine Learning framework for Java by Jeff Heaton
 >* Data & Normalization
 * WorkBench
 * Persistence
-* Supervised learning : Propagation
-* Supervised learning : Score based
+* Feedforward Neural network & Supervised training
+
+>>* Propagation
+* Score based
+
+>* Other Neural networks
