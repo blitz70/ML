@@ -101,7 +101,14 @@ Artificial Intelligence
 *  [The Bayesian interpretation of weight decay](https://www.youtube.com/watch?v=KCo8h3WAClc&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=51)
 * [MacKay's quick and dirty method of fixing weight costs](https://www.youtube.com/watch?v=_WZAD2uhvUM&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=52)
 
-* L10 : Combining multiple neural networks to improve generalization
+* [L10 : Combining multiple neural networks to improve generalization](https://www.youtube.com/watch?v=IVfAs03sBSU&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=59)
+
+>* [Why it helps to combine models](https://www.youtube.com/watch?v=JacgCGtxoj0&index=54&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [Mixtures of Experts](https://www.youtube.com/watch?v=Uo3tC655I-w&index=55&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [The idea of full Bayesian learning](https://www.youtube.com/watch?v=Ra6RSZPWw9w&index=56&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [Making full Bayesian learning practical](https://www.youtube.com/watch?v=0IXoayZ0egc&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=57)
+* [Dropout: an efficient way to combine neural nets](https://www.youtube.com/watch?v=kAwF--GJ-ek&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=58)
+
 * L11 : Hopfield nets and Boltzmann machines
 * L12 : Restricted Boltzmann machines (RBMs)
 * L13 : Stacking RBMs to make Deep Belief Nets
