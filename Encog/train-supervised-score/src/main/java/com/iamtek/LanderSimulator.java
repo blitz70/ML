@@ -1,4 +1,4 @@
-package com.iamtek.train_supervised;
+package com.iamtek;
 
 import java.text.DecimalFormat;
 
@@ -24,18 +24,16 @@ public class LanderSimulator {
 	}
 	
 	public void turn(boolean thrust){
-		//time
+		//score depends on 1(score system) and 2(this method's calculation order) 
 		seconds++;
-		//velocity
 		velocity-= GRAVITY;
+		altitude+= velocity;
 		if(thrust && fuel>0){
 			fuel--;
 			velocity+= THRUST;
 		}
 		velocity = Math.max(-TERMINAL_VELOCITY, velocity);	//max down velocity
 		velocity = Math.min(TERMINAL_VELOCITY, velocity);	//max up
-		//altitude
-		altitude+= velocity;
 		if(altitude<0){
 			altitude=0;
 		}
@@ -47,11 +45,7 @@ public class LanderSimulator {
 	}
 	
 	public boolean isFly(){
-		boolean fly = false;
-		if(altitude>0){
-			fly = true;
-		}
-		return fly;
+		return (altitude>0);
 	}
 
 	public StringBuilder telemtry() {

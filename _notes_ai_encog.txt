@@ -1,5 +1,3 @@
-[2016-11-30] Encog
-
 Maven
 	<dependencies>
 		<dependency>
@@ -93,6 +91,51 @@ Persistence
 		SerializeObject.save(new File(), network);
 		SerializeObject.load(new File());
 	
-Training
-	MLTrain train = new ResilientPropagation(network, trainingSet);
-	RPROP, LMA are best
+Supervised training - Propagation
+	Details
+		Training set based
+		RPROP, LMA are best
+	Code
+		BasicNetwork network;
+		MLDataSet trainingSet;
+		MLTrain train = new ResilientPropagation(network, trainingSet);
+
+Supervised training - Score based
+	Details
+		Supervised training based on scoring system
+		Can be used on training set, but on the fly method is recommended
+	Scoring
+		On the fly
+			MyScore score = new MyScore();	//MyScore implements CalculateScore
+		Training set
+			CalculateScore score = new TrainingSetScore(trainingSet);
+	Genetic Algorithm
+	 	Natural selection with mutations
+	Simulated Annealing
+		Temperature cooling
+		Can be used at local minimum problem in back propagation
+	Code
+		BasicNetwork network;
+		MLTrain train = new MLMethodGeneticAlgorithm(new MethodFactory() {
+			@Override
+			public MLMethod factor() {
+				return network;
+			}
+		}, score, 500);
+		MLTrain train = new NeuralSimulatedAnnealing(network, score, 10, 2, 100);
+		
+Creating neural network
+	BasicNetwork
+		BasicNetwork network = new BasicNetwork();
+		network.addLayer(new BasicLayer(null, true, 2));
+		...
+		network.getStructure().finalizeStructure();
+		network.reset();
+	Pattern
+		FeedForwardPattern pattern = new FeedForwardPattern();
+		pattern.setInputNeurons(3);
+		pattern.setOutputNeurons(1);
+		pattern.addHiddenLayer(50);
+		pattern.setActivationFunction(new ActivationTANH());
+		BasicNetwork network = (BasicNetwork) pattern.generate();
+		network.reset();

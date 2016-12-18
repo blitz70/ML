@@ -16,5 +16,5 @@ Machine Learning framework for Java by Jeff Heaton
 >* Data & Normalization
 * WorkBench
 * Persistence
-* Propagation
-* Lunar Lander, Genetic Algorithm
+* Supervised learning : Propagation
+* Supervised learning : Score based

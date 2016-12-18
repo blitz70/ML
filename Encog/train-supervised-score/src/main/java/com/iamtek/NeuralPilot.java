@@ -1,4 +1,4 @@
-package com.iamtek.train_supervised;
+package com.iamtek;
 
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.basic.BasicMLData;

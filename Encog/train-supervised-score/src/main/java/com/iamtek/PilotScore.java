@@ -1,32 +1,25 @@
-package com.iamtek.train_supervised;
+package com.iamtek;
 
-import org.encog.ml.MLRegression;
+import org.encog.ml.CalculateScore;
+import org.encog.ml.MLMethod;
 import org.encog.neural.networks.BasicNetwork;
-import org.encog.neural.networks.training.CalculateScore;
 
 public class PilotScore implements CalculateScore {
-	/*@Override
+	@Override
 	public double calculateScore(MLMethod method) {
 		BasicNetwork network = (BasicNetwork) method;
 		NeuralPilot pilot = new NeuralPilot(network, false);
 		return pilot.scorePilot();
-	}*/
+	}
 
 	@Override
 	public boolean shouldMinimize() {
 		return false;
 	}
 
-	/*@Override
+	@Override
 	public boolean requireSingleThreaded() {
 		return false;
-	}*/
-
-	@Override
-	public double calculateScore(MLRegression method) {
-		BasicNetwork network = (BasicNetwork) method;
-		NeuralPilot pilot = new NeuralPilot(network, false);
-		return pilot.scorePilot();
 	}
 
 }
