@@ -24,3 +24,4 @@ Machine Learning framework for Java by Jeff Heaton
 >* Other Neural networks
 
 >>* Elman & Jordan, Simple Recurrent Neural(SRN) network
+* ART1 & NEAT

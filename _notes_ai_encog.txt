@@ -167,9 +167,23 @@ Recurrent neural network
 	Code
 		ElmanPattern pattern = new ElmanPattern();
 		JordanPattern pattern = new JordanPattern();
-		
+
+Other neural network
+	ART1 : Adaptive Resonance Theory
+		Uses only bipolar(boolean) input
+		Used at classification
+		No separate training routine, learns as it is used
+	NEAT : NeuroEvolution of Augmenting Topologies
+		Network that rebuilds internal structure based on Genetic Algorithm
 
 Training strategy
-	Hybrid
-	Greedy
-	Stop
+	Type
+		Hybrid : switch training methods
+		Greedy : only select improving training (update weight?)
+		Stop : stop training
+	Code
+		MLTrain trainMain;
+		MLTrain trainSub;
+		trainMain.addStrategy(new Greedy());
+		trainMain.addStrategy(new HybridStrategy(trainSub));
+		trainMain.addStrategy(new StopTrainingStrategy());

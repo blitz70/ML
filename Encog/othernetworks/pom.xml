@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.iamtek</groupId>
-  <artifactId>recurrentneuralnetworks</artifactId>
+  <artifactId>othernetworks</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>recurrentneuralnetworks</name>
+  <name>othernetworks</name>
   <url>http://maven.apache.org</url>
 
   <properties>
