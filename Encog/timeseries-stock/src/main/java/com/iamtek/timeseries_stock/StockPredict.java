@@ -51,7 +51,7 @@ public class StockPredict {
 			dataSet.defineOutput(columnAdjClose);
 			EncogModel model = new EncogModel(dataSet);
 			model.selectMethod(dataSet, MLMethodFactory.TYPE_FEEDFORWARD);
-			//model.setReport(new ConsoleStatusReportable());
+			model.setReport(new ConsoleStatusReportable());
 			dataSet.normalize();
 			
 			//fit model
@@ -119,13 +119,18 @@ public class StockPredict {
 						countDirectionMiss++;
 						result.append(" Miss");
 					}
-					//System.out.println(result.toString());
+					System.out.println(result.toString());
 				}
 				window.add(slice);
 				oldValue = Double.parseDouble(line[5]);
 			}
 			System.out.println("Count:" + count + ", ErrorSum:" + errorSum*100 + "%, ErrorAve:" + errorSum*100/count +"%"); //4% error
 			System.out.println("Hit:" + countDirectionHit + " Miss:" + countDirectionMiss + " Hit%:" + countDirectionHit*100/(countDirectionHit+countDirectionMiss));	//50% hit
+			//last prediction
+			window.copyWindow(input.getData(), 0);
+			MLData output = bestMethod.compute(input);
+			String predicted = helper.denormalizeOutputVectorToString(output)[0];
+			System.out.println("Next prediction: " + predicted);
 			Encog.getInstance().shutdown();
 			
 	}

@@ -11,12 +11,12 @@ public class Main {
 		StockPredict predict = new StockPredict();
 
 		try {
-			System.out.println("Kospi");
+			/*System.out.println("Kospi");
 			dataFile = new File(StockPredict.class.getResource("/kospi.data").toURI());
 			predict.run(dataFile);
 			System.out.println("\nSamsungE");
 			dataFile = new File(StockPredict.class.getResource("/samsunge.data").toURI());
-			predict.run(dataFile);
+			predict.run(dataFile);*/
 			System.out.println("\nNCsoft");
 			dataFile = new File(StockPredict.class.getResource("/ncsoft.data").toURI());
 			predict.run(dataFile);
