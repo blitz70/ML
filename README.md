@@ -1,5 +1,5 @@
-# AI
-Artificial Intelligence
+# Machine Learning
+
 <hr/>
 
 ##1. Artificial Neural Networks [(Jeff Heaton)](http://www.heatonresearch.com/), English
@@ -109,7 +109,14 @@ Artificial Intelligence
 * [Making full Bayesian learning practical](https://www.youtube.com/watch?v=0IXoayZ0egc&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=57)
 * [Dropout: an efficient way to combine neural nets](https://www.youtube.com/watch?v=kAwF--GJ-ek&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=58)
 
-* L11 : Hopfield nets and Boltzmann machines
+* [L11 : Hopfield nets and Boltzmann machines](https://www.youtube.com/watch?v=IP3W7cI01VY&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=11)
+
+>* [Hopfield Nets](https://www.youtube.com/watch?v=cLuuAjvawhQ&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=61)
+* [Dealing with spurious minima in Hopfield Nets](https://www.youtube.com/watch?v=uurQcZhzblA&index=62&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [Hopfield Nets with hidden units](https://www.youtube.com/watch?v=JayQy__1UGM&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=63)
+* [Using stochastic units to improve search](https://www.youtube.com/watch?v=6bTpq4OEYeI&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=64)
+* [How a Boltzmann Machine models data](https://www.youtube.com/watch?v=pci0drmGpGA&index=65&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+
 * L12 : Restricted Boltzmann machines (RBMs)
 * L13 : Stacking RBMs to make Deep Belief Nets
 * L14 : Deep neural nets with generative pre-training
