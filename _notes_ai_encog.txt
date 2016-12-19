@@ -139,7 +139,7 @@ Creating neural network
 		network.getStructure().finalizeStructure();
 		network.reset();
 	Pattern
-		FeedForwardPattern pattern = new FeedForwardPattern();
+		NeuralNetworkPattern pattern = new FeedForwardPattern();
 		pattern.setActivationFunction(new ActivationTANH());
 		pattern.setInputNeurons(3);
 		pattern.addHiddenLayer(50);

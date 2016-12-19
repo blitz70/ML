@@ -25,3 +25,7 @@ Machine Learning framework for Java by Jeff Heaton
 
 >>* Elman & Jordan, Simple Recurrent Neural(SRN) network
 * ART1 & NEAT
+
+>* Temporal Data
+
+>>* Sunspot
