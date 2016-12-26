@@ -39,17 +39,24 @@ public class MarketMain {
 	public static final int HIDDEN2_COUNT= 0;
 	public static final int PAST_WINDOW = 10;
 	public static final int FUTURE_WINDOW = 1;
-	public static final TickerSymbol TICKER = new TickerSymbol("AAPL") ;
+	public static final int INPUTS = 2;
+	public static final TickerSymbol TICKER = new TickerSymbol("005930.KS") ;	//samsung electronics
 
 	public static void generate(String dir){
 
-		//get training data, start : 2yr 2m before today, end : 2m before today, use 2m for evaluation
+		//get training data
+		//start : 2yr 2m before today, end : 2m before today, use 2m for evaluation
 		MarketLoader loader = new YahooFinanceLoader();
 		MarketMLDataSet market = new MarketMLDataSet(loader, PAST_WINDOW, FUTURE_WINDOW);
 		MarketDataDescription desc = new MarketDataDescription(
 				TICKER,
 				MarketDataType.ADJUSTED_CLOSE,
 				true, true);
+		market.addDescription(desc);	//add more?
+		desc = new MarketDataDescription(
+				TICKER,
+				MarketDataType.OPEN,
+				true, false);
 		market.addDescription(desc);	//add more?
 		Calendar end = new GregorianCalendar();	//getinstance?
 		Calendar begin = new GregorianCalendar();
@@ -58,18 +65,37 @@ public class MarketMain {
 		end.add(Calendar.DATE, -60);
 		market.load(begin.getTime(), end.getTime());
 		market.generate();
+		//save training data
+		EncogUtility.saveEGB(new File(dir, TRAINING_FILE), market);
 		
-		//create n network
+		//get evaluating data, recent 2m
+		market = new MarketMLDataSet(loader, PAST_WINDOW, FUTURE_WINDOW);
+		desc = new MarketDataDescription(
+				TICKER,
+				MarketDataType.ADJUSTED_CLOSE,
+				true, true);
+		market.addDescription(desc);	//add more?
+		desc = new MarketDataDescription(
+				TICKER,
+				MarketDataType.OPEN,
+				true, false);
+		market.addDescription(desc);	//add more?
+		end = new GregorianCalendar();	//getinstance?
+		begin = new GregorianCalendar();
+		begin.add(Calendar.DATE, -60);
+		market.load(begin.getTime(), end.getTime());
+		market.generate();
+		//save training data
+		EncogUtility.saveEGB(new File(dir, EVALUATING_FILE), market);
+
+		//create&save n network
 		BasicNetwork network =  EncogUtility.simpleFeedForward(
 				market.getInputSize(),
-				HIDDEN1_COUNT, HIDDEN2_COUNT,
+				HIDDEN1_COUNT*INPUTS, HIDDEN2_COUNT*INPUTS,
 				market.getIdealSize(),
 				true);
-		
-		//save training data & n network
-		EncogUtility.saveEGB(new File(dir, TRAINING_FILE), market);
 		EncogDirectoryPersistence.saveObject(new File(dir, NETWORK_FILE), network);
-		
+
 	}
 	
 	public static void train(String dir){
@@ -89,7 +115,7 @@ public class MarketMain {
 		
 		//train
 		EncogUtility.trainConsole(network, trainingSet, TRAINING_MINUTES);
-		System.out.println("Final Error: " + network.calculateError(trainingSet) + ". Training complete, saving network...");
+		System.out.println("Final Error: " + network.calculateError(trainingSet) + "%. Training complete, saving network...");
 		
 		//save n network
 		EncogDirectoryPersistence.saveObject(networkFile, network);
@@ -117,10 +143,9 @@ public class MarketMain {
 		
 		//prune n network
 		PruneIncremental prune = new PruneIncremental(trainingSet, pattern, 100, 1, 10, new ConsoleStatusReportable());
-		prune.addHiddenLayer(5, 50);
-		prune.addHiddenLayer(0, 50);
+		prune.addHiddenLayer(5, 50*INPUTS);
+		prune.addHiddenLayer(0, 50*INPUTS);
 		prune.process();
-		System.out.println("test");
 
 		//save best n network
 		File networkFile = new File(dir, NETWORK_FILE);
@@ -136,40 +161,27 @@ public class MarketMain {
 		
 	}
 	
-	public static MLDataSet getData(){
-		
-		//get evaluating data, recent 2m
-		MarketLoader loader = new YahooFinanceLoader();
-		MarketMLDataSet market = new MarketMLDataSet(loader, PAST_WINDOW, FUTURE_WINDOW);
-		MarketDataDescription desc = new MarketDataDescription(
-				TICKER,
-				MarketDataType.ADJUSTED_CLOSE,
-				true, true);
-		market.addDescription(desc);
-		Calendar end = new GregorianCalendar();	//getinstance?
-		Calendar begin = new GregorianCalendar();
-		begin.add(Calendar.DATE, -60);
-		market.load(begin.getTime(), end.getTime());
-		market.generate();
-		return market;
-		
-	}
-	
 	public static void evaluate(String dir){
 		
 		//load n network
 		File networkFile = new File(dir, NETWORK_FILE);
+		File evaluatingFile = new File(dir, EVALUATING_FILE);
 		if(!networkFile.exists()){
 			System.out.println("Network file error: " + networkFile.getAbsolutePath());
 			return;
 		}
 		BasicNetwork network = (BasicNetwork) EncogDirectoryPersistence.loadObject(networkFile);
 		
-		//evaluating data
-		MLDataSet data = getData();
+		//load evaluating data
+		if(!evaluatingFile.exists()){
+			System.out.println("Data  file error: " + evaluatingFile.getAbsolutePath());
+			return;
+		}
+		MLDataSet evaluatingSet = EncogUtility.loadEGB2Memory(evaluatingFile);
 		DecimalFormat df = new DecimalFormat("#0.0000");
 		int count=0, correct=0;
-		for(MLDataPair pair : data){
+		double diffSum=0;
+		for(MLDataPair pair : evaluatingSet){
 			MLData input = pair.getInput();
 			MLData ideal = pair.getIdeal();
 			MLData output = network.compute(input);
@@ -180,21 +192,24 @@ public class MarketMain {
 			Direction predictDirection = determineDirection(predict);
 			if (actualDirection == predictDirection) correct++;
 			count++;
+			diffSum+=diff;
 			System.out.println("Day " + count +
 					", Actual=" + df.format(actual) + "(" + actualDirection + ")" +
 					", Predicted=" + df.format(predict) + "(" + predictDirection + ")" +
 					", diff=" + diff);
 		}
 		double percent = (double)correct/(double)count;
-		System.out.println("Correct/Count:"+correct+"/"+count+", Direction match %: " + df.format(percent*100)+"%");
+		double diffAve = diffSum/(double)count;
+		System.out.println("Correct/Count:"+correct+"/"+count+", Direction match: " + df.format(percent*100)+"%, Ave diff:"+df.format(diffAve));
 
 	}
 	
 	public static void main(String[] args) {
 		
 		//generate(DIR);
-		//train(DIR);
+		
 		//prune(DIR);
+		//train(DIR);
 		evaluate(DIR);
 
 	}
