@@ -29,3 +29,4 @@ Machine Learning framework for Java by Jeff Heaton
 >* Temporal Data
 
 >>* Sunspot
+* Stock market
