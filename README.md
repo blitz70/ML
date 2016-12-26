@@ -26,7 +26,7 @@
 * [Gradient Calculation](https://www.youtube.com/watch?v=p1-FiWjThs8&index=12&list=PLiPvV5TNogxJoK7Y3z6kjc_jgtM3Se-u2)
 * [Backpropagation](https://www.youtube.com/watch?v=IruMm7mPDdM&list=PLiPvV5TNogxJoK7Y3z6kjc_jgtM3Se-u2&index=13)
 
-##2. Neural Networks for Machine Learning by Geoffrey Hinton [(Coursera 2013)](https://www.youtube.com/playlist?list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0), English
+##2. Neural Networks for Machine Learning by Geoffrey Hinton [(1-16)](https://www.youtube.com/playlist?list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0), Coursera 2013, English
 
 >Heavy on theory, not for beginners
 
@@ -117,7 +117,14 @@
 * [Using stochastic units to improve search](https://www.youtube.com/watch?v=6bTpq4OEYeI&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=64)
 * [How a Boltzmann Machine models data](https://www.youtube.com/watch?v=pci0drmGpGA&index=65&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
 
-* L12 : Restricted Boltzmann machines (RBMs)
+* [L12 : Restricted Boltzmann machines (RBMs)](https://www.youtube.com/watch?v=SY7ilsii2YM&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=12&t=1s)
+
+>* [The Boltzmann Machine learning algorithm](https://www.youtube.com/watch?v=wpiSDA4XNaE&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=67&t=8s)
+* [More efficient ways to get the statistics](https://www.youtube.com/watch?v=pbq37Rgtpqw&index=68&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [Restricted Boltzmann Machines](https://www.youtube.com/watch?v=UcAWwySuUZM&index=69&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [An example of Contrastive Divergence Learning](https://www.youtube.com/watch?v=JKw4z2tKl_4&index=70&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [RBMs for collaborative filtering](https://www.youtube.com/watch?v=UXQhVkDM05g&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=71)
+
 * L13 : Stacking RBMs to make Deep Belief Nets
 * L14 : Deep neural nets with generative pre-training
 * L15 : Modeling hierarchical structure with neural nets
