@@ -40,35 +40,37 @@ public class MarketMain {
 	public static final int PAST_WINDOW = 10;
 	public static final int FUTURE_WINDOW = 1;
 	public static final int INPUTS = 2;
-	public static final TickerSymbol TICKER = new TickerSymbol("005930.KS") ;	//samsung electronics
+	//public static final TickerSymbol TICKER = new TickerSymbol("AAPL") ;	//Apple
+	public static final TickerSymbol TICKER = new TickerSymbol("005930.KS") ;	//Samsung Electronics
+	//public static final TickerSymbol TICKER = new TickerSymbol("036570.KS") ;	//NCsoft
 
-	public static void generate(String dir){
+	public static void generate(String dir, int[] startTrain, int[] startEvaluate, int[] endEvaluate){
 
-		//get training data
-		//start : 2yr 2m before today, end : 2m before today, use 2m for evaluation
+		//get training data, [0] years [1] days offset
 		MarketLoader loader = new YahooFinanceLoader();
 		MarketMLDataSet market = new MarketMLDataSet(loader, PAST_WINDOW, FUTURE_WINDOW);
 		MarketDataDescription desc = new MarketDataDescription(
 				TICKER,
 				MarketDataType.ADJUSTED_CLOSE,
 				true, true);
-		market.addDescription(desc);	//add more?
+		market.addDescription(desc);
 		desc = new MarketDataDescription(
 				TICKER,
 				MarketDataType.OPEN,
 				true, false);
-		market.addDescription(desc);	//add more?
-		Calendar end = new GregorianCalendar();	//getinstance?
+		market.addDescription(desc);
 		Calendar begin = new GregorianCalendar();
-		begin.add(Calendar.DATE, -60);
-		begin.add(Calendar.YEAR, -2);
-		end.add(Calendar.DATE, -60);
+		Calendar end = new GregorianCalendar();
+		begin.add(Calendar.YEAR, -startTrain[0]);
+		begin.add(Calendar.DATE, -startTrain[1]);
+		end.add(Calendar.YEAR, -startEvaluate[0]);
+		end.add(Calendar.DATE, -startEvaluate[1]);
 		market.load(begin.getTime(), end.getTime());
 		market.generate();
 		//save training data
 		EncogUtility.saveEGB(new File(dir, TRAINING_FILE), market);
 		
-		//get evaluating data, recent 2m
+		//get evaluating data
 		market = new MarketMLDataSet(loader, PAST_WINDOW, FUTURE_WINDOW);
 		desc = new MarketDataDescription(
 				TICKER,
@@ -80,9 +82,14 @@ public class MarketMain {
 				MarketDataType.OPEN,
 				true, false);
 		market.addDescription(desc);	//add more?
-		end = new GregorianCalendar();	//getinstance?
 		begin = new GregorianCalendar();
-		begin.add(Calendar.DATE, -60);
+		end = new GregorianCalendar();
+		begin.add(Calendar.YEAR, -startEvaluate[0]);
+		begin.add(Calendar.DATE, -startEvaluate[1]);
+		end.add(Calendar.YEAR, -endEvaluate[0]);
+		end.add(Calendar.DATE, -endEvaluate[1]);
+
+		
 		market.load(begin.getTime(), end.getTime());
 		market.generate();
 		//save training data
@@ -143,7 +150,7 @@ public class MarketMain {
 		
 		//prune n network
 		PruneIncremental prune = new PruneIncremental(trainingSet, pattern, 100, 1, 10, new ConsoleStatusReportable());
-		prune.addHiddenLayer(5, 50*INPUTS);
+		prune.addHiddenLayer(1, 50*INPUTS);
 		prune.addHiddenLayer(0, 50*INPUTS);
 		prune.process();
 
@@ -206,9 +213,10 @@ public class MarketMain {
 	
 	public static void main(String[] args) {
 		
-		//generate(DIR);
+		//generate(DIR, new int[]{2, 60}, new int[]{0, 60}, new int[]{0, 0});
+		//generate(DIR, new int[]{11, 0}, new int[]{1, 0}, new int[]{0, 0});
 		
-		//prune(DIR);
+		prune(DIR);
 		//train(DIR);
 		evaluate(DIR);
 
