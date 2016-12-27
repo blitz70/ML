@@ -222,8 +222,8 @@ public class MarketMain {
 		//generate(new int[]{2, 60}, new int[]{0, 60}, new int[]{0, 0});
 		//generate(new int[]{11, 0}, new int[]{1, 0}, new int[]{0, 0});
 		
-		prune();
-		//train();
+		//prune();
+		train();
 		evaluate();
 
 		Encog.getInstance().shutdown();
