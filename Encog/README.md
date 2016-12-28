@@ -30,3 +30,5 @@ Machine Learning framework for Java by Jeff Heaton
 
 >>* Sunspot
 * Stock market
+
+>* Image Data

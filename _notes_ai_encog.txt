@@ -20,17 +20,17 @@ Maven
 		</plugins>
 	</build>
 
-Neural Network structure
-	input layer - hidden layer - output layer
-	
-Activation function
-	Sigmoid : values 0 ~ +1
-		f(x) = (1+e.pow(-x)).pow(-1)
-		
-	Hyperbolic : values -1 ~ +1
-		f(x) = (e.pow(2x)-1)/(e.pow(2x)+1)
-		
-Neural network
+ML Database
+	http://kdd.ics.uci.edu/
+
+Basics
+	Structure
+		input layer : input neurons, bias neuron
+		hidden layer : hidden neurons, bias neuron, (context neurons in RNN)
+		output layer : output neuron
+	Activation function
+		Sigmoid : 0 ~ +1
+		Hyperbolic : -1 ~ +1
 	Create
 		BasicNetwork network = new BasicNetwork();
 		network.addLayer(new BasicLayer(null, true, 2));
@@ -53,8 +53,21 @@ Neural network
 			...
 		}
 
-ML Database
-	http://kdd.ics.uci.edu/
+Creating neural network
+	BasicNetwork
+		BasicNetwork network = new BasicNetwork();
+		network.addLayer(new BasicLayer(null, true, 2));
+		...
+		network.getStructure().finalizeStructure();
+		network.reset();
+	Pattern
+		NeuralNetworkPattern pattern = new FeedForwardPattern();
+		pattern.setActivationFunction(new ActivationTANH());
+		pattern.setInputNeurons(3);
+		pattern.addHiddenLayer(50);
+		pattern.setOutputNeurons(1);
+		BasicNetwork network = (BasicNetwork) pattern.generate();
+		network.reset();
 
 Normalization
 	Number
@@ -84,13 +97,45 @@ Normalization
 		analyst.load(new File("src/main/resources/stats.ega"));
 		
 Persistence
+	Detail
+		Saving neural networks and data for later use
 	Encog
 		EncogDirectoryPersistence.saveObject(new File(), network);
 		EncogDirectoryPersistence.loadObject(new File());
 	JavaSerialization (internally)
 		SerializeObject.save(new File(), network);
 		SerializeObject.load(new File());
-	
+
+Optimization
+	Training strategy
+		Detail
+			Training optimization
+			Greedy : only update network status at iteration when error rate improves
+			HybridStrategy : switch to secondary training method when primary fails 
+			ResetStrategy : resets network and restart training when training fails
+			SmartLearningRate, SmartMomentum : backprogation training with auto adjustment
+			StopTrainingStrategy : stops training
+		Code
+			MLTrain trainMain;
+			MLTrain trainSub;
+			trainMain.addStrategy(new Greedy());
+			trainMain.addStrategy(new HybridStrategy(trainSub));
+			trainMain.addStrategy(new StopTrainingStrategy());
+	Pruning
+		Detail
+			Neural Network structure optimization
+			Create skeletal neural network with optimizing parameters for hidden layers
+		Code
+			NeuralNetworkPattern pattern = new FeedForwardPattern();
+			pattern.setInputNeurons(...);
+			pattern.setOutputNeurons(...);
+			pattern.setActivationFunction(...);
+			PruneIncremental prune = new PruneIncremental(...);
+			prune.addHiddenLayer(...);
+			...
+			prune.process();
+			BasicNetwork best = prune.getBestNetwork();
+			
 Supervised training - Propagation
 	Detail
 		Feedforward neural network
@@ -130,22 +175,6 @@ Supervised training - Score based
 			}
 		}, score, 500);
 		MLTrain train = new NeuralSimulatedAnnealing(network, score, 10, 2, 100);
-		
-Creating neural network
-	BasicNetwork
-		BasicNetwork network = new BasicNetwork();
-		network.addLayer(new BasicLayer(null, true, 2));
-		...
-		network.getStructure().finalizeStructure();
-		network.reset();
-	Pattern
-		NeuralNetworkPattern pattern = new FeedForwardPattern();
-		pattern.setActivationFunction(new ActivationTANH());
-		pattern.setInputNeurons(3);
-		pattern.addHiddenLayer(50);
-		pattern.setOutputNeurons(1);
-		BasicNetwork network = (BasicNetwork) pattern.generate();
-		network.reset();
 
 Recurrent neural network
 	Detail
@@ -176,14 +205,50 @@ Other neural network
 	NEAT : NeuroEvolution of Augmenting Topologies
 		Network that rebuilds internal structure based on Genetic Algorithm
 
-Training strategy
-	Type
-		Hybrid : switch training methods
-		Greedy : only select improving training (update weight?)
-		Stop : stop training
-	Code
-		MLTrain trainMain;
-		MLTrain trainSub;
-		trainMain.addStrategy(new Greedy());
-		trainMain.addStrategy(new HybridStrategy(trainSub));
-		trainMain.addStrategy(new StopTrainingStrategy());
+Predictive/Temporal Neural Network
+	Overview
+		Predict future based on present and past
+		Feedforward neural network, Simple recurrent neural network
+	Temporal
+		Structure
+			TemporalMLDataSet
+				Comprised of data structured based on time
+			TemporalDataDescription
+				Description of one unit of data to be used
+				RAW, PERCENT_CHANGE, DELTA_CHANGE 
+			TemporalPoint
+				Time representation of data, represents data at a point in time
+		Code
+			TemporalMLDataSet result = new TemporalMLDataSet(WINDOW_SIZE_PAST, WINDOW_SIZE_FUTURE);
+			TemporalDataDescription desc = new TemporalDataDescription(TemporalDataDescription.Type.RAW, true, true);
+			result.addDescription(desc);
+			for (int year = TRAIN_START; year < TRAIN_END; year++) {
+				TemporalPoint point = new TemporalPoint(1);
+				point.setSequence(year);
+				point.setData(0, normalizedSunspots[year]);
+				result.getPoints().add(point);
+			}
+			result.generate();
+	Temporal market data : temporal version of stock market data
+		Structure
+			MarketMLDataSet
+			MarketDataDescription
+			MarketDataType
+				OPEN, HIGH, LOW, CLOSE, VOLUME, ADJUSTED_CLOSE
+			MarketPoint
+			TickerSymbol
+		Code
+			MarketLoader loader = new YahooFinanceLoader();
+			MarketMLDataSet market = new MarketMLDataSet(loader, PAST_WINDOW, FUTURE_WINDOW);
+			market.addDescription(new MarketDataDescription(
+					TICKER,
+					MarketDataType.ADJUSTED_CLOSE,
+					true, true));
+			Calendar begin = new GregorianCalendar();
+			Calendar end = new GregorianCalendar();
+			begin.add(...);
+			end.add(...);
+			market.load(begin.getTime(), end.getTime());
+			market.generate();
+
+		
