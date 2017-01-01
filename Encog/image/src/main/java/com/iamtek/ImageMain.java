@@ -1,12 +1,17 @@
 package com.iamtek;
 
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
 
@@ -46,7 +51,6 @@ class ImagePair {
 
 public class ImageMain {
 
-	private static final String IMAGE_PATH = "";
 	
 	//?
 	private Map<String, String> args = new HashMap<String, String>();
@@ -55,6 +59,8 @@ public class ImageMain {
 	private Map<Integer, String> neuron2identity = new HashMap<Integer, String>();
 	
 	//image
+	private String trainingPath = "src/main/resources/training/";
+	private String testPath = "src/main/resources/test/";
 	private int downsampleWidth;
 	private int downsampleHeight;
 	private Downsample downsample;
@@ -66,6 +72,42 @@ public class ImageMain {
 	private BasicNetwork network;
 
 	public static void main(String[] args) {
+		
+		ImageMain prog = new ImageMain();
+		try {
+			prog.processScript();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void processScript() throws IOException{
+		File script = new File("src/main/resources/script.txt");
+		FileInputStream fstream = new FileInputStream(script);
+		DataInputStream in = new DataInputStream(fstream);
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		while((this.line = br.readLine()) != null){
+			int index  = this.line.indexOf(':');
+			String command = this.line.substring(0, index).toLowerCase().trim();
+			String args = this.line.substring(index+1).trim();
+			StringTokenizer token = new StringTokenizer(args, ","); 
+			this.args.clear();
+			while(token.hasMoreTokens()){
+				String arg = token.nextToken();
+				int index2 = arg.indexOf(':');
+				String key = arg.substring(0, index2).toLowerCase().trim();
+				String value = arg.substring(index2+1).toLowerCase().trim();
+				this.args.put(key, value);
+			}
+			if (command.equals("input")) processInput();
+			if (command.equals("createtraining")) processCreateTraining();
+			if (command.equals("training")) processTrain();
+			if (command.equals("network")) processNetwork();
+			if (command.equals("whatis")) processWhatIs();
+		}
+		br.close();
+		in.close();
+		fstream.close();
 	}
 
 	private void processCreateTraining(){
@@ -84,12 +126,25 @@ public class ImageMain {
 	}
 	
 	private void processInput(){
-		String image = getArg("image");
+		/*String image = getArg("image");
 		String identity = getArg("identity");
 		int index = assignIdentity(identity);
-		File file = new File(IMAGE_PATH, image);
+		File file = new File(trainingPath, image);
 		this.imageList.add(new ImagePair(file, index));
-		System.out.println("Added input image:" + image);
+		System.out.println("Added input image:" + image);*/
+		
+		File input = null;
+		for (int id = 0; id < 10; id++) {
+			int no = 1;
+			while(true){
+				input = new File(trainingPath, "digits" + id + "-"+no+".jpg");
+				if(!input.exists()) break;
+				int index = assignIdentity(String.valueOf(id));
+				this.imageList.add(new ImagePair(input, index));
+				System.out.println("Added input image:" + input);
+				no++;
+			}
+		}
 	}
 
 	private void processNetwork() throws IOException{
@@ -128,6 +183,19 @@ public class ImageMain {
 		train.addStrategy(new ResetStrategy(strategyError, strategyCycles));
 		EncogUtility.trainConsole(train, this.network, this.training, minutes);
 		System.out.println("Training stopped...");
+	}
+	
+	private void processWhatIs() throws IOException{
+		String filename = getArg("image");
+		File file = new File(testPath, filename);
+		Image img = ImageIO.read(file);
+		MLData input = new ImageMLData(img);
+		((ImageMLData)input).downsample(
+				this.downsample, false,
+				this.downsampleHeight, this.downsampleWidth,
+				1, -1);
+		int winner = this.network.winner(input);
+		System.out.println("What is:"+filename+", looks like:"+this.neuron2identity.get(winner));
 	}
 	
 	private int assignIdentity(String identity) {
