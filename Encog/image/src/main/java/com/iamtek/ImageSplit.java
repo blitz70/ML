@@ -64,115 +64,24 @@ public class ImageSplit {
 	
 	public static void main(String[] args) {
 		
-		int count=0;
-		String sourcePath="";
-		String targetPath="";
-		
 		//training
-		sourcePath = "src/main/resources/digits/training/0/";
-		targetPath = "src/main/resources/training/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits0-"+i+".png", targetPath, "digits0-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/1/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits1-"+i+".png", targetPath, "digits1-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/2/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits2-"+i+".png", targetPath, "digits2-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/3/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits3-"+i+".png", targetPath, "digits3-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/4/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits4-"+i+".png", targetPath, "digits4-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/5/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits5-"+i+".png", targetPath, "digits5-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/6/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits6-"+i+".png", targetPath, "digits6-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/7/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits7-"+i+".png", targetPath, "digits7-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/8/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits8-"+i+".png", targetPath, "digits8-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/training/9/";
-		for (int i = 1; i < 8; i++) {
-			count = split(sourcePath, "digits9-"+i+".png", targetPath, "digits9-", count+i);
+		int count=0;
+		String path = "d:/code/digits/training/";
+		for (int j = 0; j < 10; j++) {
+			for (int i = 1; i < 8; i++) {
+				count = split(path+j+"/", "digits"+j+"-"+i+".png", path, "digits"+j+"-", count+i);
+			}
+			count=0;
 		}
 
 		//test
 		count=0;
-		sourcePath = "src/main/resources/digits/test/0/";
-		targetPath = "src/main/resources/test/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits0-"+(i+7)+".png", targetPath, "digits0-", count+i);
+		path = "d:/code/digits/test/";
+		for (int j = 0; j < 10; j++) {
+			for (int i = 1; i < 4; i++) {
+				count = split(path+j+"/", "digits"+j+"-"+(i+7)+".png", path, "digits"+j+"-", count+i);
+			}
+			count=0;
 		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/1/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits1-"+(i+7)+".png", targetPath, "digits1-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/2/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits2-"+(i+7)+".png", targetPath, "digits2-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/3/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits3-"+(i+7)+".png", targetPath, "digits3-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/4/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits4-"+(i+7)+".png", targetPath, "digits4-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/5/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits5-"+(i+7)+".png", targetPath, "digits5-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/6/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits6-"+(i+7)+".png", targetPath, "digits6-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/7/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits7-"+(i+7)+".png", targetPath, "digits7-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/8/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits8-"+(i+7)+".png", targetPath, "digits8-", count+i);
-		}
-		count=0;
-		sourcePath = "src/main/resources/digits/test/9/";
-		for (int i = 1; i < 4; i++) {
-			count = split(sourcePath, "digits9-"+(i+7)+".png", targetPath, "digits9-", count+i);
-		}
-		
 	}
-
 }

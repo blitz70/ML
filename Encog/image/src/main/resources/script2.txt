@@ -1,0 +1,14 @@
+CreateTraining: width:32, height:32, type:Mono
+Input:
+Network: hidden1:100, hidden2:0
+Train: Minutes:10, StrategyError:0.4, StrategyCycles:20
+WhatIs: image:digits0-10.jpg
+WhatIs: image:digits1-5.jpg
+WhatIs: image:digits2-15.jpg
+WhatIs: image:digits3-24.jpg
+WhatIs: image:digits4-60.jpg
+WhatIs: image:digits5-500.jpg
+WhatIs: image:digits6-80.jpg
+WhatIs: image:digits7-160.jpg
+WhatIs: image:digits8-66.jpg
+WhatIs: image:digits9-350.jpg

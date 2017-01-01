@@ -15,12 +15,18 @@ import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
 
+import org.encog.Encog;
 import org.encog.EncogError;
+import org.encog.ml.CalculateScore;
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLData;
+import org.encog.ml.train.MLTrain;
+import org.encog.ml.train.strategy.HybridStrategy;
 import org.encog.ml.train.strategy.ResetStrategy;
 import org.encog.neural.networks.BasicNetwork;
+import org.encog.neural.networks.training.TrainingSetScore;
+import org.encog.neural.networks.training.anneal.NeuralSimulatedAnnealing;
 import org.encog.neural.networks.training.propagation.resilient.ResilientPropagation;
 import org.encog.platformspecific.j2se.data.image.ImageMLData;
 import org.encog.platformspecific.j2se.data.image.ImageMLDataSet;
@@ -51,7 +57,6 @@ class ImagePair {
 
 public class ImageMain {
 
-	
 	//?
 	private Map<String, String> args = new HashMap<String, String>();
 	private String line;
@@ -59,8 +64,10 @@ public class ImageMain {
 	private Map<Integer, String> neuron2identity = new HashMap<Integer, String>();
 	
 	//image
-	private String trainingPath = "src/main/resources/training/";
-	private String testPath = "src/main/resources/test/";
+	/*private String trainingPath = "src/main/resources/training/";
+	private String testPath = "src/main/resources/test/";*/
+	private String trainingPath = "d:/code/digits/training/";
+	private String testPath = "d:/code/digits/test/";
 	private int downsampleWidth;
 	private int downsampleHeight;
 	private Downsample downsample;
@@ -79,10 +86,11 @@ public class ImageMain {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Encog.getInstance().shutdown();
 	}
 	
 	private void processScript() throws IOException{
-		File script = new File("src/main/resources/script.txt");
+		File script = new File("src/main/resources/script2.txt");
 		FileInputStream fstream = new FileInputStream(script);
 		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -101,7 +109,7 @@ public class ImageMain {
 			}
 			if (command.equals("input")) processInput();
 			if (command.equals("createtraining")) processCreateTraining();
-			if (command.equals("training")) processTrain();
+			if (command.equals("train")) processTrain();
 			if (command.equals("network")) processNetwork();
 			if (command.equals("whatis")) processWhatIs();
 		}
@@ -174,12 +182,14 @@ public class ImageMain {
 	}
 	
 	private void processTrain(){
-		String mode = getArg("mode");
 		int minutes = Integer.parseInt(getArg("minutes"));
 		double strategyError = Double.parseDouble(getArg("strategyerror"));
 		int strategyCycles = Integer.parseInt(getArg("strategycycles"));
 		System.out.println("Training begining... Output patterns=" + this.outputCount);
-		ResilientPropagation train = new ResilientPropagation(this.network, this.training);
+		MLTrain train = new ResilientPropagation(this.network, this.training);
+		CalculateScore score = new TrainingSetScore(this.training);
+		MLTrain sub = new NeuralSimulatedAnnealing(this.network, score, 10, 2, strategyCycles);
+		train.addStrategy(new HybridStrategy(sub));
 		train.addStrategy(new ResetStrategy(strategyError, strategyCycles));
 		EncogUtility.trainConsole(train, this.network, this.training, minutes);
 		System.out.println("Training stopped...");
