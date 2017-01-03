@@ -35,39 +35,31 @@ import org.encog.util.downsample.RGBDownsample;
 import org.encog.util.downsample.SimpleIntensityDownsample;
 import org.encog.util.simple.EncogUtility;
 
-class ImagePair {
-
-	private File file;
-	private int identity;
-	
-	public ImagePair(File file, int identity) {
-		this.file = file;
-		this.identity = identity;
-	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public int getIdentity() {
-		return identity;
-	}
-
-}
-
 public class ImageMain {
 
-	//?
+	class ImagePair {
+		private File file;
+		private int identity;
+		public ImagePair(File file, int identity) {
+			this.file = file;
+			this.identity = identity;
+		}
+		public File getFile() {
+			return file;
+		}
+		public int getIdentity() {
+			return identity;
+		}
+	}
+
+	//script
 	private Map<String, String> args = new HashMap<String, String>();
 	private String line;
-	private Map<String, Integer> identity2neuron = new HashMap<String, Integer>();
-	private Map<Integer, String> neuron2identity = new HashMap<Integer, String>();
+	private String scriptFile = "src/main/resources/script2.txt";
 	
 	//image
-	/*private String trainingPath = "src/main/resources/training/";
-	private String testPath = "src/main/resources/test/";*/
-	private String trainingPath = "d:/code/digits/training/";
-	private String testPath = "d:/code/digits/test/";
+	private String trainingPath = "src/main/resources/training/";
+	private String testPath = "src/main/resources/test/";
 	private int downsampleWidth;
 	private int downsampleHeight;
 	private Downsample downsample;
@@ -77,21 +69,22 @@ public class ImageMain {
 	//network
 	private int outputCount;
 	private BasicNetwork network;
+	private Map<String, Integer> identity2neuron = new HashMap<String, Integer>();
+	private Map<Integer, String> neuron2identity = new HashMap<Integer, String>();
 
 	public static void main(String[] args) {
 		
 		ImageMain prog = new ImageMain();
 		try {
-			prog.processScript();
+			prog.processScript(prog.scriptFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Encog.getInstance().shutdown();
 	}
 	
-	private void processScript() throws IOException{
-		File script = new File("src/main/resources/script2.txt");
-		FileInputStream fstream = new FileInputStream(script);
+	private void processScript(String file) throws IOException{
+		FileInputStream fstream = new FileInputStream(file);
 		DataInputStream in = new DataInputStream(fstream);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
 		while((this.line = br.readLine()) != null){
@@ -104,14 +97,24 @@ public class ImageMain {
 				String arg = token.nextToken();
 				int index2 = arg.indexOf(':');
 				String key = arg.substring(0, index2).toLowerCase().trim();
-				String value = arg.substring(index2+1).toLowerCase().trim();
+				String value = arg.substring(index2+1).trim();
 				this.args.put(key, value);
 			}
-			if (command.equals("input")) processInput();
-			if (command.equals("createtraining")) processCreateTraining();
-			if (command.equals("train")) processTrain();
-			if (command.equals("network")) processNetwork();
-			if (command.equals("whatis")) processWhatIs();
+			if (command.equals("input")){
+				processInput();
+			}
+			else if (command.equals("createtraining")){
+				processCreateTraining();
+			}
+			else if (command.equals("train")){
+				processTrain();
+			}
+			else if (command.equals("network")){
+				processNetwork();
+			}
+			else if (command.equals("whatis")){
+				processWhatIs();
+			}
 		}
 		br.close();
 		in.close();
@@ -129,30 +132,17 @@ public class ImageMain {
 		} else {
 			this.downsample = new SimpleIntensityDownsample();
 		}
-		this.training = new ImageMLDataSet(downsample, false, 1, -1);
+		this.training = new ImageMLDataSet(this.downsample, false, 1, -1);
 		System.out.println("Training set created");
 	}
 	
 	private void processInput(){
-		/*String image = getArg("image");
+		String image = getArg("image");
 		String identity = getArg("identity");
 		int index = assignIdentity(identity);
 		File file = new File(trainingPath, image);
 		this.imageList.add(new ImagePair(file, index));
-		System.out.println("Added input image:" + image);*/
-		
-		File input = null;
-		for (int id = 0; id < 10; id++) {
-			int no = 1;
-			while(true){
-				input = new File(trainingPath, "digits" + id + "-"+no+".jpg");
-				if(!input.exists()) break;
-				int index = assignIdentity(String.valueOf(id));
-				this.imageList.add(new ImagePair(input, index));
-				System.out.println("Added input image:" + input);
-				no++;
-			}
-		}
+		System.out.println("Added input image:" + image);
 	}
 
 	private void processNetwork() throws IOException{
@@ -200,7 +190,7 @@ public class ImageMain {
 		File file = new File(testPath, filename);
 		Image img = ImageIO.read(file);
 		MLData input = new ImageMLData(img);
-		((ImageMLData)input).downsample(
+		((ImageMLData) input).downsample(
 				this.downsample, false,
 				this.downsampleHeight, this.downsampleWidth,
 				1, -1);

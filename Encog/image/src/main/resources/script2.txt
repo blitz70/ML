@@ -1,14 +1,43 @@
-CreateTraining: width:32, height:32, type:Mono
-Input:
+CreateTraining: width:16, height:16, type:RGB
+Input: image:100b-1.jpg, identity:One Hundred Won
+Input: image:100b-5.jpg, identity:One Hundred Won
+Input: image:100b-7.jpg, identity:One Hundred Won
+Input: image:100b-8.jpg, identity:One Hundred Won
+Input: image:100f-2.jpg, identity:One Hundred Won
+Input: image:100f-3.jpg, identity:One Hundred Won
+Input: image:100f-4.jpg, identity:One Hundred Won
+Input: image:100f-6.jpg, identity:One Hundred Won
+Input: image:10b-1.jpg, identity:Ten Won
+Input: image:10b-3.jpg, identity:Ten Won
+Input: image:10b-4.jpg, identity:Ten Won
+Input: image:10b-6.jpg, identity:Ten Won
+Input: image:10b-8.jpg, identity:Ten Won
+Input: image:10f-2.jpg, identity:Ten Won
+Input: image:10f-5.jpg, identity:Ten Won
+Input: image:10f-7.jpg, identity:Ten Won
+Input: image:500b-1.jpg, identity:Five Hundred Won
+Input: image:500b-3.jpg, identity:Five Hundred Won
+Input: image:500b-5.jpg, identity:Five Hundred Won
+Input: image:500b-6.jpg, identity:Five Hundred Won
+Input: image:500f-2.jpg, identity:Five Hundred Won
+Input: image:500f-4.jpg, identity:Five Hundred Won
+Input: image:500f-7.jpg, identity:Five Hundred Won
+Input: image:500f-8.jpg, identity:Five Hundred Won
+Input: image:50b-1.jpg, identity:Fifty Won
+Input: image:50b-2.jpg, identity:Fifty Won
+Input: image:50b-4.jpg, identity:Fifty Won
+Input: image:50b-5.jpg, identity:Fifty Won
+Input: image:50f-3.jpg, identity:Fifty Won
+Input: image:50f-6.jpg, identity:Fifty Won
+Input: image:50f-7.jpg, identity:Fifty Won
+Input: image:50f-8.jpg, identity:Fifty Won
 Network: hidden1:100, hidden2:0
-Train: Minutes:10, StrategyError:0.4, StrategyCycles:20
-WhatIs: image:digits0-10.jpg
-WhatIs: image:digits1-5.jpg
-WhatIs: image:digits2-15.jpg
-WhatIs: image:digits3-24.jpg
-WhatIs: image:digits4-60.jpg
-WhatIs: image:digits5-500.jpg
-WhatIs: image:digits6-80.jpg
-WhatIs: image:digits7-160.jpg
-WhatIs: image:digits8-66.jpg
-WhatIs: image:digits9-350.jpg
+Train: Minutes:1, StrategyError:0.1, StrategyCycles:50
+WhatIs: image:100b-10.jpg
+WhatIs: image:100f-9.jpg
+WhatIs: image:10b-10.jpg
+WhatIs: image:10f-9.jpg
+WhatIs: image:500b-10.jpg
+WhatIs: image:500f-9.jpg
+WhatIs: image:50b-10.jpg
+WhatIs: image:50f-9.jpg
