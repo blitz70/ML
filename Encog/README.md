@@ -32,3 +32,5 @@ Machine Learning framework for Java by Jeff Heaton
 * Stock market
 
 >* Image Data
+
+>* SOM, Self-Organizing Map
