@@ -2,7 +2,9 @@
 
 <hr/>
 
-##1. Artificial Neural Networks [(Jeff Heaton)](http://www.heatonresearch.com/), English
+##1. Artificial Neural Networks by [Jeff Heaton](http://www.heatonresearch.com/)
+
+>English
 
 * Fundamentals
 
@@ -26,9 +28,9 @@
 * [Gradient Calculation](https://www.youtube.com/watch?v=p1-FiWjThs8&index=12&list=PLiPvV5TNogxJoK7Y3z6kjc_jgtM3Se-u2)
 * [Backpropagation](https://www.youtube.com/watch?v=IruMm7mPDdM&list=PLiPvV5TNogxJoK7Y3z6kjc_jgtM3Se-u2&index=13)
 
-##2. Neural Networks for Machine Learning by Geoffrey Hinton [(1-16)](https://www.youtube.com/playlist?list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0), Coursera 2013, English
+##2. Neural Networks for Machine Learning by Geoffrey Hinton [(1-16)](https://www.youtube.com/playlist?list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
 
->Heavy on theory, not for beginners
+>Coursera 2013, English. Heavy on theory, not for beginners
 
 * [L1 : Introduction](https://www.youtube.com/watch?v=2fRnHVVLf1Y&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=6)
 
