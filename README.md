@@ -125,7 +125,13 @@
 * [An example of Contrastive Divergence Learning](https://www.youtube.com/watch?v=JKw4z2tKl_4&index=70&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
 * [RBMs for collaborative filtering](https://www.youtube.com/watch?v=UXQhVkDM05g&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=71)
 
-* L13 : Stacking RBMs to make Deep Belief Nets
+* [L13 : Stacking RBMs to make Deep Belief Nets](https://www.youtube.com/watch?v=tM2QtkiXKxE&index=13&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+
+>* [The ups and downs of backpropagation](https://www.youtube.com/watch?v=MpLds0oohC8&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=73)
+* [Belief Nets](https://www.youtube.com/watch?v=wrTdMkCu9Bk&index=74&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [Learning Sigmoid Belief Nets](https://www.youtube.com/watch?v=uVJi1lDOEVw&index=75&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [The wake-sleep algorithm](https://www.youtube.com/watch?v=ZaJZlqP6TIs&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=76)
+
 * L14 : Deep neural nets with generative pre-training
 * L15 : Modeling hierarchical structure with neural nets
 * L16 : Recent applications of deep neural nets
