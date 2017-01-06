@@ -23,6 +23,11 @@ public class SomColors extends JFrame implements Runnable {
 	private SOM network;
 	private BasicTrainSOM train;
 	private NeighborhoodRBF rbf;
+	private int iteration = 10000;
+	private double startRate = 0.8;
+	private double endRate = 0.03;
+	private double startRadius = 10;
+	private double endRadius = 1;
 
 	public static void main(String[] args) {
 		SomColors prog = new SomColors();
@@ -55,15 +60,15 @@ public class SomColors extends JFrame implements Runnable {
 	@Override
 	public void run() {
 		List<MLData> samples = new ArrayList<MLData>();
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 256; i++) {
 			MLData data = new BasicMLData(3);
 			data.setData(0, RangeRandomizer.randomize(-1, 1));
 			data.setData(1, RangeRandomizer.randomize(-1, 1));
 			data.setData(2, RangeRandomizer.randomize(-1, 1));
 			samples.add(data);
 		}
-		this.train.setAutoDecay(100, 0.8, 0.003, 30, 5);
-		for(int i = 0; i < 100; i++){
+		this.train.setAutoDecay(iteration, startRate, endRate, startRadius, endRadius);
+		for(int i = 0; i < iteration; i++){
 			int index = (int) (Math.random()*samples.size());
 			MLData pattern = samples.get(index);
 			this.train.trainPattern(pattern);

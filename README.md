@@ -134,6 +134,13 @@
 * [Learning Sigmoid Belief Nets](https://www.youtube.com/watch?v=uVJi1lDOEVw&index=75&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
 * [The wake-sleep algorithm](https://www.youtube.com/watch?v=ZaJZlqP6TIs&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=76)
 
-* L14 : Deep neural nets with generative pre-training
+* [L14 : Deep neural nets with generative pre-training](https://www.youtube.com/watch?v=kkKu787Oph8&index=14&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+
+>* [Learning layers of features by stacking RBMs](https://www.youtube.com/watch?v=-TiIO_PX81Y&index=78&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [Discriminative fine-tuning for DBNs](https://www.youtube.com/watch?v=HRXPYKU1xOs&index=79&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+* [What happens during discriminative fine-tuning?](https://www.youtube.com/watch?v=L779C8V_p4I&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=80)
+* [Modeling real-valued data with an RBM](https://www.youtube.com/watch?v=nsharLnuvjQ&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=81)
+* [RBMs are Infinite Sigmoid Belief Nets](https://www.youtube.com/watch?v=yYvN-BUpOB4&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=82)
+
 * L15 : Modeling hierarchical structure with neural nets
 * L16 : Recent applications of deep neural nets
