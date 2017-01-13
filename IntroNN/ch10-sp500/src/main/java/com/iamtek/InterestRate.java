@@ -2,16 +2,35 @@ package com.iamtek;
 
 import java.util.Date;
 
-public class InterestRate {
+public class InterestRate implements Comparable<InterestRate>{
 
-	public double getRate() {
-		// TODO Auto-generated method stub
-		return 0;
+	private Date date;
+	private double rate;
+	
+	@Override
+	public int compareTo(InterestRate other) {	//sort by date
+		return getDate().compareTo(other.getDate());
 	}
 
-	public Date getEffectiveDate() {
-		// TODO Auto-generated method stub
-		return null;
+	public InterestRate(Date date, double rate) {
+		this.date = date;
+		this.rate = rate;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
 	}
 
 }
