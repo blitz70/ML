@@ -2,16 +2,19 @@ package com.iamtek;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 
 import org.encog.Encog;
 import org.encog.engine.network.activation.ActivationTANH;
+import org.encog.mathutil.error.ErrorCalculation;
 import org.encog.ml.CalculateScore;
 import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.ml.train.MLTrain;
 import org.encog.ml.train.strategy.HybridStrategy;
+import org.encog.ml.train.strategy.end.EndMaxErrorStrategy;
+import org.encog.ml.train.strategy.end.EndMinutesStrategy;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.training.TrainingSetScore;
 import org.encog.neural.networks.training.anneal.NeuralSimulatedAnnealing;
@@ -28,7 +31,7 @@ public class PredictMain {
 	public static int OUTPUT_SIZE = 1;
 	public static int HIDDEN1 = 20;
 	public static int HIDDEN2 = 0;
-	public static double MAX_ERROR = 0.001;
+	public static double MAX_ERROR = 0.00001;
 	public static Date PREDICT_FROM = ReadCSV.parseDate("2016-01-01");
 	public static Date LEARN_FROM = ReadCSV.parseDate("1980-01-01");
 	public static String FILE_PATH = "src/main/resources/";
@@ -36,49 +39,88 @@ public class PredictMain {
 	public static String RATE_FILE = "prime.txt";
 	public static String DATA_SAVE_FILE = "save.txt";
 	public static String NN_FILE = "NN.txt";
-
+	
+	private double[][] input;
+	private double[][] ideal;
+	private BasicNetwork network;
+	private SP500Data data;
+	
 	public static void main(String[] args) {
 
 		PredictMain p = new PredictMain();
-		p.run(true);
-		//p.run(false);
+		//p.run(true);
+		p.run(false);
 		Encog.getInstance().shutdown();
 	}
 	
 	public void run(boolean fullmode){
 			try {
-				this.actual = new SP500Actual(INPUT_SIZE, OUTPUT_SIZE);
-				this.actual.generateData(FILE_PATH, FINANCE_FILE, RATE_FILE);
-				System.out.println("Samples read:"+this.actual.size());
+				this.data = new SP500Data(INPUT_SIZE, OUTPUT_SIZE);
+				this.data.generateData(FILE_PATH, FINANCE_FILE, RATE_FILE);
+				System.out.println("Samples read:"+this.data.size());
 				if(fullmode){
 					generateTrainingSets();
 					createNetwork();
-					saveNetwork(FILE_PATH, NN_FILE);
 					trainNetwork();
+					saveNetwork(FILE_PATH, NN_FILE);
 				}else{
 					loadNetwork(FILE_PATH, NN_FILE);
+					predict();
 				}
-				display();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 	}
 	
-	private void display() {
-		// TODO Auto-generated method stub
+	private void predict() {
+		NumberFormat fm = NumberFormat.getPercentInstance();
+		fm.setMinimumFractionDigits(2);
 		
+		double[] present = new double[INPUT_SIZE*2];
+		double[] predict = new double[OUTPUT_SIZE];
+		double[] ideal = new double[OUTPUT_SIZE];
+		
+		int index = 0;
+		double errorSum = 0;
+		double count = 0;
+		double hitSum = 0;
+		for (FinancialSample sample : this.data.getSamples()) {
+			if(sample.getDate().after(PREDICT_FROM)){
+				this.data.getInputData(index-INPUT_SIZE, present);
+				this.data.getOutputData(index-INPUT_SIZE, ideal);
+				this.network.compute(present, predict);
+				ErrorCalculation error = new ErrorCalculation();
+				error.updateError(predict, ideal, 1);
+				double err = error.calculateRMS();
+				StringBuilder result = new StringBuilder();
+				result.append(ReadCSV.displayDate(sample.getDate()));
+				result.append(":Start=");
+				result.append(sample.getAmount());
+				result.append(", Ideal=");
+				result.append(fm.format(ideal[0]));
+				result.append(", Predicted=");
+				result.append(fm.format(predict[0]));
+				result.append(", Difference=");
+				result.append(fm.format(err));
+				System.out.println(result.toString());
+				errorSum += err;
+				count++;
+				if(Math.signum(ideal[0]) == Math.signum(predict[0])){
+					hitSum++;
+				}
+			}
+			index++;
+		}
+		System.out.println(
+				"Ave Difference:"+fm.format(errorSum/count)+
+				", Hit rate:"+fm.format(hitSum/count));
 	}
 
-	private double[][] input;
-	private double[][] ideal;
-	private BasicNetwork network;
-	private SP500Actual actual;
-	
 	private void generateTrainingSets(){
 		this.input = new double[TRAINING_SIZE][INPUT_SIZE*2];
 		this.ideal = new double[TRAINING_SIZE][OUTPUT_SIZE];
 		int startIndex = 0;
-		for (FinancialSample sample : this.actual.getSamples()) {	//find start point of training
+		for (FinancialSample sample : this.data.getSamples()) {	//find start point of training
 			if(sample.getDate().after(LEARN_FROM)){
 				break;
 			}
@@ -91,8 +133,8 @@ public class PredictMain {
 		}
 		int factor = actualSamples/TRAINING_SIZE;	//?
 		for (int i = 0; i < TRAINING_SIZE; i++) {
-			this.actual.getInputData(startIndex+(i*factor), this.input[i]);
-			this.actual.getOutputData(startIndex+(i*factor), this.ideal[i]);
+			this.data.getInputData(startIndex+(i*factor), this.input[i]);
+			this.data.getOutputData(startIndex+(i*factor), this.ideal[i]);
 		}
 	}
 	
@@ -119,7 +161,8 @@ public class PredictMain {
 		//this.network = (BasicNetwork) SerializeObject.load(new File(filePath,fileName));
 	}
 	private void trainNetwork(){
-		DecimalFormat fm = new DecimalFormat("##.####");
+		NumberFormat fm = NumberFormat.getPercentInstance();
+		fm.setMinimumFractionDigits(4);
 		MLDataSet training = new BasicMLDataSet(input, ideal);
 		MLTrain train = new Backpropagation(
 				this.network, training,
@@ -129,11 +172,14 @@ public class PredictMain {
 				this.network, score,
 				10, 2, 100);
 		train.addStrategy(new HybridStrategy(train2));
-		do{
+		train.addStrategy(new EndMaxErrorStrategy(MAX_ERROR));
+		train.addStrategy(new EndMinutesStrategy(5));
+		while(!train.isTrainingDone()){
 			train.iteration();
 			System.out.println("Iteration #"+train.getIteration()+" Error:"+fm.format(train.getError()));
-		} while (train.getError()>MAX_ERROR);
+		}
 		train.finishTraining();
+		System.out.println("Training done.");
 	}
 
 }

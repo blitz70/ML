@@ -14,7 +14,7 @@ import java.util.TreeSet;
 import org.encog.util.csv.CSVFormat;
 import org.encog.util.csv.ReadCSV;
 
-public class SP500Actual {
+public class SP500Data {
 	
 	//http://finance.yahoo.com/quote/%5EGSPC/history?p=^GSPC
 	//https://fred.stlouisfed.org/categories/117/downloaddata
@@ -24,7 +24,7 @@ public class SP500Actual {
 	private int inputSize;
 	private int outputSize;
 
-	public SP500Actual(int inputSize, int outputSize) {
+	public SP500Data(int inputSize, int outputSize) {
 		this.inputSize = inputSize;
 		this.outputSize = outputSize;
 	}

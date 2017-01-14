@@ -1,6 +1,6 @@
 package com.iamtek;
 
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 
 import org.encog.util.csv.ReadCSV;
@@ -19,19 +19,19 @@ public class FinancialSample implements Comparable<FinancialSample> {
 
 	@Override
 	public String toString() {
-		DecimalFormat fm = new DecimalFormat("##.####");
+		//DecimalFormat fm = new DecimalFormat("##.####");
+		NumberFormat fm = NumberFormat.getPercentInstance();
+		fm.setMinimumFractionDigits(2);
+		fm.setMaximumFractionDigits(2);
+		
 		StringBuilder result = new StringBuilder();
-		
 		result.append(ReadCSV.displayDate(this.date));
-		
 		result.append(", Amount: ");
 		result.append(fm.format(amount));
-
 		result.append(", Prime rate: ");
 		result.append(rate);
-		
 		result.append(", Previous percent: ");
-		result.append(fm.format(percent*100));
+		result.append(fm.format(percent));
 		
 		return result.toString();
 	}
