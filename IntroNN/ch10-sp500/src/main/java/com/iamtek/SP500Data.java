@@ -38,6 +38,7 @@ public class SP500Data {
 		for (FinancialSample sample : this.samples) {
 			if(prev != -1){
 				double percent = (sample.getAmount() - prev)/prev;
+				//double percent = Math.signum(sample.getAmount() - prev);//updown
 				sample.setPercent(percent);
 			}
 			prev = sample.getAmount();
@@ -46,16 +47,16 @@ public class SP500Data {
 	
 	public void getInputData(int offset, double[] input){
 		Object[] samplesArray = this.samples.toArray();
-		/*for (int i = 0; i < this.inputSize; i++) {
-			FinancialSample sample = (FinancialSample) samplesArray[offset+i];
-			input[i*2] = sample.getPercent();
-			input[i*2+1] = sample.getRate();
-		}*/
 		for (int i = 0; i < this.inputSize; i++) {
+			FinancialSample sample = (FinancialSample) samplesArray[offset+i];
+			input[2*i] = sample.getPercent();
+			input[2*i+1] = sample.getRate();
+		}
+		/*for (int i = 0; i < this.inputSize; i++) {
 			FinancialSample sample = (FinancialSample) samplesArray[offset+i];
 			input[i] = sample.getPercent();
 			input[i+this.outputSize] = sample.getRate();	//?
-		}
+		}*/
 	}
 	
 	public void getOutputData(int offset, double[] output){

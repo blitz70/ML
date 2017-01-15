@@ -3,6 +3,7 @@ package com.iamtek;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.encog.Encog;
@@ -28,16 +29,16 @@ public class PredictMain {
 	
 	public static int TRAINING_SIZE = 500;
 	public static int INPUT_SIZE = 10;
-	public static int OUTPUT_SIZE = 1;
+	public static int OUTPUT_SIZE = 1;//1
 	public static int HIDDEN1 = 20;
 	public static int HIDDEN2 = 0;
-	public static double MAX_ERROR = 0.00001;
+	public static double MAX_ERROR = 0.00001;//0.00001
 	public static Date PREDICT_FROM = ReadCSV.parseDate("2016-01-01");
 	public static Date LEARN_FROM = ReadCSV.parseDate("1980-01-01");
 	public static String FILE_PATH = "src/main/resources/";
 	public static String FINANCE_FILE = "sp500.txt";
 	public static String RATE_FILE = "prime.txt";
-	public static String DATA_SAVE_FILE = "save.txt";
+	public static String DATA_FILE = "data.txt";
 	public static String NN_FILE = "NN.txt";
 	
 	private double[][] input;
@@ -48,9 +49,23 @@ public class PredictMain {
 	public static void main(String[] args) {
 
 		PredictMain p = new PredictMain();
+		//p.test();
 		//p.run(true);
 		p.run(false);
 		Encog.getInstance().shutdown();
+	}
+	
+	public void test(){
+		try {
+			this.data = new SP500Data(INPUT_SIZE, OUTPUT_SIZE);
+			this.data.generateData(FILE_PATH, FINANCE_FILE, RATE_FILE);
+			generateTrainingSets();
+			System.out.println(Arrays.toString(this.input[0]));
+			System.out.println(Arrays.toString(this.ideal[0]));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void run(boolean fullmode){
@@ -60,13 +75,14 @@ public class PredictMain {
 				System.out.println("Samples read:"+this.data.size());
 				if(fullmode){
 					generateTrainingSets();
+					this.data.saveData(FILE_PATH, DATA_FILE);
 					createNetwork();
 					trainNetwork();
 					saveNetwork(FILE_PATH, NN_FILE);
 				}else{
 					loadNetwork(FILE_PATH, NN_FILE);
-					predict();
 				}
+				predict();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -140,7 +156,7 @@ public class PredictMain {
 	
 	private void createNetwork(){
 		NeuralNetworkPattern pattern = new FeedForwardPattern();
-		pattern.setActivationFunction(new ActivationTANH());
+		pattern.setActivationFunction(new ActivationTANH());//
 		pattern.setInputNeurons(INPUT_SIZE*2);
 		pattern.addHiddenLayer(HIDDEN1);
 		if(HIDDEN2>0){
@@ -173,7 +189,8 @@ public class PredictMain {
 				10, 2, 100);
 		train.addStrategy(new HybridStrategy(train2));
 		train.addStrategy(new EndMaxErrorStrategy(MAX_ERROR));
-		train.addStrategy(new EndMinutesStrategy(5));
+		train.addStrategy(new EndMinutesStrategy(2));
+		//train.addStrategy(new ResetStrategy(MAX_ERROR*10, 100));
 		while(!train.isTrainingDone()){
 			train.iteration();
 			System.out.println("Iteration #"+train.getIteration()+" Error:"+fm.format(train.getError()));
