@@ -14,6 +14,8 @@ import org.encog.ml.data.versatile.sources.CSVDataSource;
 import org.encog.ml.data.versatile.sources.VersatileDataSource;
 import org.encog.ml.factory.MLMethodFactory;
 import org.encog.ml.model.EncogModel;
+import org.encog.neural.networks.BasicNetwork;
+import org.encog.persist.EncogDirectoryPersistence;
 import org.encog.util.arrayutil.VectorWindow;
 import org.encog.util.csv.CSVFormat;
 import org.encog.util.csv.ReadCSV;
@@ -60,7 +62,10 @@ public class PredictMain2 {
 				", Validation error:" + model.calculateError(bestMethod, model.getValidationDataset())
 		);
 		System.out.println(helper.toString());
-		System.out.println("Final model:" + bestMethod);
+		System.out.println(
+				"Final model:" + bestMethod + 
+				", Inputs:" + bestMethod.getInputCount() + 
+				", Outputs:"+bestMethod.getOutputCount());
 
 		//predict
 		ReadCSV csv = new ReadCSV(new File(FILE_PATH, DATA_FILE), true, csvFormat);
@@ -109,6 +114,11 @@ public class PredictMain2 {
 		MLData output = bestMethod.compute(input);
 		String predicted = helper.denormalizeOutputVectorToString(output)[0];
 		System.out.println("Next prediction: " + predicted);
+		System.out.println(
+				"Final model:" + bestMethod + 
+				", Inputs:" + bestMethod.getInputCount() + 
+				", Outputs:"+bestMethod.getOutputCount());
+		EncogDirectoryPersistence.saveObject(new File(FILE_PATH, "nn2.txt"), bestMethod);
 		Encog.getInstance().shutdown();
 	}
 	
