@@ -2,6 +2,7 @@ package com.iamtek;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -14,6 +15,7 @@ import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.ml.train.MLTrain;
 import org.encog.ml.train.strategy.HybridStrategy;
+import org.encog.ml.train.strategy.ResetStrategy;
 import org.encog.ml.train.strategy.end.EndMaxErrorStrategy;
 import org.encog.ml.train.strategy.end.EndMinutesStrategy;
 import org.encog.neural.networks.BasicNetwork;
@@ -89,16 +91,17 @@ public class PredictMain {
 	}
 	
 	private void predict() {
-		NumberFormat fm = NumberFormat.getPercentInstance();
-		fm.setMinimumFractionDigits(2);
+		NumberFormat pf = NumberFormat.getPercentInstance();
+		pf.setMinimumFractionDigits(2);
+		NumberFormat nf = new DecimalFormat("##.####");
 		
 		double[] present = new double[INPUT_SIZE*2];
 		double[] predict = new double[OUTPUT_SIZE];
 		double[] ideal = new double[OUTPUT_SIZE];
 		
 		int index = 0;
+		int count = 0;
 		double errorSum = 0;
-		double count = 0;
 		double hitSum = 0;
 		for (FinancialSample sample : this.data.getSamples()) {
 			if(sample.getDate().after(PREDICT_FROM)){
@@ -113,23 +116,28 @@ public class PredictMain {
 				result.append(":Start=");
 				result.append(sample.getAmount());
 				result.append(", Ideal=");
-				result.append(fm.format(ideal[0]));
+				result.append(nf.format(ideal[0]));
 				result.append(", Predicted=");
-				result.append(fm.format(predict[0]));
+				result.append(nf.format(predict[0]));
 				result.append(", Difference=");
-				result.append(fm.format(err));
-				System.out.println(result.toString());
-				errorSum += err;
-				count++;
-				if(Math.signum(ideal[0]) == Math.signum(predict[0])){
-					hitSum++;
+				result.append(pf.format(err));
+				if(Math.abs(predict[0]) > 0.8){//filter before counting hits
+					if((Math.signum(ideal[0]) == Math.signum(predict[0]))){
+						hitSum++;
+						result.append(", Hit!");
+					} else {
+						result.append(", Miss!");
+					}
+					errorSum += err;
+					count++;
 				}
+				System.out.println(result.toString());
 			}
 			index++;
 		}
 		System.out.println(
-				"Ave Difference:"+fm.format(errorSum/count)+
-				", Hit rate:"+fm.format(hitSum/count));
+				"Ave Difference:"+pf.format(errorSum/count)+
+				", Hit rate:"+pf.format(hitSum/count) + ", Counts:" + count);
 	}
 
 	private void generateTrainingSets(){
@@ -187,10 +195,10 @@ public class PredictMain {
 		MLTrain train2 = new NeuralSimulatedAnnealing(
 				this.network, score,
 				10, 2, 100);
-		train.addStrategy(new HybridStrategy(train2));
+		train.addStrategy(new HybridStrategy(train2, 0.0000001, 5, 5));//default 0.00001 10 5
 		train.addStrategy(new EndMaxErrorStrategy(MAX_ERROR));
-		train.addStrategy(new EndMinutesStrategy(2));
-		//train.addStrategy(new ResetStrategy(MAX_ERROR*10, 100));
+		train.addStrategy(new EndMinutesStrategy(5));
+		train.addStrategy(new ResetStrategy(0.80, 10000));
 		while(!train.isTrainingDone()){
 			train.iteration();
 			System.out.println("Iteration #"+train.getIteration()+" Error:"+fm.format(train.getError()));
