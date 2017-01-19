@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.iamtek</groupId>
-	<artifactId>SMP-neuroph</artifactId>
+	<artifactId>smp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>SMP-neuroph</name>
+	<name>smp</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

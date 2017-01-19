@@ -4,10 +4,9 @@
 
 ##1. Coding
 
-* Encog
-* Introduction to Neural Networks
 * Neuroph
-
+* Encog, IntroNN
+* Deeplearning4j
 
 ##2. Study & Theory
 

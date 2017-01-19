@@ -24,7 +24,7 @@ public class NNStockPredictor{
 
     public static void main(String[] args) throws IOException {
 
-        NNStockPredictor predictor = new NNStockPredictor(5, "D:\\CODE\\GIT\\AI\\StockMarketPrediction\\SMP-neuroph\\src\\main\\resources\\rawTrainingData-kospi.csv");
+        NNStockPredictor predictor = new NNStockPredictor(5, "src/main/resources/rawTrainingData-kospi.csv");
         
         predictor.prepareData();
         System.out.println("Training starting");
