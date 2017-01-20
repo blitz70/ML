@@ -161,3 +161,32 @@
 * [Hierarchical coordinate frames](https://www.youtube.com/watch?v=am0__MkOxtk&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=92)
 * [Bayesian optimization of neural network hyperparameters](https://www.youtube.com/watch?v=ULuLoFIWQNc&index=93&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
 * [The fog of progress](https://www.youtube.com/watch?v=mMfiY8bK7EU&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=94)
+
+* Machine Learning by [Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX), Coursera, English.
+
+>* [L01-01 Introduction](https://www.youtube.com/watch?v=gb262LDH1So&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=1)
+
+>>* [Welcome](https://www.youtube.com/watch?v=bh1nST3PYpE&index=4&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [What is machine learning](https://www.youtube.com/watch?v=e0_bdQV9BVE&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=5)
+* [Supervised Learning](https://www.youtube.com/watch?v=lxkTVdnxPMk&index=6&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Unsupervised Learning](https://www.youtube.com/watch?v=mvnWw50IPXA&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=7)
+
+>* [L01-02 Linear regression with one variable](https://www.youtube.com/watch?v=_SbZYGeVcVM&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=2)
+
+>>* [Model representation](https://www.youtube.com/watch?v=4YRN8UDYL7o&index=8&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Cost function](https://www.youtube.com/watch?v=OoIjN6LgT5Y&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=9)
+* [Cost function intuition I](https://www.youtube.com/watch?v=O03o4efRkt4&index=10&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Cost function intuition II](https://www.youtube.com/watch?v=0UAyTzbW0eE&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=11)
+* [Gradient descent](https://www.youtube.com/watch?v=d9CcWucZY7g&index=12&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Gradient descent intuition](https://www.youtube.com/watch?v=1lxzQIRuATQ&index=13&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Gradient descent for linear regression](https://www.youtube.com/watch?v=in5r_91zHMI&index=14&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [What's next](https://www.youtube.com/watch?v=9N6OBPE4-8U&index=15&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+
+>* [L01-03 Linear Algebra review](https://www.youtube.com/watch?v=4Pm-htIGVMQ&index=3&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+
+>>* [Matrices and vectors](https://www.youtube.com/watch?v=mw_hVrVofWA&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=16)
+* [Addition and scalar multiplication](https://www.youtube.com/watch?v=7LvB6sA3CwI&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=17)
+* [Matrix-vector multiplication](https://www.youtube.com/watch?v=gMIjIhR4co8&index=18&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Matrix-matrix multiplication](https://www.youtube.com/watch?v=fp23_f1fMuc&index=19&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Matrix multiplication properties](https://www.youtube.com/watch?v=4rFqhuvuefs&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=20)
+* [Inverse and transpose](https://www.youtube.com/watch?v=_ff51si4EM0&index=21&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
