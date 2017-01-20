@@ -1,0 +1,49 @@
+Overview
+	Get data : train, test
+		RecordReader rr = new CSVRecordReader();
+		rr.initialize(new FileSplit(new File(FILE_PATH+TRAIN_FILE)));
+		DataSetIterator trainIter = new RecordReaderDataSetIterator(rr, batchSize, 0, 2);
+	Setup neural network
+		MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
+			.seed(seed)
+			.iterations(1)
+			.optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+			.learningRate(learningRate)
+			.updater(Updater.NESTEROVS).momentum(0.9)
+			.list()
+				.layer(0, new DenseLayer.Builder()
+						.nIn(nInputs)
+						.nOut(nHiddens)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.RELU)
+						.build())
+				.layer(1, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
+						.nIn(nHiddens)
+						.nOut(nOutputs)
+						.weightInit(WeightInit.XAVIER)
+						.activation(Activation.SOFTMAX)
+						.build())
+			.pretrain(false).backprop(true).build();
+		MultiLayerNetwork model = new MultiLayerNetwork(conf);
+			model.init();
+	Train
+		for (int i = 0; i < nEpochs; i++) {
+			model.fit(trainIter);
+		}
+	Test
+		Evaluation eval = new Evaluation(nOutputs);
+		while(evalIter.hasNext()){
+			DataSet ds = evalIter.next();
+			INDArray features = ds.getFeatures();
+			INDArray labels = ds.getLabels();
+			INDArray predicted = model.output(features, false);
+			eval.eval(labels, predicted);
+		}
+	Utils
+		To JSON format string
+			conf.toJson();
+		Listener
+			model.setListeners(new ScoreIterationListener(10));
+		Test info
+			eval.stats();
+	
