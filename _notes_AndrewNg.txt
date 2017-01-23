@@ -1,0 +1,140 @@
+01-01 Introduction
+	Examples
+		Database mining : web click data, medical records, biology, engineering
+		App that can't be programmed by hand : Auto heli, handwriting recognition, Natural Language Processing(NLP), Computer Vision
+		Self-customizing programs : Amazon, Netflix product recommendations
+		Understand human learning : brain, real AI
+	What is machine learning
+		Arthur Samuel(1959) : Field of study that gives computers the ability to learn without being explicitly programmed.
+		Tom Mitchel(1998) : A computer program is said to "learn" from experience E with respect to some task T and some performance mearsure P, if P on T improves with E.
+	Supervised learning
+		data with "right answers" explicitly given
+	Unsupervised learning
+		data with no answers, instead system is asked to find structure within
+		Example : Google news
+		Used in : Organize computing clusters, Social network analysis, Market segmentation, Astronomical data analysis
+		Cocktail party problem : separate mixed audio data
+	Regression/Classification
+		Regression : predict continuous valued output
+		Classification : predict discrete valued output
+
+01-02 Linear regression with one variable
+	Training set
+		m=number of training examples
+		x="input" variable / features
+		y="output" variable / "target" variable
+		<>, <<>> : superscript, subscript
+		(x,y)=one training example
+		(x<i>,y<i>)=i<th> training example
+		x=2104 1416 1534, y=460 232 315 158, x<1>=2104 x<2>=1416 y<1>=460
+	Hypothesis
+		h maps x's to y's
+		h<<θ>>(x) = θ<<0>> + θ<<1>>*x
+		Linear regression with one variable, Univariate linear regression, One variable x
+	Parameters
+		θ<<0>>,θ<<1>> 
+	Cost function
+		Squared error function
+		J(θ<<0>>,θ<<1>>) = 1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2
+		Is convex/bowl shaped, always true for linear regression
+		contour, circle is same J value, bowl with bottom in middle
+	Goal
+		Minimize J(θ<<0>>,θ<<1>>)
+		visual : goto bottom of bowl, inner most circle of contour map
+	Gradient descent
+		Process
+			repeat : θ<<j>>:=θ<<j>>-αδ/δθ<<j>>J(θ<<0>>,θ<<1>>), for j=0 j=1
+			update : θ's simultaneously
+		Derivative = δ/δθ<<j>>J(θ<<0>>,θ<<1>>)
+			Direction of movement
+			Goes in direction down slope
+			If derivative >0, up slope : θ goes backwards -> decreases 
+			If derivative <0, down slope : θ goes forwards -> increases 
+		Learning rate = α
+			Size of movement
+			 If too small, gradient descent can be slow
+			If too large, gradient descent can overshoot minimum, may fail to converge, can even diverge
+			Even if fixed gradient descent can converge to a local minimum, automatically take smaller steps
+	Gradient descent for Linear regression
+		Derivative = δ/δθ<<j>>J(θ<<0>>,θ<<1>>)
+			   = δ/δθ<<j>>[1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2]
+			   = δ/δθ<<j>>[1/(2*m)*(i:1->m)Σ(θ<<0>>+θ<<1>>*x<i>-y<i>)^2]
+		   θ<<0>> = [1/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
+		   θ<<1>> = [1/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
+		Repeat & update simultaneously
+		   θ<<0>>:= θ<<0>> - [α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
+		   θ<<1>>:= θ<<1>> - [α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
+		"Batch" Gradient descent
+			Compute over all training set/samples,(i:1->m)Σ
+
+01-03 Linear Algebra review
+	Matrix
+		Rectangular array of numbers
+		Dimension of matrix : number of rows * number of columns
+			   1402 191
+			A=[1371 821] 4*2 matrix
+			   949 1437
+			   147 1448
+		Matrix elements : A<<ij>> = "i,j entry" in the i<th> row, j<th> column
+			A<<11>>=1402 A<<12>>=191 A<<32>>=1437 A<<41>>=147
+			A<<43>>=undefined
+	Vector
+		n * 1 matrix
+			   460
+			y=[232] 4-dimensional vector
+			   315
+			   178
+		Vector elements : y<<i>>=i<th> element
+			y<<1>>=460 y<<2>>=232 y<<5>>=undefined
+		index
+			1-indexed(math)		0-indexed(programming)
+			   y<<1>>			   y<<0>>
+			y=[y<<2>>]			y=[y<<1>>]
+			   y<<3>>			   y<<2>>
+			   y<<4>>			   y<<3>>
+	Addition
+		Must be same dimension
+		 1  0     4 0.5	 	   	 5  0.5
+		[2  5] + [2  5]	=		[4  10]
+		 3  1     0  1			 3   2
+	Scalar multiplication
+		     1  0	  		 3   0			 1  0
+		3 * [2  5]	=		[6  15]		=	[2  5] * 3
+			 3  1  			 9   3			 3  1
+			 4  0			 4   0			 1  0
+		[16  8] / 4 =	1/4 * [16  8]	=	[4  2]
+	Matrix-vector multiplication
+		Concept
+			A(m*n matrix)*x(n-d vector)	= y(m-d vector)
+			To get y<<i>>, multiply A's i<th> row with elements of vector x and add them up
+			Must be, number columns of matrix =	number rows, dimension of vector
+		Example
+			 1  2  1  5		 	 1		 	 1+6+2+5		 14
+			[0  3  0  4]	*	[3]		=	[0+9+0+4]	=	[13]
+			-1 -2  0  0			 2			 -1-6+0+0		 -7
+							 1
+	Matrix-matrix multiplication
+		Concept
+			A(m*n matrix)*B(n*p matrix)	= C(m*p matrix)
+			To get C's i<th> column, multiply A with i<th> column of B
+			Must be, number columns of A = number rows of B
+		Example
+			 1  3  2		 1	3		 	 1+0+10	 3+3+4		 11 10
+			[4  0  1]	*	[0  1]		=	[4+0+5	12+0+2]	=	[9  14]
+							 5  2
+	Application to house prices
+		House sizes
+			2104	1416	1534	852
+		3 competing hypothesis
+			h<<θ>>(x)	=  -40 + 0.25*x
+			h<<θ>>(x)	=  200 + 0.10*x
+			h<<θ>>(x)	= -150 + 0.40*x
+		In matrix notation
+			 1  2104								 486  410  692
+			 1  1416		 -40   200 -150			 314  342  416
+			[1  1534]	x	[0.25  0.1  0.4]	=	[344  353  464]
+			 1   852								 173  285  191
+	Matrix multiplication properties
+		Is not commutative	:	(A*B) != (B*A), even dimension can be changed
+		Is Associative 		:	(A*B)*C = A*(B*C)
+		Identity Matrix
