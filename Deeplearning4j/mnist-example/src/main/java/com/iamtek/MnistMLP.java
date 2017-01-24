@@ -16,8 +16,12 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class MLPMnistSingleLayer {
+public class MnistMLP {
+  
+    private static Logger log = LoggerFactory.getLogger(MnistMLP.class);
 
 	public static void main(String[] args) throws Exception {
 		
@@ -29,11 +33,12 @@ public class MLPMnistSingleLayer {
 	    int noEpochs = 15; // An epoch is a complete pass through a given dataset.
 	    
 	    //get data
-	    System.out.println("1. Getting data...");
+	    log.info("Getting data...");
 	    DataSetIterator trainData = new MnistDataSetIterator(batchSize, true, seed); 
 	    DataSetIterator testData = new MnistDataSetIterator(batchSize, false, seed);
 	    
 	    //setup neural network
+        log.info("Creating network...");
 	    MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
 	    	.seed(seed)
 	    	.iterations(1)
@@ -54,19 +59,18 @@ public class MLPMnistSingleLayer {
 	    			.weightInit(WeightInit.XAVIER)
 	    			.build())
 	    	.pretrain(false).backprop(true).build();
-		System.out.println("2. Setup Neural network...\n" + conf.toJson());
 	    MultiLayerNetwork model = new MultiLayerNetwork(conf);
     	model.init();
 		model.setListeners(new ScoreIterationListener(10));
 		
 		//train
-	    System.out.println("3. Training...");
+        log.info("Training...");
 		for (int i = 0; i < noEpochs; i++) {
 			model.fit(trainData);
 		}
 		
 		//test
-	    System.out.println("4. Testing...");
+        log.info("Testing...");
 		Evaluation eval = new Evaluation(noOutputs);
 		while(testData.hasNext()){
 			DataSet ds = testData.next();
@@ -75,7 +79,7 @@ public class MLPMnistSingleLayer {
 			INDArray predicted = model.output(features);
 			eval.eval(labels, predicted);
 		}
-		System.out.println(eval.stats());
+        log.info(eval.stats());
 	}
 	
 }
