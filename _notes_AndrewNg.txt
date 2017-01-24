@@ -94,15 +94,15 @@
 			   y<<4>>			   y<<3>>
 	Addition
 		Must be same dimension
-		  1   0       4   0.5     5    0.5
-		[ 2   5 ] + [ 2   5 ] = [ 4   10 ]
-		  3   1       0   1       3    2
+		  1   0       4   0.5       5    0.5
+		[ 2   5 ] + [ 2   5 ]  =  [ 4   10 ]
+		  3   1       0   1         3    2
 	Scalar multiplication
 		     1  0     3   0     1  0
 		3 * [2  5] = [6  15] = [2  5] * 3
-			 3  1     9   3     3  1
-			 4  0     4   0     1  0
-		[16  8] / 4 = 1/4 * [16  8]	= [4  2]
+		     3  1     9   3     3  1
+		     4  0     4   0     1  0
+		[16  8] / 4 = 1/4 * [16  8] = [4  2]
 	Matrix-vector multiplication
 		Concept
 			A(m*n matrix)*x(n-d vector)	= y(m-d vector)
@@ -112,16 +112,16 @@
 			 1  2  1  5     1     1+6+2+5     14
 			[0  3  0  4] * [3] = [0+9+0+4] = [13]
 			-1 -2  0  0     2    -1-6+0+0     -7
-							1
+			                1
 	Matrix-matrix multiplication
 		Concept
 			A(m*n matrix)*B(n*p matrix)	= C(m*p matrix)
 			To get C's i<th> column, multiply A with i<th> column of B
 			Must be, number columns of A = number rows of B
 		Example
-			 1  3  2     1	3    1+0+10	  3+3+4    11  10
+			 1  3  2     1	3    1+0+10   3+3+4    11  10
 			[4  0  1] * [0  1] = [4+0+5  12+0+2] = [9  14]
-						 5  2
+			             5  2
 	Application to house prices
 		House sizes
 			2104	1416	1534	852
@@ -130,18 +130,18 @@
 			h<<θ>>(x)	=  200 + 0.10*x
 			h<<θ>>(x)	= -150 + 0.40*x
 		In matrix notation
-			 1  2104								 486  410  692
-			 1  1416		 -40   200 -150			 314  342  416
-			[1  1534]	x	[0.25  0.1  0.4]	=	[344  353  464]
-			 1   852								 173  285  191
+			 1  2104                                    486  410  692
+			 1  1416       -40     200   -150           314  342  416
+			[1  1534]  x  [  0.25    0.1    0.4  ]  =  [344  353  464]
+			 1   852                                    173  285  191
 	Matrix multiplication properties
-		Is not commutative	:	(A*B) != (B*A), even dimension can change
-		Is Associative 		:	(A*B)*C = A*(B*C)
+		Is not commutative :  (A*B) != (B*A), even dimension can change
+		Is Associative     :  (A*B)*C = A*(B*C)
 	Identity matrix
 		Similar to 1 in real number
-					 1  0  0
-			I	=	[0  1  0]
-					 0  0  1
+			       1  0  0
+			I  =  [0  1  0]
+			       0  0  1
 		Matrix A * Identity Matrix = Matrix A
 		I1*A = A*I2
 		Dimension of I1 and I2 can be different
@@ -149,15 +149,15 @@
 		Similar to 1/number
 		Only square matrix may have an inverse
 		Matrix A * Inverse of Matrix A	= Identity Matrix
-		A * A<-1>	=	I
+		A * A<-1> = I
 		Example
-			 3   4		  0.4  -0.1	 	 	 1  0
-			[2  16]	*	[-0.05  0.075]	=	[0	1]
+			 3   4        0.4  -0.1         1  0
+			[2  16]  *  [-0.05  0.075]  =  [0  1]
 		"Singular" or "Degenerate" matrices don't have an inverse, matrix is close to 0
 	Matrix Transpose
 		"flipped" Matrix where elements are reversed
 		B = A<T>, B<<ij>> = A<<ji>>
 		Example
-				 1  2  0				1  3
-			A = [3  5  9]		A<T> = [2  5]
-										0  9
+			     1  2  0                 1  3
+			A = [3  5  9]        A<T> = [2  5]
+			                             0  9
