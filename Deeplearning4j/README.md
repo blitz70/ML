@@ -4,3 +4,4 @@ Machine Learning framework for Java by [Skymind](https://deeplearning4j.org/inde
 
 * Quickstart : settings, classification
 * MNIST : MLP, Lenet
+* Word2Vec
