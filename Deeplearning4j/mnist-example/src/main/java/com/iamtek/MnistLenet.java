@@ -89,15 +89,16 @@ public class MnistLenet {
     for (int i = 0; i < nEpochs; i++) {
       model.fit(trainData);
       log.info("Completed epoch {}", i);
-      log.info("Evaluating...");
-      Evaluation eval = new Evaluation(nOutput);
-      while (testData.hasNext()) {
-        DataSet ds = testData.next();
-        eval.eval(ds.getLabels(), model.output(ds.getFeatures()));
-      }
-      log.info(eval.stats());
     }
     
+    //test
+    log.info("Evaluating...");
+    Evaluation eval = new Evaluation(nOutput);
+    while (testData.hasNext()) {
+      DataSet ds = testData.next();
+      eval.eval(ds.getLabels(), model.output(ds.getFeatures()));
+    }
+    log.info(eval.stats());
 
   }
 
