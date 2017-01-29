@@ -1,11 +1,13 @@
 package com.iamtek;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
-import org.deeplearning4j.plot.BarnesHutTsne;
 import org.deeplearning4j.text.sentenceiterator.LineSentenceIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;
 import org.deeplearning4j.text.tokenization.tokenizer.preprocessor.CommonPreprocessor;
@@ -19,12 +21,31 @@ public class Word2VecMain {
 
     private static Logger log = LoggerFactory.getLogger(Word2VecMain.class);
     private static String FILE_PATH = "src/main/resources/";
-    //private static String FILE_NAME = "raw_sentences.txt";
     
-    @SuppressWarnings("deprecation")
     public static void main(String[] args) throws Exception {
         
-        //get data
+    	Word2Vec vec = null;
+    	
+    	run(vec);
+    	test(vec);
+        
+        
+        /*log.info("Plot TSNE");
+        BarnesHutTsne tsne = new BarnesHutTsne.Builder()
+                .setMaxIter(1000)
+                .stopLyingIteration(250)
+                .learningRate(500)
+                .useAdaGrad(false)
+                .theta(0.5)
+                .setMomentum(0.5)
+                .normalize(true)
+                .build();
+        vec.lookupTable().plotVocab(tsne, 10, new File(FILE_PATH, "plot.txt"));*/
+        
+    }
+	public static void run(Word2Vec vec) throws Exception {
+        
+		//get data
         log.info("Getting data...");
         String filePath = new ClassPathResource("raw_sentences.txt").getFile().getAbsolutePath();
         System.out.println(filePath);
@@ -33,10 +54,10 @@ public class Word2VecMain {
         //prepare data, tokenize data
         TokenizerFactory tf = new DefaultTokenizerFactory();
         tf.setTokenPreProcessor(new CommonPreprocessor());
-        
+
         //build model
         log.info("Building model...");
-        Word2Vec vec = new Word2Vec.Builder()
+        vec = new Word2Vec.Builder()
                 .minWordFrequency(5)
                 .iterations(1)
                 .layerSize(100)
@@ -49,28 +70,30 @@ public class Word2VecMain {
         //fit model
         log.info("Fitting model...");
         vec.fit();
-
+        
         //saving
-        WordVectorSerializer.writeFullModel(vec, FILE_PATH+"model.txt");;
+        WordVectorSerializer.writeFullModel(vec, FILE_PATH+"model.txt");
         WordVectorSerializer.writeWordVectors(vec, new File(FILE_PATH, "vectors.txt"));
         
+	}
+	
+	public static void test(Word2Vec vec) throws Exception{
+		
         //test model
         log.info("Testing model...");
-        String wd = "time";
+        vec = WordVectorSerializer.loadFullModel(FILE_PATH+"model.txt");
+        //vec = WordVectorSerializer.readWord2VecModel(new File(FILE_PATH, "GoogleNews-vectors-negative300.bin.gz"));
+        String wd = "day";
         Collection<String> first = vec.wordsNearest(wd, 10);
-        System.out.println(wd+": "+first);
-        log.info("Plot TSNE");
-        BarnesHutTsne tsne = new BarnesHutTsne.Builder()
-                .setMaxIter(1000)
-                .stopLyingIteration(250)
-                .learningRate(500)
-                .useAdaGrad(false)
-                .theta(0.5)
-                .setMomentum(0.5)
-                .normalize(true)
-                .build();
-        vec.lookupTable().plotVocab(tsne, 10, new File(FILE_PATH, "plot.txt"));
-        
-    }
+        System.out.println("Closest to ["+wd+"]:");
+    	NumberFormat nf = NumberFormat.getInstance();
+    	nf.setMaximumFractionDigits(2);
+        for (String w : first) {
+			System.out.println(w + ":\t" + nf.format(((Word2Vec)vec).similarity(wd, w)));
+		}
+        Collection<String> list = vec.wordsNearest(Arrays.asList("man", "women"), Arrays.asList("him"), 10);
+        System.out.println(list);
+
+	}
 
 }
