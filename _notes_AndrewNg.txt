@@ -220,4 +220,78 @@
 			No iteration
 			Slow for very large features, need to compute (X<T>X)<-1>
 			Works only for linear regression
-			                             
+
+02-02 Octave Tutorial
+	Basics
+		';' : command chaining without result display
+		',' : command chaining with result display
+		size() : dimension of matrix
+		length() : biggest dimension of matrix
+		who & whos : list variables & with info
+	Create
+		[1 2 3] : 1x3 row vector
+		[1 2;3 4;5 6] : 3x2 matrix
+		[0:2:10] : row vector with element value, 0->10 & increment 2
+		zeroes(), ones() : matrix with all element zeroes, ones
+		eye() : identity matrix
+		magic() : magic matrix, sum of rows columns diagonal are same
+		rand() : matrix with random elements
+		randn() : matrix with gaussian distribution elements
+	Manipulate
+		load() : get variable from file, load to memory
+		save() : save variable to file
+			save 'hello.txt' var
+		clear() : delete variable from memory
+		matrix element
+			B = [1 2 3;4 5 6;7 8 9];
+			B(3,2) : element at row 3, column 2
+			B(2,:) : all elements on row 2
+			B(:,2) : all elements on column 2
+			B([1 3],:) : all elements on row 1 and 2
+		matrix append
+			[A B] : append B to column/right of A, same as [A,B]
+			[A;B] : append B to row/bottom of A
+		matrix to vector
+			B(:) : convert matrix B to a vector, 3x4 -> 12x1
+		operation
+			A * B : matrix multiplication
+			A + B : matrix addition
+			A' : matrix transpose
+			pinv() : inverse matrix (does'nt work for large size?)
+			. : element operation
+				A .* B : element multiplication, same dimension
+				A .^2 : square of elements
+				1 ./ A : inverse of elements, A .^(-1)
+			log() : log of elements
+			exp() : exponential of elements
+			abs() : absolute of element
+			prod() : multiply elements, column wise
+			floor(), ceil() : round down elements, round up
+			flipud() : flip matrix upside down
+			max()
+				max(A) : max value of elements, column wise, max(A,[],1)
+				[val,ind] = max(A) : maximum value and index of elements, column wise
+				max(A,B) : compare and select max value of elements
+				max(A,[],2) : max value of elements, row wise
+			A < B : comparison of elements, gives binary answer
+			find() : find index, column wise
+			sum() : add elements, column wise
+				sum(A) : sum elements, column wise, sum(A,1)
+				sum(A,2) : sum elements, row wise
+	Display
+		hist() : display histogram
+		plot() : display 2D plots
+			x=[0:1:360], y1=sin(2*pi*x/360), y2=cos(2*pi*x/360)
+			plot(x,y1)
+		hold on : keep display
+		close : close display
+		xlabel(), ylabel() : name axis
+		legend() : name line
+		print -dpng : save as png image
+		figure() : select display window
+		subplot : select from multi-display window
+				subplot(2,3,4) : 2x3 display, select 4th
+		axis : change axis value
+			axis([0.5 1 -1 1]) : 0.5<x<1, -1<y<1
+		imagesc() : visualize matrix
+			imagesc(magic(11));colorbar;colormap(gray);
