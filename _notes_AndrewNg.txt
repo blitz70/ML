@@ -161,3 +161,63 @@
 			     1  2  0                 1  3
 			A = [3  5  9]        A<T> = [2  5]
 			                             0  9
+
+02-01 Linear Regression with multiple variables
+	Features
+		x<<i>>
+        x = [x<<0>>]
+             x<<1>>
+             ...
+             x<<n>>
+	Parameters
+		θ: θ<<0>>, θ<<1>>,...,θ<<n>>
+        θ = [θ<<0>>]
+             θ<<1>>
+              ...
+             θ<<n>>
+	Hypothesis		
+		h<<θ>>(x) = θ<T>x
+		Multivariate linear regression
+	Cost function
+		J(θ) = 1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2
+	Gradient descent
+		Process
+			repeat : θ<<j>>:=θ<<j>>-α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+			update : θ's simultaneously for j = 0..n
+		Optimizing 1 : Feature scaling
+			Make sure feature values are on similar scale
+			Keep contour shape of cost function in parameter θ space a circle
+			Normalization, -1 <= x<<i>> <= 1 range
+		Optimizing 2 : Learning rate, α
+			Check cost function VS number of gradient descent iterations, J VS Epoch
+			Convergence
+				If J decreases as Epoch increases -> gradient descent is working correctly -> increase α 
+				If not -> overshooting -> decrease α
+				If α is too small = slow convergence
+				If α is too large = cost may not decrease on every iteration, may not converge
+			Tuning
+				Start α small
+				while gradient descent is working, increase by factor of 3, 0.001 0.003 0.01 0.03 0.1 0.3 1..
+	Normal equation
+		Solve J minimum analytically
+		X = [x<0><T>]
+             x<1><T>
+             ...
+             x<n><T>
+		θ= (X<T>X)<-1>X<T>y, find θ min
+		non-invertibility, no (X<T>X)<-1> when features have bad elements
+			redundency : 2 area features one in square meters, other in square feet
+			too many features : feature number > training set number
+			drop some features, use regularization
+	Gradient descent VS Normal equation
+		GD
+			Need to chose α
+			Needs many iterations
+			Works well even for very large number of features
+			Works for other learning algorithms
+		NE
+			No α
+			No iteration
+			Slow for very large features, need to compute (X<T>X)<-1>
+			Works only for linear regression
+			                             
