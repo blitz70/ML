@@ -155,7 +155,7 @@
 			[2  16]  *  [-0.05  0.075]  =  [0  1]
 		"Singular" or "Degenerate" matrices don't have an inverse, matrix is close to 0
 	Matrix Transpose
-		"flipped" Matrix where elements are reversed
+		Matrix flipped along diagonal where elements are reversed
 		B = A<T>, B<<ij>> = A<<ji>>
 		Example
 			     1  2  0                 1  3
@@ -164,17 +164,17 @@
 
 02-01 Linear Regression with multiple variables
 	Features
-		x<<i>>
-        x = [x<<0>>]
+		     x<<i>>
+ 		x = [x<<0>>]
              x<<1>>
              ...
              x<<n>>
 	Parameters
 		θ: θ<<0>>, θ<<1>>,...,θ<<n>>
-        θ = [θ<<0>>]
-             θ<<1>>
-              ...
-             θ<<n>>
+		     θ<<0>>
+		θ = [θ<<1>>]
+		      ...
+		     θ<<n>>
 	Hypothesis		
 		h<<θ>>(x) = θ<T>x
 		Multivariate linear regression
@@ -200,15 +200,16 @@
 				while gradient descent is working, increase by factor of 3, 0.001 0.003 0.01 0.03 0.1 0.3 1..
 	Normal equation
 		Solve J minimum analytically
-		X = [x<0><T>]
-             x<1><T>
-             ...
-             x<n><T>
-		θ= (X<T>X)<-1>X<T>y, find θ min
-		non-invertibility, no (X<T>X)<-1> when features have bad elements
-			redundency : 2 area features one in square meters, other in square feet
-			too many features : feature number > training set number
-			drop some features, use regularization
+			     x<0><T>
+			X = [x<1><T>]
+			     ...
+			     x<n><T>
+			θ= (X<T>X)<-1>X<T>y, find θ min
+		Non-invertibility
+			No (X<T>X)<-1> when features have bad elements
+				redundancy : 2 area features one in square meters, other in square feet
+				too many features : feature number > training set number
+			Drop some features, use regularization
 	Gradient descent VS Normal equation
 		GD
 			Need to chose α
@@ -228,20 +229,25 @@
 		size() : dimension of matrix
 		length() : biggest dimension of matrix
 		who & whos : list variables & with info
-	Create
-		[1 2 3] : 1x3 row vector
-		[1 2;3 4;5 6] : 3x2 matrix
-		[0:2:10] : row vector with element value, 0->10 & increment 2
-		zeroes(), ones() : matrix with all element zeroes, ones
-		eye() : identity matrix
-		magic() : magic matrix, sum of rows columns diagonal are same
-		rand() : matrix with random elements
-		randn() : matrix with gaussian distribution elements
-	Manipulate
+		clear() : delete variable from memory
 		load() : get variable from file, load to memory
 		save() : save variable to file
 			save 'hello.txt' var
-		clear() : delete variable from memory
+		[1:10] 1:10 not same?
+	Creation
+		create matrix
+			[1 2;3 4;5 6] : 3x2 matrix
+			[1 2 3 4] : 4 dimensional row vector, 1x4 matrix
+			[1;2;3] : 3 dimensional column vector, 3x1 matrix
+			[0:2:10] : row vector with element value, 0->10 & increment 2
+		special matrix
+			zeroes() : matrix with all element zeroes
+			ones() : matrix with ones
+			eye() : identity matrix
+			magic() : magic matrix, sum of rows columns diagonal are same
+			rand() : matrix with random elements
+			randn() : matrix with gaussian distribution elements
+	Manipulation
 		matrix element
 			B = [1 2 3;4 5 6;7 8 9];
 			B(3,2) : element at row 3, column 2
@@ -251,9 +257,9 @@
 		matrix append
 			[A B] : append B to column/right of A, same as [A,B]
 			[A;B] : append B to row/bottom of A
-		matrix to vector
+		vector conversion
 			B(:) : convert matrix B to a vector, 3x4 -> 12x1
-		operation
+		matrix operation
 			A * B : matrix multiplication
 			A + B : matrix addition
 			A' : matrix transpose
@@ -278,7 +284,7 @@
 			sum() : add elements, column wise
 				sum(A) : sum elements, column wise, sum(A,1)
 				sum(A,2) : sum elements, row wise
-	Display
+	Visualization
 		hist() : display histogram
 		plot() : display 2D plots
 			x=[0:1:360], y1=sin(2*pi*x/360), y2=cos(2*pi*x/360)
@@ -295,3 +301,40 @@
 			axis([0.5 1 -1 1]) : 0.5<x<1, -1<y<1
 		imagesc() : visualize matrix
 			imagesc(magic(11));colorbar;colormap(gray);
+	Flow control
+		Loop
+			for i=1:10,disp(i);end;
+			i=1;while i<=5,v(i)=50;i++;end;
+		If
+			if v(1)==1,
+				disp('value is 1');
+			elseif v(1)==2,
+				disp('value is 2');
+			else
+				disp('value is not 1 nor 2');
+			end;
+	Function
+		Name
+			saved as .m file ,function name must be same as file name
+		Path
+			.m file must be in octave search path
+			addpath() add path to octave search path, savepath() save search path
+		Eg
+	    	squareAndCubeNumber, function returning multiple values
+				Code
+					function [y1 y2] = squareAndCubeNumber(x);
+					y1 = x^2;
+					y2 = x^3;
+				Use
+					[a b] = squareAndCubeNumber(10) -> a = 100, b = 1000
+			cost function
+				Code
+					function J = costJ(X,y,theta)
+					m = size(X,1);
+					h = X*theta;
+					sqrErr = (h-y).^2;
+					J = 1/(2*m)*sum(sqrErr);
+				Use
+					X=[1 1;1 2;1 3];y=[1;2;3];
+					theta=[0;1];costJ(X,y,theta) -> 0
+					theta=[0;0];costJ(X,y,theta) -> 2.33
