@@ -166,9 +166,9 @@
 	Features
 		     x<<i>>
  		x = [x<<0>>]
-             x<<1>>
-             ...
-             x<<n>>
+		     x<<1>>
+		     ...
+		     x<<n>>
 	Parameters
 		θ: θ<<0>>, θ<<1>>,...,θ<<n>>
 		     θ<<0>>
@@ -204,7 +204,7 @@
 			X = [x<1><T>]
 			     ...
 			     x<n><T>
-			θ= (X<T>X)<-1>X<T>y, find θ min
+			θ = (X<T>X)<-1>X<T>y, find θ min
 		Non-invertibility
 			No (X<T>X)<-1> when features have bad elements
 				redundancy : 2 area features one in square meters, other in square feet
@@ -319,8 +319,8 @@
 		Path
 			.m file must be in octave search path
 			addpath() add path to octave search path, savepath() save search path
-		Eg
-	    	squareAndCubeNumber, function returning multiple values
+		Example
+			squareAndCubeNumber, function returning multiple values
 				Code
 					function [y1 y2] = squareAndCubeNumber(x);
 					y1 = x^2;
