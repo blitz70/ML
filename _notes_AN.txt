@@ -1,0 +1,399 @@
+http://cs229.stanford.edu/materials.html
+
+01-01 Introduction
+	Examples
+		Database mining : web click data, medical records, biology, engineering
+		App that can't be programmed by hand : Auto heli, handwriting recognition, Natural Language Processing(NLP), Computer Vision
+		Self-customizing programs : Amazon, Netflix product recommendations
+		Understand human learning : brain, real AI
+	What is machine learning
+		Arthur Samuel(1959) : Field of study that gives computers the ability to learn without being explicitly programmed.
+		Tom Mitchel(1998) : A computer program is said to "learn" from experience E with respect to some task T and some performance mearsure P, if P on T improves with E.
+	Supervised learning
+		data with "right answers" explicitly given
+	Unsupervised learning
+		data with no answers, instead system is asked to find structure within
+		Example : Google news
+		Used in : Organize computing clusters, Social network analysis, Market segmentation, Astronomical data analysis
+		Cocktail party problem : separate mixed audio data
+	Regression/Classification
+		Regression : predict continuous valued output
+		Classification : predict discrete valued output
+
+01-02 Linear regression with one variable
+	Training set
+		m=number of training examples
+		x="input" variable / features
+		y="output" variable / "target" variable
+		<>, <<>> : superscript, subscript
+		(x,y)=one training example
+		(x<i>,y<i>)=i<th> training example
+		x=2104 1416 1534, y=460 232 315 158, x<1>=2104 x<2>=1416 y<1>=460
+	Hypothesis
+		h maps x's to y's
+		h<<θ>>(x) = θ<<0>> + θ<<1>>*x
+		Linear regression with one variable, Univariate linear regression, One variable x
+	Parameters
+		θ<<0>>,θ<<1>> 
+	Cost function
+		Squared error function
+		J(θ<<0>>,θ<<1>>) = 1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2
+		Is convex/bowl shaped, always true for linear regression
+		contour, circle is same J value, bowl with bottom in middle
+	Goal
+		Minimize J(θ<<0>>,θ<<1>>)
+		visual : goto bottom of bowl, inner most circle of contour map
+	Gradient descent
+		Process
+			repeat : θ<<j>>:=θ<<j>>-αδ/δθ<<j>>J(θ<<0>>,θ<<1>>), for j=0 j=1
+			update : θ's simultaneously
+		Derivative = δ/δθ<<j>>J(θ<<0>>,θ<<1>>)
+			Direction of movement
+			Goes in direction down slope
+			If derivative >0, up slope : θ goes backwards -> decreases 
+			If derivative <0, down slope : θ goes forwards -> increases 
+		Learning rate = α
+			Size of movement
+			 If too small, gradient descent can be slow
+			If too large, gradient descent can overshoot minimum, may fail to converge, can even diverge
+			Even if fixed gradient descent can converge to a local minimum, automatically take smaller steps
+	Gradient descent for Linear regression
+		Derivative = δ/δθ<<j>>J(θ<<0>>,θ<<1>>)
+			   = δ/δθ<<j>>[1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2]
+			   = δ/δθ<<j>>[1/(2*m)*(i:1->m)Σ(θ<<0>>+θ<<1>>*x<i>-y<i>)^2]
+		   θ<<0>> = [1/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
+		   θ<<1>> = [1/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
+		Repeat & update simultaneously
+		   θ<<0>>:= θ<<0>> - [α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
+		   θ<<1>>:= θ<<1>> - [α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
+		"Batch" Gradient descent
+			Compute over all training set/samples,(i:1->m)Σ
+
+01-03 Linear Algebra review
+	Matrix
+		Rectangular array of numbers
+		Dimension of matrix : number of rows * number of columns
+			   1402 191
+			A=[1371 821] 4*2 matrix
+			   949 1437
+			   147 1448
+		Matrix elements : A<<ij>> = "i,j entry" in the i<th> row, j<th> column
+			A<<11>>=1402 A<<12>>=191 A<<32>>=1437 A<<41>>=147
+			A<<43>>=undefined
+	Vector
+		n * 1 matrix
+			   460
+			y=[232] 4-dimensional vector
+			   315
+			   178
+		Vector elements : y<<i>>=i<th> element
+			y<<1>>=460 y<<2>>=232 y<<5>>=undefined
+		index
+			1-indexed(math)		0-indexed(programming)
+			   y<<1>>			   y<<0>>
+			y=[y<<2>>]			y=[y<<1>>]
+			   y<<3>>			   y<<2>>
+			   y<<4>>			   y<<3>>
+	Addition
+		Must be same dimension
+		  1   0       4   0.5       5    0.5
+		[ 2   5 ] + [ 2   5 ]  =  [ 4   10 ]
+		  3   1       0   1         3    2
+	Scalar multiplication
+		     1  0     3   0     1  0
+		3 * [2  5] = [6  15] = [2  5] * 3
+		     3  1     9   3     3  1
+		     4  0     4   0     1  0
+		[16  8] / 4 = 1/4 * [16  8] = [4  2]
+	Matrix-vector multiplication
+		Concept
+			A(m*n matrix)*x(n-d vector)	= y(m-d vector)
+			To get y<<i>>, multiply A's i<th> row with elements of vector x and add them up
+			Must be, number columns of matrix =	number rows, dimension of vector
+		Example
+			 1  2  1  5     1     1+6+2+5     14
+			[0  3  0  4] * [3] = [0+9+0+4] = [13]
+			-1 -2  0  0     2    -1-6+0+0     -7
+			                1
+	Matrix-matrix multiplication
+		Concept
+			A(m*n matrix)*B(n*p matrix)	= C(m*p matrix)
+			To get C's i<th> column, multiply A with i<th> column of B
+			Must be, number columns of A = number rows of B
+		Example
+			 1  3  2     1	3    1+0+10   3+3+4    11  10
+			[4  0  1] * [0  1] = [4+0+5  12+0+2] = [9  14]
+			             5  2
+	Application to house prices
+		House sizes
+			2104	1416	1534	852
+		3 competing hypothesis
+			h<<θ>>(x)	=  -40 + 0.25*x
+			h<<θ>>(x)	=  200 + 0.10*x
+			h<<θ>>(x)	= -150 + 0.40*x
+		In matrix notation
+			 1  2104                                    486  410  692
+			 1  1416       -40     200   -150           314  342  416
+			[1  1534]  x  [  0.25    0.1    0.4  ]  =  [344  353  464]
+			 1   852                                    173  285  191
+	Matrix multiplication properties
+		Is not commutative :  (A*B) != (B*A), even dimension can change
+		Is Associative     :  (A*B)*C = A*(B*C)
+	Identity matrix
+		Similar to 1 in real number
+			       1  0  0
+			I  =  [0  1  0]
+			       0  0  1
+		Matrix A * Identity Matrix = Matrix A
+		I1*A = A*I2
+		Dimension of I1 and I2 can be different
+	Matrix Inverse
+		Similar to 1/number
+		Only square matrix may have an inverse
+		Matrix A * Inverse of Matrix A	= Identity Matrix
+		A * A<-1> = I
+		Example
+			 3   4        0.4  -0.1         1  0
+			[2  16]  *  [-0.05  0.075]  =  [0  1]
+		"Singular" or "Degenerate" matrices don't have an inverse, matrix is close to 0
+	Matrix Transpose
+		Matrix flipped along diagonal where elements are reversed
+		B = A<T>, B<<ij>> = A<<ji>>
+		Example
+			     1  2  0                 1  3
+			A = [3  5  9]        A<T> = [2  5]
+			                             0  9
+
+02-01 Linear Regression with multiple variables
+	Features
+		     x<<i>>
+ 		x = [x<<0>>]
+		     x<<1>>
+		     ...
+		     x<<n>>
+	Parameters
+		θ: θ<<0>>, θ<<1>>,...,θ<<n>>
+		     θ<<0>>
+		θ = [θ<<1>>]
+		      ...
+		     θ<<n>>
+	Hypothesis		
+		h<<θ>>(x) = θ<T>x
+		Multivariate linear regression
+	Cost function
+		J(θ) = 1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2
+	Gradient descent
+		Process
+			repeat : θ<<j>>:=θ<<j>>-α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+			update : θ's simultaneously for j = 0..n
+		Optimizing 1 : Feature scaling
+			Make sure feature values are on similar scale
+			Keep contour shape of cost function in parameter θ space a circle
+			Normalization, -1 <= x<<i>> <= 1 range
+		Optimizing 2 : Learning rate, α
+			Check cost function VS number of gradient descent iterations, J VS Epoch
+			Convergence
+				If J decreases as Epoch increases -> gradient descent is working correctly -> increase α 
+				If not -> overshooting -> decrease α
+				If α is too small = slow convergence
+				If α is too large = cost may not decrease on every iteration, may not converge
+			Tuning
+				Start α small
+				while gradient descent is working, increase by factor of 3, 0.001 0.003 0.01 0.03 0.1 0.3 1..
+	Normal equation
+		Solve J minimum analytically
+			     x<0><T>
+			X = [x<1><T>]
+			     ...
+			     x<n><T>
+			θ = (X<T>X)<-1>X<T>y, find θ min
+		Non-invertibility
+			No (X<T>X)<-1> when features have bad elements
+				redundancy : 2 area features one in square meters, other in square feet
+				too many features : feature number > training set number
+			Drop some features, use regularization
+	Gradient descent VS Normal equation
+		GD
+			Need to chose α
+			Needs many iterations
+			Works well even for very large number of features
+			Works for other learning algorithms
+		NE
+			No α
+			No iteration
+			Slow for very large features, need to compute (X<T>X)<-1>
+			Works only for linear regression
+
+02-02 Octave Tutorial
+	Basics
+		';' : command chaining without result display
+		',' : command chaining with result display
+		size() : dimension of matrix
+		length() : biggest dimension of matrix
+		who & whos : list variables & with info
+		clear() : delete variable from memory
+		load() : get variable from file, load to memory
+		save() : save variable to file
+			save 'hello.txt' var
+		[1:10] 1:10 not same?
+	Creation
+		create matrix
+			[1 2;3 4;5 6] : 3x2 matrix
+			[1 2 3 4] : 4 dimensional row vector, 1x4 matrix
+			[1;2;3] : 3 dimensional column vector, 3x1 matrix
+			[0:2:10] : row vector with element value, 0->10 & increment 2
+		special matrix
+			zeroes() : matrix with all element zeroes
+			ones() : matrix with ones
+			eye() : identity matrix
+			magic() : magic matrix, sum of rows columns diagonal are same
+			rand() : matrix with random elements
+			randn() : matrix with gaussian distribution elements
+	Manipulation
+		matrix element
+			B = [1 2 3;4 5 6;7 8 9];
+			B(3,2) : element at row 3, column 2
+			B(2,:) : all elements on row 2
+			B(:,2) : all elements on column 2
+			B([1 3],:) : all elements on row 1 and 2
+		matrix append
+			[A B] : append B to column/right of A, same as [A,B]
+			[A;B] : append B to row/bottom of A
+		vector conversion
+			B(:) : convert matrix B to a vector, 3x4 -> 12x1
+		matrix operation
+			A * B : matrix multiplication
+			A + B : matrix addition
+			A' : matrix transpose
+			pinv() : inverse matrix (does'nt work for large size?)
+			. : element operation
+				A .* B : element multiplication, same dimension
+				A .^2 : square of elements
+				1 ./ A : inverse of elements, A .^(-1)
+			log() : log of elements
+			exp() : exponential of elements
+			abs() : absolute of element
+			prod() : multiply elements, column wise
+			floor(), ceil() : round down elements, round up
+			flipud() : flip matrix upside down
+			max()
+				max(A) : max value of elements, column wise, max(A,[],1)
+				[val,ind] = max(A) : maximum value and index of elements, column wise
+				max(A,B) : compare and select max value of elements
+				max(A,[],2) : max value of elements, row wise
+			A < B : comparison of elements, gives binary answer
+			find() : find index, column wise
+			sum() : add elements, column wise
+				sum(A) : sum elements, column wise, sum(A,1)
+				sum(A,2) : sum elements, row wise
+	Visualization
+		hist() : display histogram
+		plot() : display 2D plots
+			x=[0:1:360], y1=sin(2*pi*x/360), y2=cos(2*pi*x/360)
+			plot(x,y1)
+		hold on : keep display
+		close : close display
+		xlabel(), ylabel() : name axis
+		legend() : name line
+		print -dpng : save as png image
+		figure() : select display window
+		subplot : select from multi-display window
+				subplot(2,3,4) : 2x3 display, select 4th
+		axis : change axis value
+			axis([0.5 1 -1 1]) : 0.5<x<1, -1<y<1
+		imagesc() : visualize matrix
+			imagesc(magic(11));colorbar;colormap(gray);
+	Flow control
+		Loop
+			for i=1:10,disp(i);end;
+			i=1;while i<=5,v(i)=50;i++;end;
+		If
+			if v(1)==1,
+				disp('value is 1');
+			elseif v(1)==2,
+				disp('value is 2');
+			else
+				disp('value is not 1 nor 2');
+			end;
+	Function
+		Name
+			saved as .m file ,function name must be same as file name
+		Path
+			.m file must be in octave search path
+			addpath() add path to octave search path, savepath() save search path
+		Example
+			squareAndCubeNumber, function returning multiple values
+				Code
+					function [y1 y2] = squareAndCubeNumber(x);
+					y1 = x^2;
+					y2 = x^3;
+				Use
+					[a b] = squareAndCubeNumber(10) -> a = 100, b = 1000
+			cost function
+				Code
+					function J = costJ(X,y,theta)
+					m = size(X,1);
+					h = X*theta;
+					sqrErr = (h-y).^2;
+					J = 1/(2*m)*sum(sqrErr);
+				Use
+					X=[1 1;1 2;1 3];y=[1;2;3];
+					theta=[0;1];costJ(X,y,theta) -> 0
+					theta=[0;0];costJ(X,y,theta) -> 2.33
+
+03-01 Logistic Regression
+	Hypothesis (Binary Classification)
+		Classification is logistic regression 
+		Linear regression
+			h<<θ>>(x) = θ<T>x, >1 or <0 possible
+		Possible results 0 and 1, restrict prediction to range of 0-1
+			0 <= h<<θ>>(x) <= 1
+		Probability that y=1 given x parameterized by θ
+			P(y=1|x;θ) = h<<θ>>(x)
+			P(y=0|x;θ) = 1 - P(y=1|x;θ)
+		Sigmoid function, logistic function		
+			h<<θ>>(x) = g(θ<T>x)
+			      g(z) = 1/(1+e^(-z))
+		Decision boundary
+			line that separates class regions, depend only on parameter θ
+			θ<T>x = 0
+			θ<T>x >= 0 -> y=1 likely
+			θ<T>x < 0  -> y=0 likely
+	Cost function (Binary Classification)	
+		Linear regression
+			J(θ)        = 1/m*(i:1->m)ΣCost(h<<θ>>(x<i>),y<i>)
+			Cost(h(x),y) = (h(x)-y)^2
+			because of sigmoid h(x), J is non-convex, can't use
+		Logistic regression
+			Cost(h(x),y) = -log(h(x)) if y=1
+			             = -log(1-h(x)) if y=0
+ 			             = -y*log(h(x)) - (1-y)*log(1-h(x))
+			             = -log((2y-1)h -y+1) not this?
+			If prediction is wrong cost is huge, learning algorithm is penalized heavily
+			J(θ)        = -1/m*(i:1->m)Σ(y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>))
+	Gradient descent
+		repeat {
+			θ<<j>> := θ<<j>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+			upate simultaneously all θ<<j>>
+		}
+		Identical to linear regression, h=sigmoid
+	Optimization
+		Basic
+			Feature scaling + learning rate tuning
+		Advanced
+			Conjugate gradient, BFGS, L-BFGS
+			α auto tuning, fast
+		Octave example
+			Code
+				function [jVal, gradient] = costFunction(theta)
+				jVal = (theta(1)-5)^2 + (theta(2)-5)^2;
+				gradient = zeros(2,1);
+				gradient(1) = 2*(theta(1)-5);
+				gradient(2) = 2*(theta(2)-5);
+			Use
+				options=otimset('GradObj','on','MaxIter','100');
+				initialTheta = zeros(2,1);
+				[optTheta,functionVal,exitFlag]=fminunc(@costFunction,initialTheta,options)
+	Multi-class classification (One vs all)
+		Concept
+			Convert and expand multi-class training set to binary classification for each classes
