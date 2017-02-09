@@ -59,13 +59,13 @@
 			Even if fixed gradient descent can converge to a local minimum, automatically take smaller steps
 	Gradient descent for Linear regression
 		Derivative = δ/δθ<<j>>J(θ<<0>>,θ<<1>>)
-			   = δ/δθ<<j>>[1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2]
-			   = δ/δθ<<j>>[1/(2*m)*(i:1->m)Σ(θ<<0>>+θ<<1>>*x<i>-y<i>)^2]
-		   θ<<0>> = [1/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
-		   θ<<1>> = [1/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
+			   = δ/δθ<<j>>[(1/2m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2]
+			   = δ/δθ<<j>>[(1/2m)*(i:1->m)Σ(θ<<0>>+θ<<1>>*x<i>-y<i>)^2]
+		   θ<<0>> = [(1/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
+		   θ<<1>> = [(1/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
 		Repeat & update simultaneously
-		   θ<<0>>:= θ<<0>> - [α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
-		   θ<<1>>:= θ<<1>> - [α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
+		   θ<<0>>:= θ<<0>> - [(α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)]
+		   θ<<1>>:= θ<<1>> - [(α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<i>]
 		"Batch" Gradient descent
 			Compute over all training set/samples,(i:1->m)Σ
 
@@ -137,7 +137,7 @@
 			[1  1534]  x  [  0.25    0.1    0.4  ]  =  [344  353  464]
 			 1   852                                    173  285  191
 	Matrix multiplication properties
-		Is not commutative :  (A*B) != (B*A), even dimension can change
+		Is not commutative :  (A*B)  != (B*A), even dimension can change
 		Is Associative     :  (A*B)*C = A*(B*C)
 	Identity matrix
 		Similar to 1 in real number
@@ -181,10 +181,10 @@
 		h<<θ>>(x) = θ<T>x
 		Multivariate linear regression
 	Cost function
-		J(θ) = 1/(2*m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2
+		J(θ) = (1/2m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2
 	Gradient descent
 		Process
-			repeat : θ<<j>>:=θ<<j>>-α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+			repeat : θ<<j>>:=θ<<j>>-(α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
 			update : θ's simultaneously for j = 0..n
 		Optimizing 1 : Feature scaling
 			Make sure feature values are on similar scale
@@ -361,22 +361,24 @@
 			θ<T>x < 0  -> y=0 likely
 	Cost function (Binary Classification)	
 		Linear regression
-			J(θ)        = 1/m*(i:1->m)ΣCost(h<<θ>>(x<i>),y<i>)
-			Cost(h(x),y) = (h(x)-y)^2
+			J(θ)        = (1/m)*(i:1->m)ΣCost(h<<θ>>(x<i>),y<i>)
+			Cost(h(x),y) = (1/2)*(h(x)-y)^2
 			because of sigmoid h(x), J is non-convex, can't use
 		Logistic regression
+			J(θ)        = (1/m)*(i:1->m)ΣCost(h<<θ>>(x<i>),y<i>)
 			Cost(h(x),y) = -log(h(x)) if y=1
 			             = -log(1-h(x)) if y=0
  			             = -y*log(h(x)) - (1-y)*log(1-h(x))
-			             = -log((2y-1)h -y+1) not this?
+			             = -log((2y-1)*h-y+1) not ?
 			If prediction is wrong cost is huge, learning algorithm is penalized heavily
-			J(θ)        = -1/m*(i:1->m)Σ(y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>)))
+			J(θ)        = (-1/m)*(i:1->m)Σ[y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>))]
 	Gradient descent
 		repeat {
-			θ<<j>> := θ<<j>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+			θ<<j>> := θ<<j>> - (α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
 			upate simultaneously all θ<<j>>
 		}
 		Identical to linear regression, h=sigmoid
+		Error in lecture, α should be α/m
 	Optimization
 		Basic
 			Feature scaling + learning rate tuning
@@ -430,7 +432,7 @@
 			Makes hypothesis simpler and resistant to overfitting
 	Regularized parameter
 		new cost function = old cost function + shrinking term
-		shrinking term    = 1/(2*m)*λ(j:1->n)Σθ<<j>>^2
+		shrinking term    = (λ/2m)*(j:1->n)Σθ<<j>>^2
 		m = number of training set
 		n = number of features
 			θ<<0>> not modified
@@ -440,11 +442,11 @@
 		Hypothesis
 			h<<θ>>(x) = θ<T>x, x<<0>> = 1
 		Cost function
-			J(θ) = 1/(2*m)[(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2 + λ(j:1->n)Σθ<<j>>^2]
+			J(θ) = (1/2m)[(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2 + λ(j:1->n)Σθ<<j>>^2]
 		Gradient descent
 			repeat & update {
-				θ<<0>> := θ<<0>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<0>><i>
-      				θ<<j>> := (1-α*λ/m)*θ<<j>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+				θ<<0>> := θ<<0>> - (α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<0>><i>
+      				θ<<j>> := (1-αλ/m)*θ<<j>> - (α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
 				j = 1..n
 			}
 			θ<<j>> is modified by factor (1-α*λ/m) before every update
@@ -466,7 +468,7 @@
 			J(θ) = [(1/m)*(i:1->m)Σ(y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>)))] + [(λ/2m)*(j:1->n)Σθ<<j>>^2]
 		Gradient descent
 			repeat & update {
-				θ<<0>> := θ<<0>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<0>><i>
-      				θ<<j>> := (1-α*λ/m)*θ<<j>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+				θ<<0>> := θ<<0>> - (α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<0>><i>
+      				θ<<j>> := (1-αλ/m)*θ<<j>> - (α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
 				j = 1..n
 			}
