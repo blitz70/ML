@@ -1,4 +1,4 @@
-http://cs229.stanford.edu/materials.html
+﻿http://cs229.stanford.edu/materials.html
 
 01-01 Introduction
 	Examples
@@ -370,7 +370,7 @@ http://cs229.stanford.edu/materials.html
  			             = -y*log(h(x)) - (1-y)*log(1-h(x))
 			             = -log((2y-1)h -y+1) not this?
 			If prediction is wrong cost is huge, learning algorithm is penalized heavily
-			J(θ)        = -1/m*(i:1->m)Σ(y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>))
+			J(θ)        = -1/m*(i:1->m)Σ(y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>)))
 	Gradient descent
 		repeat {
 			θ<<j>> := θ<<j>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
@@ -394,6 +394,79 @@ http://cs229.stanford.edu/materials.html
 				options=otimset('GradObj','on','MaxIter','100');
 				initialTheta = zeros(2,1);
 				[optTheta,functionVal,exitFlag]=fminunc(@costFunction,initialTheta,options)
-	Multi-class classification (One vs all)
+	Multi-class classification (One vs all/rest)
 		Concept
-			Convert and expand multi-class training set to binary classification for each classes
+			Convert muli-class classification problem to many binary classification problems
+		Detail
+			Expand & split training set
+				C1 C2..Cn -> C1 rest
+				             C2 rest
+				             ...
+				             Cn rest
+				n = number of classes
+			Expand & split hypothesis
+				h<<θ>>(x) -> h<<θ>><1>(x) = P(y=1|x;θ)
+				             h<<θ>><2>(x) = P(y=n|x;θ)
+				             ...
+				             h<<θ>><n>(x) = P(y=n|x;θ)
+			Train each hypothesis on corresponding training set
+			Apply
+				On new input x, run all hypothesis and pick class with highest probability
+
+03-02 Regularization
+	Concept
+		Underfit
+			Not even fitting on training data
+			High bias, too few features
+			Increase features
+		Overfit
+			Fit training data well but generalize poorly
+			High variance, too many features
+			Decrease features or use regularization
+		Regularization
+			Method of addressing/resolving overfitting while keeping all features
+			Decrease magnitude/value of parameters θ's
+			Decrease feature's contribution factor to prediction
+			Makes hypothesis simpler and resistant to overfitting
+	Regularized parameter
+		new cost function = old cost function + shrinking term
+		shrinking term    = 1/(2*m)*λ(j:1->n)Σθ<<j>>^2
+		m = number of training set
+		n = number of features
+			θ<<0>> not modified
+		λ= regularization parameter
+			If too large = underfitting
+	Regularized linear regression
+		Hypothesis
+			h<<θ>>(x) = θ<T>x, x<<0>> = 1
+		Cost function
+			J(θ) = 1/(2*m)[(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)^2 + λ(j:1->n)Σθ<<j>>^2]
+		Gradient descent
+			repeat & update {
+				θ<<0>> := θ<<0>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<0>><i>
+      				θ<<j>> := (1-α*λ/m)*θ<<j>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+				j = 1..n
+			}
+			θ<<j>> is modified by factor (1-α*λ/m) before every update
+		Normal equation
+			     x<1><T>                y<1>
+			X = [x<2><T>]          y = [y<2>]
+			     ...                    ...
+			     x<m><T>                y<m>
+			     mx(n+1) matrix
+			θ = (X<T>X + λR)<-1>X<T>y, find θ min
+			     0 0 0
+			R = [0 1 0] for n=2
+			     0 0 1
+			Regularized form doesn't have non-invertibility problem
+	Regularized logistic regression
+		Hypothesis
+			h<<θ>>(x) = 1/(1+e^(-θ<T>x)), x<<0>> = 1
+		Cost function
+			J(θ) = [(1/m)*(i:1->m)Σ(y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>)))] + [(λ/2m)*(j:1->n)Σθ<<j>>^2]
+		Gradient descent
+			repeat & update {
+				θ<<0>> := θ<<0>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<0>><i>
+      				θ<<j>> := (1-α*λ/m)*θ<<j>> - α/m*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
+				j = 1..n
+			}
