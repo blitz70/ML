@@ -480,7 +480,7 @@
 			If number of features gets huge this method is computationally impractical
 			In computer vision 50x50 pixel image classification may have over 3 million features
 		Solution
-			Instead of one combine and many logistic regression, logistic units
+			Instead of one combine many logistic regression, logistic units
 			Unit outputs from a layer become features for next layer units
 			On top of original features network learns and add extra features
 	Architecture
@@ -498,28 +498,29 @@
 				a<2><<2>> = g(Θ<1><<20>>x<<0>> + Θ<1><<21>>x<<1>> + Θ<1><<22>>x<<2>> + Θ<1><<23>>x<<3>>)
 				a<2><<3>> = g(Θ<1><<30>>x<<0>> + Θ<1><<31>>x<<1>> + Θ<1><<32>>x<<2>> + Θ<1><<33>>x<<3>>)
 				a<2><<0>> = 1
-				Θ<1> = 3x4 matrix
+				Θ<1>     = 3x4 matrix
 			Layer 3 : Output, 1 unit
-				a<3><<1>> = g(Θ<2><<10>>a<2><<0>> + Θ<2><<11>>a<2><<1>> + Θ<2><<12>>a<2><<2>> + Θ<2><<13>>a<2><<3>>) = h<<Θ>>(x)
-				Θ<2> = 1x4 matrix
+				a<3><<1>> = g(Θ<2><<10>>a<2><<0>> + Θ<2><<11>>a<2><<1>> + Θ<2><<12>>a<2><<2>> + Θ<2><<13>>a<2><<3>>)
+				          = h<<Θ>>(x)
+				Θ<2>     = 1x4 matrix
 		Vectorized notation
 			Let a<1> = x
-					a<1><<0>>
+			        a<1><<0>>
 			a<1> = [a<1><<1>>]
-					a<1><<2>>
-					a<1><<3>>
+			        a<1><<2>>
+			        a<1><<3>>
 			z<2> = Θ<1>a<1>
-					z<2><<1>>
+			        z<2><<1>>
 			z<2> = [z<2><<2>>]
-					z<2><<3>>
+			        z<2><<3>>
 			a<2> = g(z<2>) = g(Θ<1>a<1>)
 		Forward propagation
 			a<3> = g(Θ<2>a<2>)
-				 = g(Θ<2>g(Θ<1>a<1>))
+			     = g(Θ<2>g(Θ<1>a<1>))
 			a<n> = g(Θ<n-1>a<n-1>)
-				 = g(Θ<n-1>g(Θ<n-2>a<n-2>))
-				 = ...
-				 = g(Θ<n-1>g(Θ<n-2>g(..g(Θ<1>a<1>))))
+			     = g(Θ<n-1>g(Θ<n-2>a<n-2>))
+			     = ...
+			     = g(Θ<n-1>g(Θ<n-2>g(..g(Θ<1>a<1>))))
 	Application
 		x1,x2 ∈ {0,1}
 		XOR : y = x1 XOR x2
@@ -590,7 +591,7 @@
 			y = label, y ∈ {c1,c2,c3..cn}, c ∈ n dimensional vector, nx1
 		Computer vision
 			4 classes, pedestrian car motorcycle truck
-			pedestrian   -> [1;0;0;0]
-			car             -> [0;1;0;0]
+			pedestrian  -> [1;0;0;0]
+			car         -> [0;1;0;0]
 			motorcycle  -> [0;0;1;0]
-			truck           -> [0;0;0;1]
+			truck       -> [0;0;0;1]
