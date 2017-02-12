@@ -472,3 +472,125 @@
       				θ<<j>> := (1-αλ/m)*θ<<j>> - (α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<j>><i>
 				j = 1..n
 			}
+
+04 Neural Networks Representation
+	Concept
+		Problem
+			Solving complex problems with single regression requires lots of features
+			If number of features gets huge this method is computationally impractical
+			In computer vision 50x50 pixel image classification may have over 3 million features
+		Solution
+			Instead of one combine and many logistic regression, logistic units
+			Unit outputs from a layer become features for next layer units
+			On top of original features network learns and add extra features
+	Architecture
+		Input layer - Hidden layers - Output layer
+		a<j><<i>> : activation of unit 'i', in layer 'j'
+		Θ<j> : matrix of weights(parameters) controlling function mapping from layer 'j' to 'j+1'
+			s<j> units in layer j, s<j+1> units in layer (j+1) -> dimension is s<j+1> x (s<j>+1)
+	Implementation
+		Non-vector notation
+			Layer 1 : Input, 3 units, 1 bias
+				x<<1>>,x<<2>>,x<<3>>
+				x<<0>> = 1
+			Layer 2 : Hidden, 3 units, 1 bias
+				a<2><<1>> = g(Θ<1><<10>>x<<0>> + Θ<1><<11>>x<<1>> + Θ<1><<12>>x<<2>> + Θ<1><<13>>x<<3>>)
+				a<2><<2>> = g(Θ<1><<20>>x<<0>> + Θ<1><<21>>x<<1>> + Θ<1><<22>>x<<2>> + Θ<1><<23>>x<<3>>)
+				a<2><<3>> = g(Θ<1><<30>>x<<0>> + Θ<1><<31>>x<<1>> + Θ<1><<32>>x<<2>> + Θ<1><<33>>x<<3>>)
+				a<2><<0>> = 1
+				Θ<1> = 3x4 matrix
+			Layer 3 : Output, 1 unit
+				a<3><<1>> = g(Θ<2><<10>>a<2><<0>> + Θ<2><<11>>a<2><<1>> + Θ<2><<12>>a<2><<2>> + Θ<2><<13>>a<2><<3>>) = h<<Θ>>(x)
+				Θ<2> = 1x4 matrix
+		Vectorized notation
+			Let a<1> = x
+					a<1><<0>>
+			a<1> = [a<1><<1>>]
+					a<1><<2>>
+					a<1><<3>>
+			z<2> = Θ<1>a<1>
+					z<2><<1>>
+			z<2> = [z<2><<2>>]
+					z<2><<3>>
+			a<2> = g(z<2>) = g(Θ<1>a<1>)
+		Forward propagation
+			a<3> = g(Θ<2>a<2>)
+				 = g(Θ<2>g(Θ<1>a<1>))
+			a<n> = g(Θ<n-1>a<n-1>)
+				 = g(Θ<n-1>g(Θ<n-2>a<n-2>))
+				 = ...
+				 = g(Θ<n-1>g(Θ<n-2>g(..g(Θ<1>a<1>))))
+	Application
+		x1,x2 ∈ {0,1}
+		XOR : y = x1 XOR x2
+			[0 0][0 1][1 0][1 1] -> [0][1][1][0]
+		AND : y = x1 AND x2
+			[0 0][0 1][1 0][1 1] -> [0][0][0][1]
+			x = [1;x1;x2]
+			Θ<1> = [-30 20 20]
+			a<2> = g(-30 + 20*x1 + 20*x2)
+			[0 0] -> g(-30) ≈ 0
+			[0 1] -> g(-10) ≈ 0
+			[1 0] -> g(-10) ≈ 0
+			[1 1] -> g(10)  ≈ 1
+		OR : y = x1 OR x2
+			[0 0][0 1][1 0][1 1] -> [0][1][1][1]
+			x = [1;x1;x2]
+			Θ<1> = [-10 20 20]
+			a<2> = g(-10 + 20*x1 + 20*x2)
+			[0 0] -> g(-10) ≈ 0
+			[0 1] -> g(10)  ≈ 1
+			[1 0] -> g(10)  ≈ 1
+			[1 1] -> g(30)  ≈ 1
+		NOT : y = NOT x1
+			[0][1] -> [1][0]
+			x = [1;x1]
+			Θ<1> = [10 -20]
+			a<2> = g(10 - 20*x1)
+			[0] -> g(10)  ≈ 1
+			[1] -> g(-10) ≈ 0
+		NOT AND NOT : y = (NOT x1) AND (NOT x2)
+			[0 0][0 1][1 0][1 1] -> [1][0][0][0]
+			x = [1;x1;x2]
+			Θ<1> = [10 -20 -20]
+			a<2> = g(10 - 20*x1 - 20*x2)
+			[0 0] -> g(10)  ≈ 1
+			[0 1] -> g(-10) ≈ 0
+			[1 0] -> g(-10) ≈ 0
+			[1 1] -> g(-30) ≈ 0
+		XNOR : y = x1 XNOR x2 = NOT (x1 XOR x2)
+			[0 0][0 1][1 0][1 1] -> [1][0][0][1]
+			Layer 1 : input
+				x = [1;x1;x2]
+			Layer 2 : hidden
+				a<2><<1>> = g(-30 + 20*x1 + 20*x2), AND
+				a<2><<2>> = g(10 - 20*x1 - 20*x2), NOT AND NOT
+			Layer 3 : output
+				a<3><<1>> = g(-10 +20*a<2><<1>> + 20*a<2><<2>>), OR
+			Result
+				x1 x2 a<2><<1>> a<2><<2>> a<3><<1>>
+				0   0    0         1         1
+				0   1    0         0         0
+				1   0    0         0         0
+				1   1    1         0         1
+			Architecture
+				Network is combination of AND, NOT AND NOT, OR logistic units
+				Layer 2 : AND, NOT AND NOT
+				Layer 3 : OR
+	Multi-class classification
+		Concept
+			Similar to multi-class logistisc classification
+			Instead of single unit network's output layer has multiple units
+			Each units in the output layer corresponds to each classes
+		Multi-class logistic classification
+			x = input
+			y = label, y ∈ {1,2,3..}
+		Neural network multi-class classification, computer vision
+			x = input from one of the class
+			y = label, y ∈ {c1,c2,c3..cn}, c ∈ n dimensional vector, nx1
+		Computer vision
+			4 classes, pedestrian car motorcycle truck
+			pedestrian   -> [1;0;0;0]
+			car             -> [0;1;0;0]
+			motorcycle  -> [0;0;1;0]
+			truck           -> [0;0;0;1]
