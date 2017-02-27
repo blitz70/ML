@@ -1,4 +1,4 @@
-# Machine Learning by [Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+﻿# Machine Learning by [Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 Coursera, English.
 <hr/>
 
@@ -75,3 +75,32 @@ Coursera, English.
 * [Examples and intuitions I](https://www.youtube.com/watch?v=AXX7gE_uqxk&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=56)
 * [Examples and intuitions II](https://www.youtube.com/watch?v=6zoqfy3lWKo&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=57)
 * [Multi-class classification](https://www.youtube.com/watch?v=oiZy05Y8Pzc&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=58)
+
+* [Lecture 05 Neural Networks Learning](https://www.youtube.com/watch?v=OUy_46vy3yg&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=9)
+
+>* [Cost function](https://www.youtube.com/watch?v=FUAP6ZrBPRg&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=62)
+* [Backpropagation algorithm](https://www.youtube.com/watch?v=MSylolnC__k&index=63&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Backpropagation intuition](https://www.youtube.com/watch?v=BBr32Wr4eCU&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=64)
+* [Implementation note: Unrolling parameters](https://www.youtube.com/watch?v=q9xRRlR8YdY&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=65)
+* [Gradient checking](https://www.youtube.com/watch?v=_vQ70o6hI78&index=66&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Random initialization](https://www.youtube.com/watch?v=Qzl_QbA1iPY&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=67)
+* [Putting it together](https://www.youtube.com/watch?v=vuw27jXVGLY&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=68)
+* [Autonomous driving example](https://www.youtube.com/watch?v=A1TTnwHGVVs&index=69&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+
+* [Lecture 06-01 Advice for applying machine learning](https://www.youtube.com/watch?v=kX1yTdXq_Wc&index=10&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+
+>* [Deciding what to try next](https://www.youtube.com/watch?v=jNrTK_pIKyg&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=70)
+* [Evaluating a hypothesis](https://www.youtube.com/watch?v=swTRR93qVUg&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=71)
+* [Model selection and training validation test sets](https://www.youtube.com/watch?v=MyBSkmUeIEs&index=72&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Diagnosing bias vs variance](https://www.youtube.com/watch?v=fZ1T7xWkImE&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=73)
+* [Regularization and bias variance](https://www.youtube.com/watch?v=9fpTWx8bFq0&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=74)
+* [Learning curves](https://www.youtube.com/watch?v=GwhzRS5uUBM&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=75)
+* [Deciding what to try next(revisited)](https://www.youtube.com/watch?v=tseo9B0Ng4s&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=76)
+
+* [Lecture 06-02 Machine learning system design](https://www.youtube.com/watch?v=E882TKnkbM0&index=11&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+
+>* [Prioritizing what to work on Spam classification example](https://www.youtube.com/watch?v=qSF4eCa0j88&index=77&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Error analysis](https://www.youtube.com/watch?v=S-f7zr_2cHQ&index=78&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Error metrics for skewed classes](https://www.youtube.com/watch?v=sJ4NBTDTqQQ&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=79)
+* [Trading off precision and recall](https://www.youtube.com/watch?v=f7dMmGWJUfg&index=80&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Data for machine learning](https://www.youtube.com/watch?v=fUUgwQCTszQ&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=81)
