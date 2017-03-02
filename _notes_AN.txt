@@ -1,4 +1,5 @@
 ﻿http://cs229.stanford.edu/materials.html
+http://www.holehouse.org/mlclass/
 
 01-01 Introduction
 	Examples
@@ -465,7 +466,7 @@
 		Hypothesis
 			h<<θ>>(x) = 1/(1+e^(-θ<T>x)), x<<0>> = 1
 		Cost function
-			J(θ) = [(1/m)*(i:1->m)Σ(y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>)))] + [(λ/2m)*(j:1->n)Σθ<<j>>^2]
+			J(θ) = (-1/m)*(i:1->m)Σ[y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>))] + [(λ/2m)*(j:1->n)Σ(θ<<j>>^2)]
 		Gradient descent
 			repeat & update {
 				θ<<0>> := θ<<0>> - (α/m)*(i:1->m)Σ(h<<θ>>(x<i>)-y<i>)*x<<0>><i>
@@ -595,3 +596,16 @@
 			car         -> [0;1;0;0]
 			motorcycle  -> [0;0;1;0]
 			truck       -> [0;0;0;1]
+
+05 Neural Networks Learning
+	Layout
+		L = number of layers in network, including input(1st) output(L'th) layer
+		s<<l>> = number of units in layer l, not counting bias
+		K = number of output units
+	Cost function
+		Regularized logistic regression
+			J(θ) = (-1/m)*(i:1->m)Σ[y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>))] + [(λ/2m)*(j:1->n)Σ(θ<<j>>^2)]
+		NN version, k outputs
+			h<<Θ>>(x) ∈ K dimensional vector
+			(h<<Θ>>(x))<<i>> = i'th ouput
+			J(Θ) = (-1/m)*(i:1->m)Σ(k:1->K)Σ[y<<k>><i>*log(h<<Θ>>(x<i>))<<k>> + (1-y<<k>><i>)*log(1-h<<Θ>>(x<i>))<<k>>] + [(λ/2m)*(l:1->L-1)Σ(i:1->s<<l>>)Σ(j:1->s<<l+1>>)Σ(Θ<<ji>><l>^2)]

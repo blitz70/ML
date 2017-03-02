@@ -1,5 +1,5 @@
-﻿# Machine Learning by [Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
-Coursera, English.
+﻿# [Machine Learning by Professor Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+Coursera 2011, English.
 <hr/>
 
 * [Lecture 01-01 Introduction](https://www.youtube.com/watch?v=gb262LDH1So&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=1)
@@ -91,15 +91,15 @@ Coursera, English.
 
 >* [Deciding what to try next](https://www.youtube.com/watch?v=jNrTK_pIKyg&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=70)
 * [Evaluating a hypothesis](https://www.youtube.com/watch?v=swTRR93qVUg&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=71)
-* [Model selection and training validation test sets](https://www.youtube.com/watch?v=MyBSkmUeIEs&index=72&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+* [Model selection and training/validation/test sets](https://www.youtube.com/watch?v=MyBSkmUeIEs&index=72&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 * [Diagnosing bias vs variance](https://www.youtube.com/watch?v=fZ1T7xWkImE&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=73)
-* [Regularization and bias variance](https://www.youtube.com/watch?v=9fpTWx8bFq0&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=74)
+* [Regularization and bias/variance](https://www.youtube.com/watch?v=9fpTWx8bFq0&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=74)
 * [Learning curves](https://www.youtube.com/watch?v=GwhzRS5uUBM&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=75)
-* [Deciding what to try next(revisited)](https://www.youtube.com/watch?v=tseo9B0Ng4s&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=76)
+* [Deciding what to try next (revisited)](https://www.youtube.com/watch?v=tseo9B0Ng4s&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=76)
 
 * [Lecture 06-02 Machine learning system design](https://www.youtube.com/watch?v=E882TKnkbM0&index=11&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 
->* [Prioritizing what to work on Spam classification example](https://www.youtube.com/watch?v=qSF4eCa0j88&index=77&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+>* [Prioritizing what to work on: Spam classification example](https://www.youtube.com/watch?v=qSF4eCa0j88&index=77&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 * [Error analysis](https://www.youtube.com/watch?v=S-f7zr_2cHQ&index=78&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 * [Error metrics for skewed classes](https://www.youtube.com/watch?v=sJ4NBTDTqQQ&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=79)
 * [Trading off precision and recall](https://www.youtube.com/watch?v=f7dMmGWJUfg&index=80&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)

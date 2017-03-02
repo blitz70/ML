@@ -1,4 +1,4 @@
-# Neural Networks for Machine Learning by [Geoffrey Hinton](https://www.youtube.com/playlist?list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
+# [Neural Networks for Machine Learning by Professor Geoffrey Hinton](https://www.youtube.com/playlist?list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
 Coursera 2013, English, Advanced.
 <hr/>
 
