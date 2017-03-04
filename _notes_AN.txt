@@ -489,7 +489,7 @@ http://www.holehouse.org/mlclass/
 		a<j><<i>> : activation of unit 'i', in layer 'j'
 		Θ<j> : matrix of weights(parameters) controlling function mapping from layer 'j' to 'j+1'
 			s<j> units in layer j, s<j+1> units in layer (j+1) -> dimension is s<j+1> x (s<j>+1)
-	Implementation
+	Implementation : Forward Propagation
 		Non-vector notation
 			Layer 1 : Input, 3 units, 1 bias
 				x<<1>>,x<<2>>,x<<3>>
@@ -514,10 +514,12 @@ http://www.holehouse.org/mlclass/
 			        z<2><<1>>
 			z<2> = [z<2><<2>>]
 			        z<2><<3>>
-			a<2> = g(z<2>) = g(Θ<1>a<1>)
-		Forward propagation
-			a<3> = g(Θ<2>a<2>)
+			a<2> = g(z<2>)
+			     = g(Θ<1>a<1>)
+			a<3> = g(z<3>)
+			     = g(Θ<2>a<2>)
 			     = g(Θ<2>g(Θ<1>a<1>))
+		Forward propagation
 			a<n> = g(Θ<n-1>a<n-1>)
 			     = g(Θ<n-1>g(Θ<n-2>a<n-2>))
 			     = ...
@@ -609,3 +611,49 @@ http://www.holehouse.org/mlclass/
 			h<<Θ>>(x) ∈ K dimensional vector
 			(h<<Θ>>(x))<<i>> = i'th ouput
 			J(Θ) = (-1/m)*(i:1->m)Σ(k:1->K)Σ[y<<k>><i>*log(h<<Θ>>(x<i>))<<k>> + (1-y<<k>><i>)*log(1-h<<Θ>>(x<i>))<<k>>] + [(λ/2m)*(l:1->L-1)Σ(i:1->s<<l>>)Σ(j:1->s<<l+1>>)Σ(Θ<<ji>><l>^2)]
+	Gradient Descent
+		Overview
+			Get error of network
+			Reverse calculate error of each inner unit in network
+			Calculate network's partial derivative of cost function
+			Calculate partial derivative of training set
+			Do gradient descent
+		Forwardpropagation, L=4
+			Layer 1 : input
+				a<1> = x 
+				z<2> = Θ<1>a<1>
+			Layer 2
+				a<2> = g(z<2>), add a<2><<0>>
+				z<3> = Θ<2>a<2>
+			Layer 3
+				a<3> = g(z<3>), add a<3><<0>>
+				z<4> = Θ<3>a<3>
+			Layer 4 : output
+				a<4> = hΘ(x) = g(z<4>)
+		Backpropagation, L=4
+			Method of calculating error of units in network
+			δ<l><<j>> = error of unit j in layer l
+			Calculate error of output L=4
+				δ<4> = a<4> - y = (h<<Θ>>(x)) - y
+			Back-calculate error of unit in preceding layer from output error
+				δ<3> = (Θ<3>)<T>δ<4> .* g'(z<3>)
+				g'(z<3>) = a<3> .* (1-a<3>)
+			Use errors of (layer)'s unit to back-calcuate errors of (layer-1)'s unit
+				δ<l> = (Θ<l>)<T>δ<l+1> .* (a<l> .* (1-a<l>))
+			Repeat back-calulation process untill input layer is reached
+				δ<L-1>, δ<L-2>, ...δ<3>, δ<2>
+				δ<1> doesn't exist since error of input is zero
+		Partial derivative (for single set)
+			Calculate network partial derivative
+				∂/∂Θ<l><<ij>>J(Θ) = a<l><<j>>*δ<l+1><<i>>, λ=0
+		Partial derivative (for training set)
+			Above calculates partial derivative for single element
+			Repeat process to calculate rest, sum them up to get Δ
+				         Δ = sum of partial derivatives over training set
+				Δ<l><<ij>> = (i:1->m)Σ[∂/∂Θ<l><<ij>>J(Θ)]
+				            = (i:1->m)Σ[a<l><<j>>*δ<l+1><<i>>]
+				      Δ<l> = (i:1->m)Σ[δ<l+1>(a<l>)<T>]
+			Calculate regularized partial derivative D
+				 D<l><<ij>> = (1/m)(Δ<l><<ij>>) +λΘ<l><<ij>>, if j != 0
+				            = (1/m)(Δ<l><<ij>>), if j = 0 for bias unit
+				            = (∂/∂Θ<l><<ij>>)J(Θ)
