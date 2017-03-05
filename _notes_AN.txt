@@ -643,6 +643,12 @@ http://www.holehouse.org/mlclass/
 			Repeat back-calulation process untill input layer is reached
 				δ<L-1>, δ<L-2>, ...δ<3>, δ<2>
 				δ<1> doesn't exist since error of input is zero
+			Example, 2 2 2 1 nn
+				δ<2><<1>> = Θ<2><<11>>*δ<3><<1>> + Θ<2><<21>>*δ<3><<2>>
+				δ<2><<2>> = Θ<2><<12>>*δ<3><<1>> + Θ<2><<22>>*δ<3><<2>>
+				δ<3><<1>> = Θ<3><<11>>*δ<4><<1>>
+				δ<3><<2>> = Θ<3><<12>>*δ<4><<1>>
+				δ<4><<1>> = a<4><<1>> - y
 		Partial derivative (for single set)
 			Calculate network partial derivative
 				∂/∂Θ<l><<ij>>J(Θ) = a<l><<j>>*δ<l+1><<i>>, λ=0
@@ -651,7 +657,7 @@ http://www.holehouse.org/mlclass/
 			Repeat process to calculate rest, sum them up to get Δ
 				         Δ = sum of partial derivatives over training set
 				Δ<l><<ij>> = (i:1->m)Σ[∂/∂Θ<l><<ij>>J(Θ)]
-				            = (i:1->m)Σ[a<l><<j>>*δ<l+1><<i>>]
+				           = (i:1->m)Σ[a<l><<j>>*δ<l+1><<i>>]
 				      Δ<l> = (i:1->m)Σ[δ<l+1>(a<l>)<T>]
 			Calculate regularized partial derivative D
 				 D<l><<ij>> = (1/m)(Δ<l><<ij>>) +λΘ<l><<ij>>, if j != 0
