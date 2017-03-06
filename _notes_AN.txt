@@ -619,6 +619,8 @@ http://www.holehouse.org/mlclass/
 			Calculate partial derivative of training set
 			Do gradient descent
 		Forwardpropagation, L=4
+			Calculates activation of unit in network
+			Weighted sum of activations of units from previous layer
 			Layer 1 : input
 				a<1> = x 
 				z<2> = Θ<1>a<1>
@@ -631,7 +633,8 @@ http://www.holehouse.org/mlclass/
 			Layer 4 : output
 				a<4> = hΘ(x) = g(z<4>)
 		Backpropagation, L=4
-			Method of calculating error of units in network
+			Calculates cost error of unit in network
+			Weighted sum of cost errors of units from following layer
 			δ<l><<j>> = error of unit j in layer l
 			Calculate error of output L=4
 				δ<4> = a<4> - y = (h<<Θ>>(x)) - y
