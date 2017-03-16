@@ -600,16 +600,23 @@ http://www.holehouse.org/mlclass/
 			truck       -> [0;0;0;1]
 
 05 Neural Networks Learning
-	Layout
-		L = number of layers in network, including input(1st) output(L'th) layer
-		s<<l>> = number of units in layer l, not counting bias
-		K = number of output units
+	Overview
+		Randomly initialize weights to small near zero values, Θ
+		Calculate output by forward propagation, h(x)
+		Calculate cost, J(Θ)
+		Calculate gradient of cost by back propagation, δ->Δ->D
+		Validate back propagation by numeric gradient checking before training network
+		Train network by minimizing cost using gradient descent or advanced optimization
 	Cost function
 		Regularized logistic regression
 			J(θ) = (-1/m)*(i:1->m)Σ[y<i>*log(h<<θ>>(x<i>)) + (1-y<i>)*log(1-h<<θ>>(x<i>))] + [(λ/2m)*(j:1->n)Σ(θ<<j>>^2)]
-		NN version, k outputs
-			h<<Θ>>(x) ∈ K dimensional vector
-			(h<<Θ>>(x))<<i>> = i'th ouput
+		NN version
+			Layout
+				L = number of layers in network, including input and output layers
+				s<<l>> = number of units in layer l, not counting bias
+				K = number of output units
+				h<<Θ>>(x) ∈ K dimensional vector
+				(h<<Θ>>(x))<<i>> = i'th ouput
 			J(Θ) = (-1/m)*(i:1->m)Σ(k:1->K)Σ[y<<k>><i>*log(h<<Θ>>(x<i>))<<k>> + (1-y<<k>><i>)*log(1-h<<Θ>>(x<i>))<<k>>] + [(λ/2m)*(l:1->L-1)Σ(i:1->s<<l>>)Σ(j:1->s<<l+1>>)Σ(Θ<<ji>><l>^2)]
 	Gradient Descent
 		Overview
@@ -618,7 +625,7 @@ http://www.holehouse.org/mlclass/
 			Calculate network's partial derivative of cost function
 			Calculate partial derivative of training set
 			Do gradient descent
-		Forwardpropagation, L=4
+		Forwardp ropagation, L=4
 			Calculates activation of unit in network
 			Weighted sum of activations of units from previous layer
 			Layer 1 : input
@@ -632,7 +639,7 @@ http://www.holehouse.org/mlclass/
 				z<4> = Θ<3>a<3>
 			Layer 4 : output
 				a<4> = hΘ(x) = g(z<4>)
-		Backpropagation, L=4
+		Back propagation, L=4
 			Calculates cost error of unit in network
 			Weighted sum of cost errors of units from following layer
 			δ<l><<j>> = error of unit j in layer l
@@ -666,6 +673,28 @@ http://www.holehouse.org/mlclass/
 				 D<l><<ij>> = (1/m)(Δ<l><<ij>>) +λΘ<l><<ij>>, if j != 0
 				            = (1/m)(Δ<l><<ij>>), if j = 0 for bias unit
 				            = (∂/∂Θ<l><<ij>>)J(Θ)
+	Application
+		Advanced optimization routines, Octave
+			Unroll parameters(matrices) : routine uses vectors, parameters in matrix form need to be converted to vectors
+			NN : 4 layers, weight parameters Θ<l>, gradient D<l>
+			theta1 = Θ<1>, 10x11 matrix
+			theta2 = Θ<2>, 10x11 matrix
+			theta3 = Θ<3>, 1x11 row vector
+			Matrix -> Vector
+				thetaVec = [theta1(:);theta2(:);theta3(:)]
+				         = flatten all matrices to single vector, 231x1 vector
+			Vector -> Matrix
+				  theta1 = reshape(thetaVec(1:110),10,11)
+				         = get 110 elements and fit into 10x11 matrix
+		Numeric gradient checking
+			Method of preventing back propagation bugs
+			Validate back propagtion derived gradient to numerically computed version before learning
+			If both version are equal(almost) back propagation is working properly
+			Numeric computation is expensive so use it before learning, not while learning
+			gradientNumeric = (J(Θ+ε) - J(Θ-ε))/(2ε), ε≈ 0.0001
+		Weight initialization
+			Must use random values between -1 to +1 for weight parameters
+			If all weights are 0 or same value network becomes blind therefore can't learn
 
 10 Advice for applying Machine Learning
 	Evaluation
