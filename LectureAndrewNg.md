@@ -1,14 +1,15 @@
-﻿## [Machine Learning by Professor Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+﻿# Machine Learning by [Professor Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 
 Coursera 2011, English.
+
 <hr/>
 
 * [Lecture 01-01 Introduction](https://www.youtube.com/watch?v=gb262LDH1So&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=1)
 
-> * [Welcome](https://www.youtube.com/watch?v=bh1nST3PYpE&index=4&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
-* [What is machine learning](https://www.youtube.com/watch?v=e0_bdQV9BVE&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=5)
-* [Supervised Learning](https://www.youtube.com/watch?v=lxkTVdnxPMk&index=6&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
-* [Unsupervised Learning](https://www.youtube.com/watch?v=mvnWw50IPXA&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=7)
+>* [Welcome](https://www.youtube.com/watch?v=bh1nST3PYpE&index=4&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+>* [What is machine learning](https://www.youtube.com/watch?v=e0_bdQV9BVE&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=5)
+>* [Supervised Learning](https://www.youtube.com/watch?v=lxkTVdnxPMk&index=6&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+>* [Unsupervised Learning](https://www.youtube.com/watch?v=mvnWw50IPXA&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=7)
 
 * [Lecture 01-02 Linear regression with one variable](https://www.youtube.com/watch?v=_SbZYGeVcVM&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=2)
 
