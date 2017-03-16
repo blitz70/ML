@@ -666,3 +666,20 @@ http://www.holehouse.org/mlclass/
 				 D<l><<ij>> = (1/m)(Δ<l><<ij>>) +λΘ<l><<ij>>, if j != 0
 				            = (1/m)(Δ<l><<ij>>), if j = 0 for bias unit
 				            = (∂/∂Θ<l><<ij>>)J(Θ)
+
+10 Advice for applying Machine Learning
+	Evaluation
+		Split training set into 3 sets
+			Training set -> Training set + Validation set + Test set
+		Training set : 60%, model learning
+		Validation set : 20%, model tuning
+		Test set : 20%, final check
+	Summary
+		High bias
+			Symptoms : Jt = high, Jcv = high
+			Cause : model is too simple, low features, high regularization
+			Solution : more features, less regularization
+		High variance
+			Symptoms : Jt = low, Jcv = high
+			Cause : too many features, low regularization
+			Solution : less features, more regularization, more data
