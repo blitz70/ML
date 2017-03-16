@@ -1,8 +1,5 @@
-﻿
-## [Machine Learning by Professor Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
-
+# [Machine Learning by Professor Andrew Ng](https://www.youtube.com/playlist?list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 Coursera 2011, English.
-
 <hr/>
 
 * [Lecture 01-01 Introduction](https://www.youtube.com/watch?v=gb262LDH1So&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=1)
