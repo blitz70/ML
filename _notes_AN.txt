@@ -700,15 +700,47 @@ http://www.holehouse.org/mlclass/
 	Evaluation
 		Split training set into 3 sets
 			Training set -> Training set + Validation set + Test set
-		Training set : 60%, model learning
-		Validation set : 20%, model tuning
-		Test set : 20%, final check
-	Summary
+		Training set : model learning
+			60% of data set
+			Train each candidate model using training set
+			Minimize cost using gradient descent
+		Cross validation set : model selection
+			20% of data set
+			Evaluate each candidate using cross validation set
+			Select best model from candidate models, lowest cost
+		Test set : 20%, selected model final evaluation
+			20% of data set
+			Evaluate selected model using test set
+			Checking how well trained model is 
+	Cost graph
+		Features
+			Cost vs number of features
+			Training cost decreases, high-mid-low
+			Validation cost decreases then increases, high-mid-high
+		Regularization
+			Cost vs regularization maginitude
+			Training cost increases, low-mid-high
+			Validation cost decreases then increases, high-mid-high
+		Data
+			Cost vs training set size
+			Training cost increases, gradient flattens, low-mid
+			Validation cost decreases, gradient flattens, high-mid
+			If high bias both cost meets at middle
+			If high variance gap exists between costs
+	Diagnosis - Cause
 		High bias
-			Symptoms : Jt = high, Jcv = high
-			Cause : model is too simple, low features, high regularization
-			Solution : more features, less regularization
+			Under fitting problem, model is too simple
 		High variance
-			Symptoms : Jt = low, Jcv = high
-			Cause : too many features, low regularization
-			Solution : less features, more regularization, more data
+			Over fitting problem, over trained
+	Diagnosis - Symptoms
+		High bias
+			Train cost = high, Validation cost = high
+			Low features, high regularization
+		High variance
+			Train cos = low, Validation cost = high
+			Too many features, low regularization
+	Diagnosis - Solution
+		High bias
+			Less features, more regularization, more data
+		High variance
+			More features, less regularization

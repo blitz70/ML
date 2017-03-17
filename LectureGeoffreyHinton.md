@@ -2,7 +2,7 @@
 Coursera 2013, English, Advanced.
 <hr/>
 
-* [L1 : >ntroduction](https://www.youtube.com/watch?v=2fRnHVVLf1Y&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=6)
+* [L1 : Introduction](https://www.youtube.com/watch?v=2fRnHVVLf1Y&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=6)
 >* [Why do we need machine learning?](https://www.youtube.com/watch?v=4w0_mJ_6QoI&index=1&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
 >* [What are neural networks?](https://www.youtube.com/watch?v=0JrfYvn8zns&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0&index=2)
 >* [Some simple models of neurons](https://www.youtube.com/watch?v=z9lE4cowVFw&index=3&list=PLiPvV5TNogxKKwvKb1RKwkq2hm7ZvpHz0)
