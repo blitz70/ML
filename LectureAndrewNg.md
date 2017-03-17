@@ -93,3 +93,11 @@ Coursera 2011, English.
 >* [Error metrics for skewed classes](https://www.youtube.com/watch?v=sJ4NBTDTqQQ&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=79)
 >* [Trading off precision and recall](https://www.youtube.com/watch?v=f7dMmGWJUfg&index=80&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 >* [Data for machine learning](https://www.youtube.com/watch?v=fUUgwQCTszQ&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=81)
+
+* [Lecture 07 Support Vector Machines](https://www.youtube.com/watch?v=doN5SexZjto&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=12)
+>* [Optimization objective](https://www.youtube.com/watch?v=iSIDaWObih8&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=83)
+>* [Large Margin Intuition](https://www.youtube.com/watch?v=wwgWsflG6cU&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=84)
+>* [The mathematics behind large margin classification (optional)](https://www.youtube.com/watch?v=rxnX4SEXRHI&index=85&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+>* [Kernels I](https://www.youtube.com/watch?v=BcFJXbtQnVg&index=86&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+>* [Kernels II](https://www.youtube.com/watch?v=mtakb2q5p2U&index=87&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+>* [Using an SVM](https://www.youtube.com/watch?v=9xB7xwLck7A&index=88&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
