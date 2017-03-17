@@ -696,7 +696,7 @@ http://www.holehouse.org/mlclass/
 			Must use random values between -1 to +1 for weight parameters
 			If all weights are 0 or same value network becomes blind therefore can't learn
 
-10 Advice for applying Machine Learning
+06-01 Advice for applying Machine Learning
 	Evaluation
 		Split training set into 3 sets
 			Training set -> Training set + Validation set + Test set
@@ -723,24 +723,16 @@ http://www.holehouse.org/mlclass/
 			Validation cost decreases then increases, high-mid-high
 		Data
 			Cost vs training set size
-			Training cost increases, gradient flattens, low-mid
-			Validation cost decreases, gradient flattens, high-mid
-			If high bias both cost meets at middle
+			Training cost increases, gradually flattens, low-mid
+			Validation cost decreases, gradually flattens, high-mid
+			If high bias both costs meet at middle
 			If high variance gap exists between costs
-	Diagnosis - Cause
+	Diagnosis
 		High bias
-			Under fitting problem, model is too simple
+			Cause : under fitting problem, model is too simple, too few features, high regularization
+			Symptom : training cost = high, validation cost = high
+			Solution : more features, less regularization
 		High variance
-			Over fitting problem, over trained
-	Diagnosis - Symptoms
-		High bias
-			Train cost = high, Validation cost = high
-			Low features, high regularization
-		High variance
-			Train cos = low, Validation cost = high
-			Too many features, low regularization
-	Diagnosis - Solution
-		High bias
-			Less features, more regularization, more data
-		High variance
-			More features, less regularization
+			Cause : over fitting problem, over trained, too many features, low regularization
+			Symptom : training cost = low, validation cost = high
+			Solution : more data, more regularization, less features
