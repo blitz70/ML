@@ -712,7 +712,7 @@ http://www.holehouse.org/mlclass/
 			20% of data set
 			Evaluate selected model using test set
 			Checking how well trained model is 
-	Cost graph
+	Learning curves
 		Features
 			Cost vs number of features
 			Training cost decreases, high-mid-low
@@ -736,3 +736,20 @@ http://www.holehouse.org/mlclass/
 			Cause : over fitting problem, over trained, too many features, low regularization
 			Symptom : training cost = low, validation cost = high
 			Solution : more data, more regularization, less features
+
+06-02 Machine Learning System Design
+	Prototype model
+		Build simple model ASAP, within 24hrs
+		Prevents wasting time on premature optimization
+	Evaluate model
+		Evaluate by analyzing learning curves
+		Determine if model suffers from high bias or high variance
+	Error analysis
+		Check for problems existing after passing evaluation
+		Analyze errors made on cross validation set
+		Find error patterns, find model weakness
+		Implement numeric evaluation, for NLP compare with/without stemming
+	Error metric
+		Numeric evaluation : method of error analysis
+		Single value : single number error metric used for numeric evaluation
+		Skewd analysis : 
