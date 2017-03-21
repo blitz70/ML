@@ -747,9 +747,27 @@ http://www.holehouse.org/mlclass/
 	Error analysis
 		Check for problems existing after passing evaluation
 		Analyze errors made on cross validation set
-		Find error patterns, find model weakness
-		Implement numeric evaluation, for NLP compare with/without stemming
-	Error metric
-		Numeric evaluation : method of error analysis
-		Single value : single number error metric used for numeric evaluation
-		Skewd analysis : 
+		Identify error patterns, find model weakness, reinforce features
+		Implement numeric evaluation which measures model performance
+	Numeric evaluation
+		Measures performance of model during error analysis
+		Used to measure if modification helps or not (In NLP compare with/without stemming)
+		Respresented by single error metric, which is a real number such as error rate
+	Skewed analysis(need to study more)
+		Concept
+			Unbalanced classification, presence of a rare class (multi class?)
+			A class is huge/tiny compared to another, comparable to error size
+			Simple form of single error metric doesn't work
+		Precision
+			Of all predictions for rare case, fraction of correct prediction (correctness?)
+			(True positive)/(True positive + False positive)
+		Recall
+			Of all actual rare cases, fraction of correct prediction (sensitivity?)
+			(True positive)/(True positive + False negative)
+		F1 score
+			Single error metric derived from precision and recall
+			penalizes small values of precision/recall
+			2(PR)/(P+R)
+	Big data
+		More data is good if
+		1. algorithm is low biased
