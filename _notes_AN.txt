@@ -759,15 +759,41 @@ http://www.holehouse.org/mlclass/
 			A class is huge/tiny compared to another, comparable to error size
 			Simple form of single error metric doesn't work
 		Precision
-			Of all predictions for rare case, fraction of correct prediction (correctness?)
+			Of all predictions for rare case, fraction of correct prediction
 			(True positive)/(True positive + False positive)
 		Recall
-			Of all actual rare cases, fraction of correct prediction (sensitivity?)
+			Of all actual rare cases, fraction of correct prediction
 			(True positive)/(True positive + False negative)
+		Precision vs Recall trade off
+			As precision increases, recall decreases
 		F1 score
-			Single error metric derived from precision and recall
-			penalizes small values of precision/recall
+			Single error metric derived from precision and recall, penalizes small value
 			2(PR)/(P+R)
+		Eg : 10 true of 100
+			A1=actual true, A0=actual false, P1=predicted true, P0=predicted false
+			P1A1 = true positive, P1A0 = false positive, P0A1 = false negative, P0A0 = true negative
+			P = precision, R = recall, F = F1 score
+			h>0.6
+					A1(10)	A0(90)
+				P1(40)	09	31
+				P0(60)	01	59
+				P=0.225, R=0.9, F=0.36
+			h>0.8
+					A1(10)	A0(90)
+				P1(20)	08	12
+				P0(80)	02	78
+				P=0.4, R=0.8, F=0.53
+			h>0.9
+					A1(10)	A0(90)
+				P1(10)	07	03
+				P0(90)	03	87
+				P=0.7, R=0.7, F=0.7
 	Big data
-		More data is good if
-		1. algorithm is low biased
+		More data is good for learning algorithm that is
+		Low biased
+			Model is sufficiently complex(with many features) enough for accurate predictions
+			After training, will give low training cost
+			Analogy: In same situation can a human expert predict? 
+		Low variance
+			Size of training set is large enough to prevent over fitting
+			On evaluation, test cost ≈ training cost
