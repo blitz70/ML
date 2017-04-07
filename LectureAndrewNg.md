@@ -112,7 +112,7 @@ Coursera 2011, English.
 * [Lecture 08-02 Dimensionality Reduction](https://www.youtube.com/watch?v=_BYX-oHP0E4&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=14)
 >* [Motivation I: Data Compression](https://www.youtube.com/watch?v=gHHVdOb-s04&index=96&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 >* [Motivation II: Data Visualization](https://www.youtube.com/watch?v=nGl3D6jkoFs&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=97)
->* [Principal Component Analysis ](https://www.youtube.com/watch?v=l8Ys0rshfz0&index=98&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
+>* [Principal Component Analysis formulation](https://www.youtube.com/watch?v=l8Ys0rshfz0&index=98&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 >* [Principal Component Analysis algorithm](https://www.youtube.com/watch?v=u4H6-k7CXro&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX&index=99)
 >* [Reconstruction from compressed representation](https://www.youtube.com/watch?v=OAqFxmnmA2I&index=100&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
 >* [Choosing the number of principal components](https://www.youtube.com/watch?v=oF2T9bisq48&index=101&list=PLiPvV5TNogxIS4bHQVW4pMkj4CHA8COdX)
