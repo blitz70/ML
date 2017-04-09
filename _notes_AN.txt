@@ -797,3 +797,32 @@ http://www.holehouse.org/mlclass/
 		Low variance
 			Size of training set is large enough to prevent over fitting
 			On evaluation, test cost ≈ training cost
+
+07 Support Vector Machines (SVMs)
+	Overview
+		Simplified version of logistic regression
+		Reduce log curve to two straight lines
+			one flat of cost zero
+			one straight with similar slope to logistic regression
+		Output is direct result not probability
+		Compared to logistic regression (just <0 or >0), SVM(<-1 or >+1) is more robust 
+	Cost function
+		J(θ) = C*(i:1->m)Σ[y<i>*cost1(θ<T>x<i>) + (1-y<i>)*cost0(θ<T>x<i>)] + [(1/2)*(j:1->n)Σ(θ<<j>>^2)]
+			z : θ<T>x
+			cost1 : y = 1, z < 1 cost1 = negative straight slope, z >= 1 : cost = 0
+			cost0 : y = 0, z <= -1 cost0 = 0, z > -1 cost0 = postive straight slope
+			C : 1/λ
+	Large margin classifier
+		Condition
+			C is very large
+		Characteristics
+			SVM results in a descision boundary with large margin, boundary kinda fit best
+			SVM set to high variance, it will be weak to 'exceptions', boundary is over sensitive
+		Reason
+			θ must be small
+				If C >> 0, Cost = Σ[θ^2], minimizing cost -> small θ
+			Projection of data onto θ must be large 
+				θ = orthogonal to descision boundary
+				θ<T>x = p * |θ|, vector inner product, p = projection of x onto θ, |θ| = maginitude of θ
+				To keep θ small -> large p
+			Descision boundary must have large margin
