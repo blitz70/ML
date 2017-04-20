@@ -805,13 +805,19 @@ http://www.holehouse.org/mlclass/
 			one flat of cost zero
 			one straight with similar slope to logistic regression
 		Output is direct result not probability
-		Compared to logistic regression (just <0 or >0), SVM(<-1 or >+1) is more robust 
+		Compared to logistic regression (just <0 or >0), SVM (<-1 or >+1) is more robust
+		Has optimization implementations that works well with Kernels
 	Cost function
 		J(θ) = C*(i:1->m)Σ[y<i>*cost1(θ<T>x<i>) + (1-y<i>)*cost0(θ<T>x<i>)] + [(1/2)*(j:1->n)Σ(θ<<j>>^2)]
-			z : θ<T>x
-			cost1 : y = 1, z < 1 cost1 = negative straight slope, z >= 1 : cost = 0
-			cost0 : y = 0, z <= -1 cost0 = 0, z > -1 cost0 = postive straight slope
-			C : 1/λ
+			cost1 y = 1 : z < 1 cost1 = negative straight slope, z >= 1 cost1 = 0
+			cost0 y = 0 : z <= -1 cost0 = 0, z > -1 cost0 = postive straight slope
+			z = θ<T>x, C : 1/λ
+		Recap simplified
+			Regularized logistic regression
+				J(θ) = (-1/m)*(trainset)Σ[y*log((1+e^-z)^-1) + (1-y)*log(1-(1+e^-z)^-1)] + [(λ/2m)*(features)Σ(θ^2)]
+			SVM
+				J(θ) = C*(trainset)Σ[y*cost1(z) + (1-y)*cost0(z)] + [(1/2)*(features)Σ(θ^2)]
+			z = θ<T>x, C : 1/λ
 	Large margin classifier
 		Condition
 			C is very large
@@ -826,3 +832,43 @@ http://www.holehouse.org/mlclass/
 				θ<T>x = p * |θ|, vector inner product, p = projection of x onto θ, |θ| = maginitude of θ
 				To keep θ small -> large p
 			Descision boundary must have large margin
+	Kernels
+		Concept
+			Method of increasing number of features, efficient compared to high order polynomials
+			Traing data is used to create complex non-linear descision boundary
+			Works well with SVMs (Can be used with other algorithms)
+		Landmark
+			Created from training data
+			Training elements are compared with respect to landmarks for similarity
+			Function calculating similarity is the Kernel
+		Gaussian Kernel
+			k(x,l) = Similarity(x,l)
+			k(x,l) = e^[-(|x-l|^2)/(2σ^2)]
+			 |x-l| = Euclidean distance between data x and landmark l
+			    σ = tolerance
+			k -> 1 when data gets closer to landmark
+			k -> 0 when data gets further from landmark
+			σ is small -> k changes faster, low bias, high variance
+		SVM + Gaussian Kernel
+			Compute θ using modified SVM cost function
+			J(θ) = C*(trainset)Σ[y*cost1(z) + (1-y)*cost0(z)] + [(1/2)θ<T>Mθ]
+			    z = θ<T>f
+			    f = k(x,l) = Guassian Kernel
+			    M = regularization tweak, Σ(θ^2) = θ<T>θ
+			Hypothesis with new features
+				h(x) = θ0+ θ1f1+ θ2f2 + θ3f3
+				     = θ<T>f
+				f1, f2.. = similarity with respect to landmark 1, 2...
+		Linear Kernel
+			Same as no Kernel, z = θ<T>x
+	Implementation
+		Kernel : Gaussian Kernel is recommended, others do exists satisfying Mercer's theorem
+		Library : liblinear, libsvm
+		Perform feature scaling before applying a Kernel
+		Multi-class classification : Libraries noramlly have it, if not use one-vs-all method
+		Choosing supervised learning algorithm
+			n : m = features size : training data size
+			large:small  -> Logistic Regression or SVM with Linear Kernel
+			small:medium -> SVM with Gaussian Kernel
+			small:large  -> Logistic Regression or SVM with Linear Kernel or add features
+			Neural network works but maybe slower
