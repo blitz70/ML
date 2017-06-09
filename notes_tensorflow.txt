@@ -1,0 +1,5 @@
+General
+    Installation (Windows)
+        Visual C++ 2017 Redistributable x64
+        Python 3.5x
+        pip install --upgrade tensorflow
